@@ -2,8 +2,9 @@ var Spacecast3D = Spacecast3D || {}
 
 // constants
 Spacecast3D.EARTH_DIAMETER = 1, // earth diameter
-Spacecast3D.SPACECAST3D_AU = Spacecast3D.EARTH_DIAMETER * 11740,  // 1 astronomical unit
-Spacecast3D.SPACECAST3D_LY = Spacecast3D.SPACECAST3D_AU * 63241, // 1 light year
+Spacecast3D.SPACECAST3D_MILE = Spacecast3D.EARTH_DIAMETER / 7917, // 1 mile
+Spacecast3D.SPACECAST3D_AU = Spacecast3D.EARTH_DIAMETER * 11740,   // 1 astronomical unit
+Spacecast3D.SPACECAST3D_LY = Spacecast3D.SPACECAST3D_AU * 63241,   // 1 light year
 Spacecast3D.UNIVERSE_RADIUS = Spacecast3D.SPACECAST3D_LY * 100000, // 100k light year
 
 Spacecast3D.Utils = {
@@ -36,7 +37,7 @@ Spacecast3D.Utils = {
 Spacecast3D.Setup = {
   cameraSettings: [
     70,   // field of view
-    16/9, // aspect ratio
+    document.getElementById("explorer-view-content").offsetWidth/document.getElementById("explorer-view-content").offsetHeight, // aspect ratio
     Spacecast3D.EARTH_DIAMETER/10, // near plane
     Spacecast3D.UNIVERSE_RADIUS*2, // far plane
   ],
@@ -49,12 +50,14 @@ Spacecast3D.Setup = {
   controls: {
     minDistance: Spacecast3D.EARTH_DIAMETER,
     maxDistance: Spacecast3D.UNIVERSE_RADIUS/10,
+    enablePan: false,
+    enableZoom: true,
   },
   earthRadius: Spacecast3D.EARTH_DIAMETER/2,
-  galaxyWallRadius: Spacecast3D.UNIVERSE_RADIUS,
+  milkyWayRadius: Spacecast3D.UNIVERSE_RADIUS,
   renderer: {
     width: document.getElementById("explorer-view-content").offsetWidth,
-    height: (document.getElementById("explorer-view-content").offsetWidth/16)*9,
+    height: document.getElementById("explorer-view-content").offsetHeight,
     containerId: 'spacecast3d',
   },
   starfield: {
@@ -424,7 +427,8 @@ Spacecast3D.Helper = {
     var controls = new THREE.OrbitControls(camera, domElement)
     controls.minDistance = Spacecast3D.Setup.controls.minDistance
     controls.maxDistance = Spacecast3D.Setup.controls.maxDistance
-    controls.enablePan = false
+    controls.enablePan = Spacecast3D.Setup.controls.enablePan
+    controls.enableZoom = Spacecast3D.Setup.controls.enableZoom
     return controls
   },
 
@@ -537,24 +541,13 @@ Spacecast3D.Helper = {
     return group
   },
 
-  createGalaxyWall: function(radius) {
+  createMilkyWay: function(radius) {
   	var material	= new THREE.MeshBasicMaterial({
   		map	: new THREE.TextureLoader().load('/images/galaxy.jpg'),
   		side	: THREE.BackSide
   	})
   	var geometry	= new THREE.SphereGeometry(radius, 32, 32)
   	return new THREE.Mesh(geometry, material)
-  },
-
-  getBgStars: function () {
-    var geometry = new THREE.Geometry()
-    for (var i = 0; i < Spacecast3D.Setup.starfield.quantity; i++) {
-      var vertex = new THREE.Vector3()
-      vertex.setFromSpherical(new THREE.Spherical(_.random(500, Spacecast3D.Setup.starfield.farPlane), (Math.random())*Math.PI*2, Math.random()*Math.PI))
-      geometry.vertices.push(vertex)
-    }
-    console.log(Spacecast3D.Setup.starfield.farPlane)
-		return new THREE.Points(geometry, new THREE.PointsMaterial({size: 1, color: 0xffffff}))
   },
 
   getNearestStars: function (starsData, font) {
@@ -580,7 +573,7 @@ Spacecast3D.Helper = {
     var geometry = new THREE.CircleGeometry(r, 1024, 0, 2 * 3.1415)
     var material = new THREE.MeshPhongMaterial({color: color})
     var circle = new THREE.Line(geometry, material)
-    circle.computeLineDistances()
+    // circle.computeLineDistances()
     circle.geometry.vertices.shift()
     circle.rotateOnAxis(new THREE.Vector3( 1, 0, 0 ), -Math.PI/2)
     return circle
@@ -618,7 +611,7 @@ Spacecast3D.Helper = {
     div.style.padding = '16px'
     div.style.backgroundColor = 'white'
     div.style.top = '16px'
-    div.style.left = '16px'
+    div.style.right = '16px'
     document.getElementById('spacecast3d').appendChild(div)
     this.updateInfo(camera)
     document.getElementById('canvas-spacecast3d').addEventListener( 'mousedown', () => {return this.updateInfo(camera) })
@@ -628,34 +621,87 @@ Spacecast3D.Helper = {
   	document.getElementById('canvas-spacecast3d').addEventListener( 'touchmove', () => {return this.updateInfo(camera) })
   },
 
+  addUIController: function() {
+    var text = {
+      'Date': '12/26/2012',
+      'Distance (miles)': 7917,
+      'Distance (light-year)': 0.01,
+      'Show Milky Way': true,
+      'Reference': 'Earth'
+    }
+    var gui = new dat.GUI({autoPlace: false, closeOnTop: true})
+    gui.add(text, 'Date')
+    gui.add(text, 'Distance (miles)', 7917, 5000000000).onChange(function(distanceMiles) {
+      // var cameraSphericalPosition = new THREE.Spherical().setFromVector3(Spacecast3D.Core.state.universe.camera.position)
+      // cameraSphericalPosition.radius = distanceMiles * Spacecast3D.SPACECAST3D_MILE
+      // Spacecast3D.Core.state.universe.camera.position.setFromSpherical(cameraSphericalPosition)
+    })
+    gui.add(text, 'Distance (light-year)', 0.001, 10000).onChange(function(distanceLightYear) {
+      // var cameraSphericalPosition = new THREE.Spherical().setFromVector3(Spacecast3D.Core.state.universe.camera.position)
+      // cameraSphericalPosition.radius = distanceLightYear * Spacecast3D.SPACECAST3D_LY
+      // Spacecast3D.Core.state.universe.camera.position.setFromSpherical(cameraSphericalPosition)
+    })
+    gui.add(text, 'Show Milky Way').onChange(function(value) {
+      if (value) {
+        Spacecast3D.Core.state.universe.scene.add(Spacecast3D.Core.state.milkyWay)
+      } else {
+        Spacecast3D.Core.state.universe.scene.remove(Spacecast3D.Core.state.milkyWay)
+      }
+    })
+    gui.add(text, 'Reference', ['Sun', 'Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'])
+    gui.width = 400
+    Spacecast3D.Core.state.datGUI = gui
+
+    var customContainer = document.getElementById('spacecast-controls')
+    customContainer.appendChild(gui.domElement)
+  },
+
   updateInfo: function(camera) {
     var x = camera.position.x
     var y = camera.position.y
     var z = camera.position.z
     var distance = Math.sqrt(x*x + y*y + z*z)
-    if (distance < Spacecast3D.SPACECAST3D_LY) {
+    if (distance < Spacecast3D.SPACECAST3D_LY*0.001) {
       document.getElementById('spacecast3d-info').innerHTML = 'Distance from Earth: ' + Math.trunc(distance*7917).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' miles'
+      Spacecast3D.Core.state.datGUI.__controllers.find((controller) => {return controller.property === 'Distance (miles)'}).setValue(Math.trunc(distance*7917))
     } else {
       document.getElementById('spacecast3d-info').innerHTML = 'Distance from Earth: ' + Math.trunc(distance/Spacecast3D.SPACECAST3D_LY).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' light-years'
+      Spacecast3D.Core.state.datGUI.__controllers.find((controller) => {return controller.property === 'Distance (light-year)'}).setValue(distance/Spacecast3D.SPACECAST3D_LY)
     }
+
   },
 }
 
 Spacecast3D.Core = {
+  state: {
+    universe: null,
+    planets: {
+      earth: null,
+    },
+    lights: null,
+    camera: null,
+    milkyWay: null,
+    nearestStarsPlane: null,
+    nearestStars: null,
+    datGUI: null,
+  },
+
   init: function() {
-    var universe = Spacecast3D.Helper.createUniverse()
-    var galaxyWall = Spacecast3D.Helper.createGalaxyWall(Spacecast3D.Setup.galaxyWallRadius)
-    // var starfield = Spacecast3D.Helper.getBgStars()
-    var earth = Spacecast3D.Helper.createEarth(Spacecast3D.Setup.earthRadius)
-    var nearestStarsPlane = Spacecast3D.Helper.getNearestStarsPlane()
-    var nearestStars = Spacecast3D.Helper.getNearestStars(Spacecast3D.Setup.nearestStars)
-    var solarSystemPlane = Spacecast3D.Helper.getSolarSystemPlane()
-    universe.scene.add(galaxyWall)
-    universe.scene.add(earth)
-    // universe.scene.add(starfield)
-    universe.scene.add(nearestStarsPlane)
-    universe.scene.add(nearestStars)
-    universe.scene.add(solarSystemPlane)
+    this.state.milkyWay = Spacecast3D.Helper.createMilkyWay(Spacecast3D.Setup.milkyWayRadius)
+    this.state.planets.earth = Spacecast3D.Helper.createEarth(Spacecast3D.Setup.earthRadius)
+    this.state.nearestStarsPlane = Spacecast3D.Helper.getNearestStarsPlane()
+    this.state.nearestStars = Spacecast3D.Helper.getNearestStars(Spacecast3D.Setup.nearestStars)
+    this.state.solarSystemPlane = Spacecast3D.Helper.getSolarSystemPlane()
+    this.state.universe = Spacecast3D.Helper.createUniverse()
+
+    var universe = this.state.universe
+    universe.scene.add(this.state.milkyWay)
+    universe.scene.add(this.state.planets.earth)
+    universe.scene.add(this.state.nearestStarsPlane)
+    universe.scene.add(this.state.nearestStars)
+    universe.scene.add(this.state.solarSystemPlane)
+
+    Spacecast3D.Helper.addUIController()
 
     this.update(universe)
     Spacecast3D.Helper.displayInfo(universe.camera)
@@ -671,4 +717,4 @@ Spacecast3D.Core = {
   },
 }
 
-Spacecast3D.Core.init()
+window.onload = function() {Spacecast3D.Core.init()}
