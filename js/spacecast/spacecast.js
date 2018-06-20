@@ -5,10 +5,10 @@ Spacecast3D.EARTH_DIAMETER = 1, // earth diameter
 Spacecast3D.SPACECAST3D_MILE = Spacecast3D.EARTH_DIAMETER / 7917, // 1 mile
 Spacecast3D.SPACECAST3D_AU = Spacecast3D.EARTH_DIAMETER * 11740,   // 1 astronomical unit
 Spacecast3D.SPACECAST3D_LY = Spacecast3D.SPACECAST3D_AU * 63241,   // 1 light year
-Spacecast3D.UNIVERSE_RADIUS = Spacecast3D.SPACECAST3D_LY * 100000, // 100k light year
+Spacecast3D.MILKY_WAY_RADIUS = Spacecast3D.SPACECAST3D_LY * 100000, // 100k light year
 
 Spacecast3D.Utils = {
-  // conver light year to spacecast base unit (earth diameter)
+  // convert light year to earth diameter (spacecast basic unit of distance)
   dis: function(n) {
     return n * Spacecast3D.SPACECAST3D_LY
   },
@@ -39,32 +39,63 @@ Spacecast3D.Setup = {
     70,   // field of view
     document.getElementById("explorer-view-content").offsetWidth/document.getElementById("explorer-view-content").offsetHeight, // aspect ratio
     Spacecast3D.EARTH_DIAMETER/10, // near plane
-    Spacecast3D.UNIVERSE_RADIUS*2, // far plane
+    Spacecast3D.MILKY_WAY_RADIUS*2, // far plane
   ],
   cameraPosition: [
-    // Spacecast3D.EARTH_DIAMETER*10,  // distance from the origin
-    Spacecast3D.SPACECAST3D_LY*20,
-    1.6, // polar angle from the y (up) axis
-    4.6,   // equator angle around the y (up)
+    Spacecast3D.SPACECAST3D_AU*50, // distance from the origin
+    1.3, // polar angle from the y (up) axis
+    4.6, // equator angle around the y (up)
   ],
   controls: {
-    minDistance: Spacecast3D.EARTH_DIAMETER,
-    maxDistance: Spacecast3D.UNIVERSE_RADIUS/10,
     enablePan: false,
     enableZoom: true,
+    minDistance: Spacecast3D.EARTH_DIAMETER, // closest that the camera can zoom in
+    maxDistance: Spacecast3D.MILKY_WAY_RADIUS/10, // farthest that the camera can zoom out
   },
-  earthRadius: Spacecast3D.EARTH_DIAMETER/2,
-  milkyWayRadius: Spacecast3D.UNIVERSE_RADIUS,
+  solarSystem: {
+    sun: {
+      radius: 432169 * Spacecast3D.SPACECAST3D_MILE,
+    },
+    mercury: {
+      radius: 1516 * Spacecast3D.SPACECAST3D_MILE,
+      orbitRadius: 0.387 * Spacecast3D.SPACECAST3D_AU,
+    },
+    venus: {
+      radius: 1516 * Spacecast3D.SPACECAST3D_MILE,
+      orbitRadius: 0.723 * Spacecast3D.SPACECAST3D_AU,
+    },
+    earth: {
+      radius: Spacecast3D.EARTH_DIAMETER/2,
+      orbitRadius: Spacecast3D.SPACECAST3D_AU,
+    },
+    mars: {
+      radius: 2106 * Spacecast3D.SPACECAST3D_MILE,
+      orbitRadius: 1.524 * Spacecast3D.SPACECAST3D_AU,
+    },
+    jupiter: {
+      radius: 43441 * Spacecast3D.SPACECAST3D_MILE,
+      orbitRadius: 5.203 * Spacecast3D.SPACECAST3D_AU,
+    },
+    saturn: {
+      radius: 36184 * Spacecast3D.SPACECAST3D_MILE,
+      orbitRadius: 9.539 * Spacecast3D.SPACECAST3D_AU,
+    },
+    uranus: {
+      radius: 15759 * Spacecast3D.SPACECAST3D_MILE,
+      orbitRadius: 19.18 * Spacecast3D.SPACECAST3D_AU,
+    },
+    neptune: {
+      radius: 15299 * Spacecast3D.SPACECAST3D_MILE,
+      orbitRadius: 30.06 * Spacecast3D.SPACECAST3D_AU,
+    },
+  },
+  milkyWayRadius: Spacecast3D.MILKY_WAY_RADIUS,
   renderer: {
     width: document.getElementById("explorer-view-content").offsetWidth,
     height: document.getElementById("explorer-view-content").offsetHeight,
     containerId: 'spacecast3d',
   },
-  starfield: {
-    quantity: 10000,
-    nearPlane: Spacecast3D.SPACECAST3D_LY*100,
-    farPlane: Spacecast3D.UNIVERSE_RADIUS,
-  },
+  // see: https://en.wikipedia.org/wiki/List_of_nearest_stars_and_brown_dwarfs
   nearestStars: {
     aCentauri: {
       name: 'Alpha Centauri',
@@ -399,6 +430,31 @@ Spacecast3D.Setup = {
   },
 }
 
+Spacecast3D.State = {
+  universe: null,
+  solarSystem: {
+    sun: null,
+    mercury: null,
+    venus: null,
+    earth: null,
+    mars: null,
+    jupiter: null,
+    saturn: null,
+    neptune: null,
+    uranus: null,
+  },
+  lights: null,
+  camera: null,
+  milkyWay: null,
+  centralPlane: null,
+  nearestStars: null,
+  datGUI: null,
+  orbitControls: null,
+  defaultControlMinDistance: null,
+  onRenderFunctions: [],
+  lastTimeMilliSec: 0,
+}
+
 Spacecast3D.Helper = {
   createRenderer: function() {
     var renderer = new THREE.WebGLRenderer()
@@ -409,11 +465,10 @@ Spacecast3D.Helper = {
 
   createLight: function() {
     var ambientLight = new THREE.AmbientLight(0xffffff)
-    var directionalLight = new THREE.DirectionalLight(0xffffff, 1)
-    directionalLight.position.set(100,100,100)
+    var pointLight = new THREE.PointLight(0xffffff, 1)
     var lights = new THREE.Group()
   	lights.add(ambientLight)
-    lights.add(directionalLight)
+    lights.add(pointLight)
     return lights
   },
 
@@ -429,6 +484,7 @@ Spacecast3D.Helper = {
     controls.maxDistance = Spacecast3D.Setup.controls.maxDistance
     controls.enablePan = Spacecast3D.Setup.controls.enablePan
     controls.enableZoom = Spacecast3D.Setup.controls.enableZoom
+    Spacecast3D.State.orbitControls = controls
     return controls
   },
 
@@ -441,25 +497,51 @@ Spacecast3D.Helper = {
     var scene = new THREE.Scene()
     scene.add(light)
     scene.add(camera)
-    return {
+
+    var setup =   Spacecast3D.Setup
+    var solarSetup = setup.solarSystem
+    var state = Spacecast3D.State
+    state.milkyWay = Spacecast3D.Helper.createMilkyWay(setup.milkyWayRadius)
+    state.solarSystem.sun = Spacecast3D.Helper.createSun(solarSetup.sun.radius)
+    state.solarSystem.mercury = Spacecast3D.Helper.createMercury(solarSetup.mercury.radius, solarSetup.mercury.orbitRadius)
+    state.solarSystem.venus = Spacecast3D.Helper.createVenus(solarSetup.venus.radius, solarSetup.venus.orbitRadius)
+    state.solarSystem.earth = Spacecast3D.Helper.createEarth(solarSetup.earth.radius, solarSetup.earth.orbitRadius)
+    state.solarSystem.mars = Spacecast3D.Helper.createMars(solarSetup.mars.radius, solarSetup.mars.orbitRadius)
+    state.solarSystem.jupiter = Spacecast3D.Helper.createJupiter(solarSetup.jupiter.radius, solarSetup.jupiter.orbitRadius)
+    state.solarSystem.saturn = Spacecast3D.Helper.createSaturn(solarSetup.saturn.radius, solarSetup.saturn.orbitRadius)
+    state.solarSystem.uranus = Spacecast3D.Helper.createUranus(solarSetup.uranus.radius, solarSetup.uranus.orbitRadius)
+    state.solarSystem.neptune = Spacecast3D.Helper.createNeptune(solarSetup.neptune.radius, solarSetup.neptune.orbitRadius)
+    state.centralPlane = Spacecast3D.Helper.createCentralPlane()
+    state.nearestStars = Spacecast3D.Helper.getNearestStars(setup.nearestStars)
+    scene.add(state.milkyWay)
+    scene.add(state.solarSystem.sun)
+    scene.add(state.solarSystem.mercury)
+    scene.add(state.solarSystem.venus)
+    scene.add(state.solarSystem.earth)
+    scene.add(state.solarSystem.mars)
+    scene.add(state.solarSystem.jupiter)
+    scene.add(state.solarSystem.saturn)
+    scene.add(state.solarSystem.uranus)
+    scene.add(state.solarSystem.neptune)
+    scene.add(state.centralPlane)
+    scene.add(state.nearestStars)
+
+    Spacecast3D.State.universe = {
       scene: scene,
       camera: camera,
       controls: controls,
       renderer: renderer,
     }
+    return Spacecast3D.State.universe
   },
 
-  createPlanet: function(radius, material) {
-    var geometry	= new THREE.SphereGeometry(radius, 32, 32)
+  createSphere: function(radius, material, segments) {
+    var segments = segments || 32
+    var geometry	= new THREE.SphereGeometry(radius, segments, segments)
   	return new THREE.Mesh(geometry, material)
   },
 
-  createAtmosphere: function(radius, material) {
-    var geometry	= new THREE.SphereGeometry(radius, 128, 128)
-  	return new THREE.Mesh(geometry, material)
-  },
-
-  createCloud: function() {
+  createCloud: function(radius) {
     // create destination canvas
   	var canvasResult	= document.createElement('canvas')
   	canvasResult.width	= 1024
@@ -505,7 +587,7 @@ Spacecast3D.Helper = {
   	}, false)
   	imageMap.src	= '/images/earthcloudmap.jpg'
 
-  	var geometry	= new THREE.SphereGeometry(Spacecast3D.Setup.earthRadius*1.02, 128, 128)
+  	var geometry	= new THREE.SphereGeometry(radius, 128, 128)
   	var material	= new THREE.MeshPhongMaterial({
   		map: new THREE.Texture(canvasResult),
   		side: THREE.DoubleSide,
@@ -516,29 +598,135 @@ Spacecast3D.Helper = {
   	return mesh
   },
 
-  createEarth: function(radius) {
+  createSun: function(radius) {
+    var sunMaterial	= new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load('/images/sunmap.jpg'), })
+    var sun = this.createSphere(radius, sunMaterial)
+    sun.name = 'star'
+
+    var sunSprite = new THREE.Sprite(new THREE.SpriteMaterial({
+      map: new THREE.TextureLoader().load('/images/sunsprite.png'),
+      blending: THREE.AdditiveBlending,
+      color: 0xffffff,
+    }));
+    sunSprite.scale.x = 2000 * Spacecast3D.EARTH_DIAMETER;
+    sunSprite.scale.y = 2000 * Spacecast3D.EARTH_DIAMETER;
+    sunSprite.scale.z = 1;
+
+    var group = new THREE.Group()
+    group.add(sun)
+    group.add(sunSprite)
+    return group
+  },
+
+  createPlanet: function(material, radius, orbitRadius) {
+    var planet = this.createSphere(radius, material)
+    planet.name = 'planet'
+    planet.translateZ(orbitRadius)
+    var orbit = this.circleLine(orbitRadius, 0xffffff, .5)
+    orbit.name = 'orbit'
+    var group = new THREE.Group()
+    group.add(planet)
+    group.add(orbit)
+    return group
+  },
+
+  createMercury: function(radius, orbitRadius) {
+    var mercuryMaterial	= new THREE.MeshPhongMaterial({
+  		map	: new THREE.TextureLoader().load('/images/mercurymap.jpg'),
+  		bumpMap	: new THREE.TextureLoader().load('/images/mercurybump.jpg'),
+  		bumpScale	: 0.1,
+  	})
+    return this.createPlanet(mercuryMaterial, radius, orbitRadius)
+  },
+
+  createVenus: function(radius, orbitRadius) {
+    var venusMaterial	= new THREE.MeshPhongMaterial({
+  		map	: new THREE.TextureLoader().load('/images/venusmap.jpg'),
+  		bumpMap	: new THREE.TextureLoader().load('/images/venusbump.jpg'),
+  		bumpScale	: 0.1,
+  	})
+    return this.createPlanet(venusMaterial, radius, orbitRadius)
+  },
+
+  createEarth: function(radius, orbitRadius) {
     var earthMaterial	= new THREE.MeshPhongMaterial({
-  		map		: new THREE.TextureLoader().load('/images/earthmap.jpg'),
-  		bumpMap		: new THREE.TextureLoader().load('/images/earthbump.jpg'),
+  		map	: new THREE.TextureLoader().load('/images/earthmap.jpg'),
+  		bumpMap	: new THREE.TextureLoader().load('/images/earthbump.jpg'),
   		bumpScale	: 0.1,
   	})
     var atmosphereMaterial	= Spacecast3D.Atmosphere.createMaterial(0x00b3ff)
 
-    var earthCloud	= this.createCloud()
+    var earth = this.createSphere(radius, earthMaterial)
+  	var atmosphere	= this.createSphere(radius*1.04, atmosphereMaterial, 128)
+    var earthCloud	= this.createCloud(radius*1.02)
   	earthCloud.receiveShadow	= true
   	earthCloud.castShadow	= true
-  	// onRenderFcts.push(function(delta, now){
-  	// 	earthCloud.rotation.y += 1/8 * delta
-  	// })
 
-    var earth = this.createPlanet(radius, earthMaterial)
-  	var atmosphere	= this.createAtmosphere(radius*1.04, atmosphereMaterial)
+    var planetEarth = new THREE.Group()
+    planetEarth.add(earth)
+    planetEarth.add(atmosphere)
+  	planetEarth.add(earthCloud)
+    planetEarth.name = 'planet'
+    planetEarth.translateZ(orbitRadius)
+
+    var orbit = this.circleLine(orbitRadius, 0xffffff)
+    orbit.name = 'orbit'
 
     var group = new THREE.Group()
-    group.add(earth)
-    group.add(atmosphere)
-  	group.add(earthCloud)
+    group.add(planetEarth)
+    group.add(orbit)
     return group
+  },
+
+  createMars: function(radius, orbitRadius) {
+    var marsMaterial	= new THREE.MeshPhongMaterial({
+  		map	: new THREE.TextureLoader().load('/images/marsmap.jpg'),
+  		bumpMap	: new THREE.TextureLoader().load('/images/marsbump.jpg'),
+  		bumpScale	: 0.1,
+  	})
+    return this.createPlanet(marsMaterial, radius, orbitRadius)
+  },
+
+  createJupiter: function(radius, orbitRadius) {
+    var jupiterMaterial	= new THREE.MeshPhongMaterial({
+  		map	: new THREE.TextureLoader().load('/images/jupitermap.jpg'),
+  	})
+    return this.createPlanet(jupiterMaterial, radius, orbitRadius)
+  },
+
+  createSaturn: function(radius, orbitRadius) {
+    var saturnMaterial	= new THREE.MeshPhongMaterial({
+  		map	: new THREE.TextureLoader().load('/images/saturnmap.jpg'),
+  	})
+    return this.createPlanet(saturnMaterial, radius, orbitRadius)
+  },
+
+  createUranus: function(radius, orbitRadius) {
+    var uranusMaterial	= new THREE.MeshPhongMaterial({
+  		map	: new THREE.TextureLoader().load('/images/uranusmap.jpg'),
+  	})
+    return this.createPlanet(uranusMaterial, radius, orbitRadius)
+  },
+
+  createNeptune: function(radius, orbitRadius) {
+    var neptuneMaterial	= new THREE.MeshPhongMaterial({
+  		map	: new THREE.TextureLoader().load('/images/neptunemap.jpg'),
+  	})
+    return this.createPlanet(neptuneMaterial, radius, orbitRadius)
+  },
+
+  resizePlanets: function(scale) {
+    var state = Spacecast3D.State
+    var solarState = state.solarSystem;
+    solarState.mercury.getObjectByName('planet').scale.set(scale,scale,scale)
+    solarState.venus.getObjectByName('planet').scale.set(scale,scale,scale)
+    solarState.earth.getObjectByName('planet').scale.set(scale,scale,scale)
+    solarState.mars.getObjectByName('planet').scale.set(scale,scale,scale)
+    solarState.jupiter.getObjectByName('planet').scale.set(scale,scale,scale)
+    solarState.saturn.getObjectByName('planet').scale.set(scale,scale,scale)
+    solarState.uranus.getObjectByName('planet').scale.set(scale,scale,scale)
+    solarState.neptune.getObjectByName('planet').scale.set(scale,scale,scale)
+    Spacecast3D.State.orbitControls.minDistance = state.defaultControlMinDistance * scale
   },
 
   createMilkyWay: function(radius) {
@@ -550,58 +738,65 @@ Spacecast3D.Helper = {
   	return new THREE.Mesh(geometry, material)
   },
 
+  createStar: function(position) {
+    var star = new THREE.Sprite(new THREE.SpriteMaterial({
+      map: new THREE.TextureLoader().load('/images/starsprite.png'),
+      blending: THREE.AdditiveBlending,
+      color: 0xffffff,
+    }));
+    star.scale.x = 25000*Spacecast3D.SPACECAST3D_AU;
+    star.scale.y = 25000*Spacecast3D.SPACECAST3D_AU;
+    star.scale.z = 1;
+    star.position.setFromSpherical(position)
+    return star
+  },
+
   getNearestStars: function (starsData, font) {
     var nearestStars = new THREE.Group()
     for (var key in starsData) {
       if (!starsData.hasOwnProperty(key)) continue
       var starData = starsData[key]
-
-      var geometry = new THREE.SphereGeometry(3000*Spacecast3D.SPACECAST3D_AU, 16, 16)
-      var material = new THREE.MeshBasicMaterial({
-        color: 'rgb(255,255,0)'
-      })
-      var mesh = new THREE.Mesh(geometry, material)
-      var s_position = new THREE.Spherical(starData.dis, starData.dec, starData.asc)
-      mesh.position.setFromSpherical(s_position)
-
-      nearestStars.add(mesh)
+      var position = new THREE.Spherical(starData.dis, starData.dec, starData.asc)
+      star = this.createStar(position)
+      nearestStars.add(star)
     }
     return nearestStars
   },
 
-  circleLine: function(r, color) {
+  circleLine: function(r, color, opacity) {
+    var opacity = opacity || 1
     var geometry = new THREE.CircleGeometry(r, 1024, 0, 2 * 3.1415)
-    var material = new THREE.MeshPhongMaterial({color: color})
+    var material = new THREE.LineBasicMaterial({color: color, transparent: true, opacity: opacity})
     var circle = new THREE.Line(geometry, material)
-    // circle.computeLineDistances()
     circle.geometry.vertices.shift()
     circle.rotateOnAxis(new THREE.Vector3( 1, 0, 0 ), -Math.PI/2)
     return circle
   },
 
-  getNearestStarsPlane: function() {
+  createCentralPlane: function() {
     var group = new THREE.Group()
-    group.add(this.circleLine(4 * Spacecast3D.SPACECAST3D_LY, 0xffff00)) // 4 light years ring
-    group.add(this.circleLine(8 * Spacecast3D.SPACECAST3D_LY, 0xffff00)) // 8 light years ring
-    group.add(this.circleLine(12 * Spacecast3D.SPACECAST3D_LY, 0xffff00)) // 12 light years ring
-    group.add(this.circleLine(16 * Spacecast3D.SPACECAST3D_LY, 0xffff00)) // 16 light years ring
+    group.add(this.circleLine(4 * Spacecast3D.SPACECAST3D_LY, 0xffff00, .5)) // 4 light years ring
+    group.add(this.circleLine(8 * Spacecast3D.SPACECAST3D_LY, 0xffff00, .5)) // 8 light years ring
+    group.add(this.circleLine(12 * Spacecast3D.SPACECAST3D_LY, 0xffff00, .5)) // 12 light years ring
+    group.add(this.circleLine(16 * Spacecast3D.SPACECAST3D_LY, 0xffff00, .5)) // 16 light years ring
     return group
   },
 
-  getSolarSystemPlane: function() {
-    var solarSystemPlane = new THREE.Group()
-    solarSystemPlane.add(
-      this.circleLine(0.387 * Spacecast3D.SPACECAST3D_AU, 0xffffff), // mercury
-      this.circleLine(0.723 * Spacecast3D.SPACECAST3D_AU, 0xffffff), // venus
-      this.circleLine(Spacecast3D.SPACECAST3D_AU, 0xffffff),         // earth
-      this.circleLine(1.524 * Spacecast3D.SPACECAST3D_AU, 0xffffff), // mars
-      this.circleLine(5.203 * Spacecast3D.SPACECAST3D_AU, 0xffffff), // jupiter
-      this.circleLine(9.539 * Spacecast3D.SPACECAST3D_AU, 0xffffff), // saturn
-      this.circleLine(19.18 * Spacecast3D.SPACECAST3D_AU, 0xffffff), // uranus
-      this.circleLine(30.06 * Spacecast3D.SPACECAST3D_AU, 0xffffff), // neptune
-    )
-    solarSystemPlane.translateX(Spacecast3D.SPACECAST3D_AU)
-    return solarSystemPlane
+  resetCameraPosition: function(point, defaultMinDistance, minDistance) {
+    var camera = Spacecast3D.State.universe.camera
+    var orbitControls = Spacecast3D.State.orbitControls
+    orbitControls.target = point
+    var cameraSphericalPosition = new THREE.Spherical().setFromVector3(point)
+    if (cameraSphericalPosition.radius == 0) {
+      cameraSphericalPosition.radius = 1
+    }
+    cameraSphericalPosition.phi = (Math.PI / 2) - (minDistance/cameraSphericalPosition.radius) * 2
+    cameraSphericalPosition.theta = (minDistance/cameraSphericalPosition.radius) * 2
+    cameraSphericalPosition.radius += minDistance * 5
+    camera.position.setFromSpherical(cameraSphericalPosition)
+
+    orbitControls.minDistance = minDistance * 2
+    Spacecast3D.State.defaultControlMinDistance = defaultMinDistance * 2
   },
 
   displayInfo: function(camera) {
@@ -621,39 +816,97 @@ Spacecast3D.Helper = {
   	document.getElementById('canvas-spacecast3d').addEventListener( 'touchmove', () => {return this.updateInfo(camera) })
   },
 
-  addUIController: function() {
+  uiController: function(container) {
+    var setup = Spacecast3D.Setup;
+    var state = Spacecast3D.State;
     var text = {
       'Date': '12/26/2012',
-      'Distance (miles)': 7917,
-      'Distance (light-year)': 0.01,
+      'Distance (light-year)': 0.0001,
+      'Reference': 'Earth',
+      'Planets size': 1.00,
       'Show Milky Way': true,
-      'Reference': 'Earth'
+      'Show central plane': true,
     }
     var gui = new dat.GUI({autoPlace: false, closeOnTop: true})
     gui.add(text, 'Date')
-    gui.add(text, 'Distance (miles)', 7917, 5000000000).onChange(function(distanceMiles) {
-      // var cameraSphericalPosition = new THREE.Spherical().setFromVector3(Spacecast3D.Core.state.universe.camera.position)
-      // cameraSphericalPosition.radius = distanceMiles * Spacecast3D.SPACECAST3D_MILE
-      // Spacecast3D.Core.state.universe.camera.position.setFromSpherical(cameraSphericalPosition)
+    gui.add(text, 'Distance (light-year)', 0.0001, 10000)
+    .onChange(function(distanceLightYear) {
+      var cameraSphericalPosition = new THREE.Spherical().setFromVector3(state.universe.camera.position)
+      cameraSphericalPosition.radius = distanceLightYear * Spacecast3D.SPACECAST3D_LY
+      state.universe.camera.position.setFromSpherical(cameraSphericalPosition)
     })
-    gui.add(text, 'Distance (light-year)', 0.001, 10000).onChange(function(distanceLightYear) {
-      // var cameraSphericalPosition = new THREE.Spherical().setFromVector3(Spacecast3D.Core.state.universe.camera.position)
-      // cameraSphericalPosition.radius = distanceLightYear * Spacecast3D.SPACECAST3D_LY
-      // Spacecast3D.Core.state.universe.camera.position.setFromSpherical(cameraSphericalPosition)
+    gui.add(text, 'Reference', ['Sun', 'Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'])
+    .onChange((planet) => {
+      var camera = state.universe.camera
+      var orbitControls = state.orbitControls
+      switch (planet) {
+        case 'Sun':
+          var sun = state.solarSystem.sun.getObjectByName('star')
+          this.resetCameraPosition(sun.position, setup.solarSystem.sun.radius);
+          break;
+        case 'Mercury':
+          var mercury = state.solarSystem.mercury.getObjectByName('planet')
+          var box = new THREE.Box3().setFromObject(mercury)
+          this.resetCameraPosition(mercury.position, setup.solarSystem.mercury.radius, box.getSize().x/2)
+          break
+        case 'Venus':
+          var venus = state.solarSystem.venus.getObjectByName('planet')
+          var box = new THREE.Box3().setFromObject(venus)
+          this.resetCameraPosition(venus.position, setup.solarSystem.venus.radius, box.getSize().x/2)
+          break
+        case 'Earth':
+          var earth = state.solarSystem.earth.getObjectByName('planet')
+          var box = new THREE.Box3().setFromObject(earth)
+          this.resetCameraPosition(earth.position, setup.solarSystem.earth.radius, box.getSize().x/2)
+          break
+        case 'Mars':
+          var mars = state.solarSystem.mars.getObjectByName('planet')
+          var box = new THREE.Box3().setFromObject(mars)
+          this.resetCameraPosition(mars.position, setup.solarSystem.mars.radius, box.getSize().x/2)
+          break
+        case 'Jupiter':
+          var jupiter = state.solarSystem.jupiter.getObjectByName('planet')
+          var box = new THREE.Box3().setFromObject(jupiter)
+          this.resetCameraPosition(jupiter.position, setup.solarSystem.jupiter.radius, box.getSize().x/2)
+          break
+        case 'Saturn':
+          var saturn = state.solarSystem.saturn.getObjectByName('planet')
+          var box = new THREE.Box3().setFromObject(saturn)
+          this.resetCameraPosition(saturn.position, setup.solarSystem.saturn.radius, box.getSize().x/2)
+          break
+        case 'Uranus':
+          var uranus = state.solarSystem.uranus.getObjectByName('planet')
+          var box = new THREE.Box3().setFromObject(uranus)
+          this.resetCameraPosition(uranus.position, setup.solarSystem.uranus.radius, box.getSize().x/2)
+          break
+        case 'Neptune':
+          var neptune = state.solarSystem.neptune.getObjectByName('planet')
+          var box = new THREE.Box3().setFromObject(neptune)
+          this.resetCameraPosition(neptune.position, setup.solarSystem.neptune.radius, box.getSize().x/2)
+          break
+      }
+    })
+    gui.add(text, 'Planets size', 1, 4000)
+    .onChange((scale) => {
+      this.resizePlanets(scale);
     })
     gui.add(text, 'Show Milky Way').onChange(function(value) {
       if (value) {
-        Spacecast3D.Core.state.universe.scene.add(Spacecast3D.Core.state.milkyWay)
+        state.universe.scene.add(state.milkyWay)
       } else {
-        Spacecast3D.Core.state.universe.scene.remove(Spacecast3D.Core.state.milkyWay)
+        state.universe.scene.remove(state.milkyWay)
       }
     })
-    gui.add(text, 'Reference', ['Sun', 'Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'])
+    gui.add(text, 'Show central plane').onChange(function(value) {
+      if (value) {
+        state.universe.scene.add(state.centralPlane)
+      } else {
+        state.universe.scene.remove(state.centralPlane)
+      }
+    })
     gui.width = 400
-    Spacecast3D.Core.state.datGUI = gui
-
-    var customContainer = document.getElementById('spacecast-controls')
-    customContainer.appendChild(gui.domElement)
+    state.datGUI = gui
+    return gui.domElement
   },
 
   updateInfo: function(camera) {
@@ -663,57 +916,34 @@ Spacecast3D.Helper = {
     var distance = Math.sqrt(x*x + y*y + z*z)
     if (distance < Spacecast3D.SPACECAST3D_LY*0.001) {
       document.getElementById('spacecast3d-info').innerHTML = 'Distance from Earth: ' + Math.trunc(distance*7917).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' miles'
-      Spacecast3D.Core.state.datGUI.__controllers.find((controller) => {return controller.property === 'Distance (miles)'}).setValue(Math.trunc(distance*7917))
     } else {
       document.getElementById('spacecast3d-info').innerHTML = 'Distance from Earth: ' + Math.trunc(distance/Spacecast3D.SPACECAST3D_LY).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' light-years'
-      Spacecast3D.Core.state.datGUI.__controllers.find((controller) => {return controller.property === 'Distance (light-year)'}).setValue(distance/Spacecast3D.SPACECAST3D_LY)
+      Spacecast3D.State.datGUI.__controllers.find((controller) => {return controller.property === 'Distance (light-year)'}).setValue(distance/Spacecast3D.SPACECAST3D_LY)
     }
-
   },
 }
 
 Spacecast3D.Core = {
-  state: {
-    universe: null,
-    planets: {
-      earth: null,
-    },
-    lights: null,
-    camera: null,
-    milkyWay: null,
-    nearestStarsPlane: null,
-    nearestStars: null,
-    datGUI: null,
-  },
-
   init: function() {
-    this.state.milkyWay = Spacecast3D.Helper.createMilkyWay(Spacecast3D.Setup.milkyWayRadius)
-    this.state.planets.earth = Spacecast3D.Helper.createEarth(Spacecast3D.Setup.earthRadius)
-    this.state.nearestStarsPlane = Spacecast3D.Helper.getNearestStarsPlane()
-    this.state.nearestStars = Spacecast3D.Helper.getNearestStars(Spacecast3D.Setup.nearestStars)
-    this.state.solarSystemPlane = Spacecast3D.Helper.getSolarSystemPlane()
-    this.state.universe = Spacecast3D.Helper.createUniverse()
-
-    var universe = this.state.universe
-    universe.scene.add(this.state.milkyWay)
-    universe.scene.add(this.state.planets.earth)
-    universe.scene.add(this.state.nearestStarsPlane)
-    universe.scene.add(this.state.nearestStars)
-    universe.scene.add(this.state.solarSystemPlane)
-
-    Spacecast3D.Helper.addUIController()
-
-    this.update(universe)
+    var state = Spacecast3D.State;
+    var universe = Spacecast3D.Helper.createUniverse()
+    document.getElementById('spacecast-controls').appendChild(Spacecast3D.Helper.uiController())
     Spacecast3D.Helper.displayInfo(universe.camera)
-    return universe.scene
+    state.onRenderFunctions.push(() => { universe.renderer.render(universe.scene, universe.camera) });
+    state.onRenderFunctions.push(() => { universe.controls.update() });
+    this.update(universe)
   },
 
   update: function(universe) {
-    universe.controls.update()
-    universe.renderer.render(universe.scene, universe.camera)
-    requestAnimationFrame(function() {
-      this.update(universe)
-    }.bind(this))
+    requestAnimationFrame((nowMilliSec) => {
+      var state = Spacecast3D.State;
+    	var deltaMilliSec	= Math.min(200, nowMilliSec - state.lastTimeMilliSec)
+    	state.lastTimeMilliSec	= nowMilliSec
+      Spacecast3D.State.onRenderFunctions.map((onRenderFunction) => {
+        onRenderFunction(deltaMilliSec, nowMilliSec);
+      })
+      this.update(universe, nowMilliSec)
+    })
   },
 }
 
