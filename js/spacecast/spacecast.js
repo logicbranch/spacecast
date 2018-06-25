@@ -508,6 +508,7 @@ Spacecast3D.Helper = {
     var camera = Spacecast3D.Helper.createCamera()
     var renderer = Spacecast3D.Helper.createRenderer()
     renderer.domElement.addEventListener('mousemove', this.onMouseMove, false)
+    renderer.domElement.addEventListener('mousedown', this.onMouseDown, false)
     var controls = Spacecast3D.Helper.createControls(camera, renderer.domElement)
     document.getElementById(Spacecast3D.Setup.renderer.containerId).appendChild(renderer.domElement)
     var scene = new THREE.Scene()
@@ -552,7 +553,6 @@ Spacecast3D.Helper = {
   },
 
   onMouseMove: function(event) {
-  	event.preventDefault()
     var raycaster = Spacecast3D.Setup.raycaster
     var mouse = Spacecast3D.Setup.mouse
     var camera = Spacecast3D.State.universe.camera
@@ -576,6 +576,21 @@ Spacecast3D.Helper = {
   		Spacecast3D.State.activeNearestStarLabel.material.color.setStyle(Spacecast3D.Setup.starsLabel.baseColor)
   		Spacecast3D.State.activeNearestStarLabel = null
   		document.body.style.cursor = 'auto'
+  	}
+  },
+
+  onMouseDown: function(event) {
+    var raycaster = Spacecast3D.Setup.raycaster
+    var mouse = Spacecast3D.Setup.mouse
+    var camera = Spacecast3D.State.universe.camera
+  	mouse.x = (event.clientX / window.innerWidth) * 2 - 1
+  	mouse.y = -(event.clientY / window.innerHeight) * 2 + 1
+
+  	raycaster.setFromCamera(mouse, camera)
+
+  	var intersects = raycaster.intersectObjects(Spacecast3D.State.nearestStarsLabels)
+  	if (intersects.length > 0) {
+      Spacecast3D.Helper.resetCameraPositionForStar(intersects[0].object.position)
   	}
   },
 
@@ -868,7 +883,7 @@ Spacecast3D.Helper = {
   	return Spacecast3D.Utils.nearestPow2(context.measureText(text).width)
   },
 
-  resetCameraPosition: function(point, defaultMinDistance, minDistance) {
+  resetCameraPositionForPlanet: function(point, defaultMinDistance, minDistance) {
     var camera = Spacecast3D.State.universe.camera
     var orbitControls = Spacecast3D.State.orbitControls
     orbitControls.target = point
@@ -883,6 +898,14 @@ Spacecast3D.Helper = {
 
     orbitControls.minDistance = minDistance * 2
     Spacecast3D.State.defaultControlMinDistance = defaultMinDistance * 2
+  },
+
+  resetCameraPositionForStar: function(point) {
+    var camera = Spacecast3D.State.universe.camera
+    var orbitControls = Spacecast3D.State.orbitControls
+    orbitControls.target = point
+    camera.position.setFromSpherical(new THREE.Spherical().setFromVector3(point))
+    orbitControls.minDistance = Spacecast3D.SPACECAST3D_LY * 2
   },
 
   displayInfo: function(camera) {
@@ -929,47 +952,47 @@ Spacecast3D.Helper = {
         case 'Sun':
           var sun = state.solarSystem.sun.getObjectByName('star')
           var box = new THREE.Box3().setFromObject(sun)
-          this.resetCameraPosition(sun.position, setup.solarSystem.sun.radius, box.getSize().x/2)
+          this.resetCameraPositionForPlanet(sun.position, setup.solarSystem.sun.radius, box.getSize().x/2)
           break
         case 'Mercury':
           var mercury = state.solarSystem.mercury.getObjectByName('planet')
           var box = new THREE.Box3().setFromObject(mercury)
-          this.resetCameraPosition(mercury.position, setup.solarSystem.mercury.radius, box.getSize().x/2)
+          this.resetCameraPositionForPlanet(mercury.position, setup.solarSystem.mercury.radius, box.getSize().x/2)
           break
         case 'Venus':
           var venus = state.solarSystem.venus.getObjectByName('planet')
           var box = new THREE.Box3().setFromObject(venus)
-          this.resetCameraPosition(venus.position, setup.solarSystem.venus.radius, box.getSize().x/2)
+          this.resetCameraPositionForPlanet(venus.position, setup.solarSystem.venus.radius, box.getSize().x/2)
           break
         case 'Earth':
           var earth = state.solarSystem.earth.getObjectByName('planet')
           var box = new THREE.Box3().setFromObject(earth)
-          this.resetCameraPosition(earth.position, setup.solarSystem.earth.radius, box.getSize().x/2)
+          this.resetCameraPositionForPlanet(earth.position, setup.solarSystem.earth.radius, box.getSize().x/2)
           break
         case 'Mars':
           var mars = state.solarSystem.mars.getObjectByName('planet')
           var box = new THREE.Box3().setFromObject(mars)
-          this.resetCameraPosition(mars.position, setup.solarSystem.mars.radius, box.getSize().x/2)
+          this.resetCameraPositionForPlanet(mars.position, setup.solarSystem.mars.radius, box.getSize().x/2)
           break
         case 'Jupiter':
           var jupiter = state.solarSystem.jupiter.getObjectByName('planet')
           var box = new THREE.Box3().setFromObject(jupiter)
-          this.resetCameraPosition(jupiter.position, setup.solarSystem.jupiter.radius, box.getSize().x/2)
+          this.resetCameraPositionForPlanet(jupiter.position, setup.solarSystem.jupiter.radius, box.getSize().x/2)
           break
         case 'Saturn':
           var saturn = state.solarSystem.saturn.getObjectByName('planet')
           var box = new THREE.Box3().setFromObject(saturn)
-          this.resetCameraPosition(saturn.position, setup.solarSystem.saturn.radius, box.getSize().x/2)
+          this.resetCameraPositionForPlanet(saturn.position, setup.solarSystem.saturn.radius, box.getSize().x/2)
           break
         case 'Uranus':
           var uranus = state.solarSystem.uranus.getObjectByName('planet')
           var box = new THREE.Box3().setFromObject(uranus)
-          this.resetCameraPosition(uranus.position, setup.solarSystem.uranus.radius, box.getSize().x/2)
+          this.resetCameraPositionForPlanet(uranus.position, setup.solarSystem.uranus.radius, box.getSize().x/2)
           break
         case 'Neptune':
           var neptune = state.solarSystem.neptune.getObjectByName('planet')
           var box = new THREE.Box3().setFromObject(neptune)
-          this.resetCameraPosition(neptune.position, setup.solarSystem.neptune.radius, box.getSize().x/2)
+          this.resetCameraPositionForPlanet(neptune.position, setup.solarSystem.neptune.radius, box.getSize().x/2)
           break
       }
     })
