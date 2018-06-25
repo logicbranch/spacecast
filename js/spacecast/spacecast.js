@@ -35,7 +35,7 @@ Spacecast3D.Utils = {
 
   // find next closest power of 2 of a number
   nearestPow2: function(number){
-    return Math.pow( 2, Math.ceil( Math.log(number) / Math.log( 2 ) ) )
+    return Math.pow(2, Math.ceil(Math.log(number) / Math.log(2)))
   },
 
 }
@@ -101,9 +101,13 @@ Spacecast3D.Setup = {
     height: document.getElementById("explorer-view-content").offsetHeight,
     containerId: 'spacecast3d',
   },
+  raycaster: new THREE.Raycaster(),
+  mouse: new THREE.Vector2(),
   starsLabel: {
     fontFace: 'Arial',
     fontSize: 128,
+    baseColor: 'rgba(255,255,0,1)',
+    activeColor: 'rgba(0,255,255,1)',
   },
   // see: https://en.wikipedia.org/wiki/List_of_nearest_stars_and_brown_dwarfs
   nearestStars: {
@@ -454,11 +458,11 @@ Spacecast3D.State = {
     uranus: null,
   },
   lights: null,
-  camera: null,
   milkyWay: null,
   centralPlane: null,
   nearestStars: null,
   nearestStarsLabels: [],
+  activeNearestStarLabel: null,
   datGUI: null,
   orbitControls: null,
   defaultControlMinDistance: null,
@@ -503,6 +507,7 @@ Spacecast3D.Helper = {
     var light = Spacecast3D.Helper.createLight()
     var camera = Spacecast3D.Helper.createCamera()
     var renderer = Spacecast3D.Helper.createRenderer()
+    renderer.domElement.addEventListener('mousemove', this.onMouseMove, false)
     var controls = Spacecast3D.Helper.createControls(camera, renderer.domElement)
     document.getElementById(Spacecast3D.Setup.renderer.containerId).appendChild(renderer.domElement)
     var scene = new THREE.Scene()
@@ -544,6 +549,34 @@ Spacecast3D.Helper = {
       renderer: renderer,
     }
     return Spacecast3D.State.universe
+  },
+
+  onMouseMove: function(event) {
+  	event.preventDefault()
+    var raycaster = Spacecast3D.Setup.raycaster
+    var mouse = Spacecast3D.Setup.mouse
+    var camera = Spacecast3D.State.universe.camera
+  	mouse.x = (event.clientX / window.innerWidth) * 2 - 1
+  	mouse.y = - (event.clientY / window.innerHeight) * 2 + 1
+
+  	raycaster.setFromCamera(mouse, camera)
+
+  	intersections = raycaster.intersectObjects(Spacecast3D.State.nearestStarsLabels)
+  	if (intersections.length > 0) {
+  		if (Spacecast3D.State.activeNearestStarLabel != intersections[0].object) {
+  			if (Spacecast3D.State.activeNearestStarLabel) {
+          Spacecast3D.State.activeNearestStarLabel.material.color.setStyle(Spacecast3D.Setup.starsLabel.baseColor)
+        }
+  			Spacecast3D.State.activeNearestStarLabel = intersections[0].object
+  			Spacecast3D.State.activeNearestStarLabel.material.color.setStyle(Spacecast3D.Setup.starsLabel.activeColor)
+  		}
+  		document.body.style.cursor = 'pointer'
+  	}
+  	else if (Spacecast3D.State.activeNearestStarLabel) {
+  		Spacecast3D.State.activeNearestStarLabel.material.color.setStyle(Spacecast3D.Setup.starsLabel.baseColor)
+  		Spacecast3D.State.activeNearestStarLabel = null
+  		document.body.style.cursor = 'auto'
+  	}
   },
 
   createSphere: function(radius, material, segments) {
@@ -610,7 +643,7 @@ Spacecast3D.Helper = {
   },
 
   createSun: function(radius) {
-    var sunMaterial	= new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load('/images/sunmap.jpg'), })
+    var sunMaterial	= new THREE.MeshPhongMaterial({map: new THREE.TextureLoader().load('/images/sunmap.jpg'),})
     var sun = this.createSphere(radius, sunMaterial)
     sun.name = 'star'
 
@@ -787,7 +820,7 @@ Spacecast3D.Helper = {
     var material = new THREE.LineBasicMaterial({color: color, transparent: true, opacity: opacity})
     var circle = new THREE.Line(geometry, material)
     circle.geometry.vertices.shift()
-    circle.rotateOnAxis(new THREE.Vector3( 1, 0, 0 ), -Math.PI/2)
+    circle.rotateOnAxis(new THREE.Vector3(1, 0, 0), -Math.PI/2)
     return circle
   },
 
@@ -862,11 +895,11 @@ Spacecast3D.Helper = {
     div.style.right = '16px'
     document.getElementById('spacecast3d').appendChild(div)
     this.updateInfo(camera)
-    document.getElementById('canvas-spacecast3d').addEventListener( 'mousedown', () => {return this.updateInfo(camera) })
-  	document.getElementById('canvas-spacecast3d').addEventListener( 'wheel', () => {return this.updateInfo(camera) })
-  	document.getElementById('canvas-spacecast3d').addEventListener( 'touchstart', () => {return this.updateInfo(camera) })
-  	document.getElementById('canvas-spacecast3d').addEventListener( 'touchend', () => {return this.updateInfo(camera) })
-  	document.getElementById('canvas-spacecast3d').addEventListener( 'touchmove', () => {return this.updateInfo(camera) })
+    document.getElementById('canvas-spacecast3d').addEventListener('mousedown', () => {return this.updateInfo(camera)})
+  	document.getElementById('canvas-spacecast3d').addEventListener('wheel', () => {return this.updateInfo(camera)})
+  	document.getElementById('canvas-spacecast3d').addEventListener('touchstart', () => {return this.updateInfo(camera)})
+  	document.getElementById('canvas-spacecast3d').addEventListener('touchend', () => {return this.updateInfo(camera)})
+  	document.getElementById('canvas-spacecast3d').addEventListener('touchmove', () => {return this.updateInfo(camera)})
   },
 
   uiController: function(container) {
