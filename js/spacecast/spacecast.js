@@ -590,7 +590,12 @@ Spacecast3D.Helper = {
 
   	var intersects = raycaster.intersectObjects(Spacecast3D.State.nearestStarsLabels)
   	if (intersects.length > 0) {
-      Spacecast3D.Helper.resetCameraPositionForStar(intersects[0].object.position)
+      var starLabel = intersects[0].object;
+      Spacecast3D.Helper.resetCameraPositionForStar(starLabel.position)
+
+      // load star information
+      var starInfo = Spacecast3D.Setup.nearestStars[starLabel.name]
+      // show star information
   	}
   },
 
@@ -818,6 +823,7 @@ Spacecast3D.Helper = {
       var position = new THREE.Spherical(starData.dis, starData.dec, starData.asc)
       star = this.createStar(position)
       label = this.createStarLabel(starData.name)
+      label.name = key
       label.scale.x = 55000*Spacecast3D.SPACECAST3D_AU
       label.scale.y = 55000*Spacecast3D.SPACECAST3D_AU
       label.scale.z = 1
