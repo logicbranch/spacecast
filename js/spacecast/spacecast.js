@@ -851,6 +851,40 @@ Spacecast3D.Helper = {
     group.add(this.circleLine(8 * Spacecast3D.SPACECAST3D_LY, 0xffff00, .5)) // 8 light years ring
     group.add(this.circleLine(12 * Spacecast3D.SPACECAST3D_LY, 0xffff00, .5)) // 12 light years ring
     group.add(this.circleLine(16 * Spacecast3D.SPACECAST3D_LY, 0xffff00, .5)) // 16 light years ring
+
+    // load star information
+    var starsInfo = Spacecast3D.Setup.nearestStars
+
+    // loop through each star information and add the vertical line segment to the central plane
+    for (var key in starsInfo) {
+      if (!starsInfo.hasOwnProperty(key)) continue
+      // get the star information
+      var starInfo = starsInfo[key]
+      // get the star spherical position
+      var starPosition = new THREE.Spherical(starInfo.dis, starInfo.dec, starInfo.asc)
+
+      // end points of the vertical line segment
+      var pointA = new THREE.Vector3()
+      pointA.x = 0;
+      pointA.y = 0;
+      pointA.z = 0;
+      var pointB = new THREE.Vector3()
+      pointB.setFromSpherical(starPosition)
+
+      // define the geometry of the line segment
+      var geometry = new THREE.Geometry()
+      geometry.vertices.push(pointA, pointB)
+
+      // define the material of the line segment
+      var material = new THREE.LineBasicMaterial({color: 'white', transparent: true, opacity: .2})
+
+      // create the vertical line segment
+      var segment = new THREE.LineSegments(geometry, material)
+
+      // add the line segment to the group
+      group.add(segment)
+    }
+
     return group
   },
 
