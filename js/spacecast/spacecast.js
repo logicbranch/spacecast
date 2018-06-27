@@ -193,6 +193,8 @@ Spacecast3D.Setup = {
     },
     lacaille9352: {
       name: 'Lacaille 9352',
+      // see: https://en.wikipedia.org/wiki/Lacaille_9352
+      description: 'Lacaille 9352 is the closest star in the constellation Piscis Austrinus. However, it is still imperceptible to the naked eye.',
       dis: Spacecast3D.Utils.dis(10.742), // distance: 10.742 light-years
       asc: Spacecast3D.Utils.asc(23, 5, 52), // right ascension: 23h 05m 52.0s
       dec: Spacecast3D.Utils.dec(35, 51, 11, true) // declination: −35° 51′ 11″
