@@ -177,6 +177,8 @@ Spacecast3D.Setup = {
     },
     ross248: {
       name: 'Ross 248',
+      // see: https://en.wikipedia.org/wiki/Ross_248
+      description: 'Ross 248 is a red dwarf too dim to be seen without visual assistance. It slightly fluctuates in brightness, which is attributed to spots on its photosphere.',
       dis: Spacecast3D.Utils.dis(10.322), // distance: 10.322 light-years
       asc: Spacecast3D.Utils.asc(23, 41, 54.7), // right ascension: 23h 41m 54.7s
       dec: Spacecast3D.Utils.dec(44, 10, 30) // declination: +44° 10′ 30″
