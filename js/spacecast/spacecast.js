@@ -145,6 +145,8 @@ Spacecast3D.Setup = {
     },
     lalande21185: {
       name: 'Lalande 21185',
+      // see: https://en.wikipedia.org/wiki/Lalande_21185
+      description: 'Lalande 21185 is a red dwarf in the constellation Ursa Major. It is the brightest red dwarf in the northern hemisphere. However, one still needs at least binoculars or a small telescope to observe this star.',
       dis: Spacecast3D.Utils.dis(8.2905), // distance: 8.2905 light-years
       asc: Spacecast3D.Utils.asc(11, 3, 20.2), // right ascension: 11h 03m 20.2s
       dec: Spacecast3D.Utils.dec(35, 58, 12), // declination: +35° 58′ 12″
