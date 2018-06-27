@@ -121,6 +121,8 @@ Spacecast3D.Setup = {
     },
     barnard: {
       name: 'Barnard',
+      // see: https://en.wikipedia.org/wiki/Barnard%27s_Star
+      description; 'Barnard is a small red dwarf star in the constellation Ophiuchus. It is too dim to be seen with the naked eye.',
       dis: Spacecast3D.Utils.dis(5.9630), // distance: 5.9630 light-years
       asc: Spacecast3D.Utils.asc(17, 29, 43), // right ascension: 17h 57m 48.5s
       dec: Spacecast3D.Utils.dec(4, 41, 36), // declination: +04° 41′ 36″
