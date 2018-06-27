@@ -153,6 +153,8 @@ Spacecast3D.Setup = {
     },
     sirius: {
       name: 'Sirius',
+      // see: https://en.wikipedia.org/wiki/Sirius
+      description: 'Sirius is the brightest star in our sky. It is a binary system consisting of Sirius A and Sirius B. Sirius A, which creates most of the light, is twice the mass of our sun. Sirius B, on the other hand, is a white dwarf, the faded core left after a supernova.',
       dis: Spacecast3D.Utils.dis(8.5828), // distance: 8.5828 light-years
       asc: Spacecast3D.Utils.asc(6, 45, 8.9), // right ascension: 06h 45m 08.9s
       dec: Spacecast3D.Utils.dec(16, 42, 58, true), // declination: −16° 42′ 58″
