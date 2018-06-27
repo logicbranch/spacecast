@@ -161,6 +161,8 @@ Spacecast3D.Setup = {
     },
     luyten7268: {
       name: 'Luyten 726-8',
+      // see: https://en.wikipedia.org/wiki/Luyten_726-8
+      description: 'Star system Luyten 726-8 consists of two stars of very similar brightness. Both are flare stars, occasionally increasing in brightness for a few minutes. Luyten 726-8B is especially remarkable in this respect.',
       dis: Spacecast3D.Utils.dis(8.7280), // distance: 8.7280 light-years
       asc: Spacecast3D.Utils.asc(1, 39, 1.3), // right ascension: 01h 39m 01.3s
       dec: Spacecast3D.Utils.dec(17, 57, 01, true), // declination: −17° 57′ 01″
