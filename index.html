@@ -17,11 +17,28 @@
         top: 16px;
         left: 16px;
       }
+      #spacecast3d-info {
+        position: absolute;
+        padding: 16px;
+        background-color: white;
+        top: 16px;
+        right: 16px;
+        max-width: 50%;
+      }
     </style>
   </head>
   <body>
     <div id="explorer-view-content">
-      <div id="spacecast3d"></div>
+      <div id="spacecast3d">
+          <div id="spacecast3d-info">
+            <b>Distance from the sun</b>: <span id="spacecast3d-info-distance"></span>
+            <br />
+            <b>Star name</b>: <span id="spacecast3d-info-name"></span>
+            <br />
+            <b>Star description</b>:
+            <p id="spacecast3d-info-description"></p>
+          </div>
+      </div>
       <div id="spacecast-controls"></div>
     </div>
     <script src="/js/underscore/underscore.min.js"></script>
