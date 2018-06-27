@@ -596,6 +596,7 @@ Spacecast3D.Helper = {
       // load star information
       var starInfo = Spacecast3D.Setup.nearestStars[starLabel.name]
       // show star information
+      Spacecast3D.Helper.setStarInfo(starInfo)
   	}
   },
 
@@ -915,20 +916,23 @@ Spacecast3D.Helper = {
   },
 
   displayInfo: function(camera) {
-    var div = document.createElement('div')
-    div.setAttribute("id", "spacecast3d-info")
-    div.style.position = 'absolute'
-    div.style.padding = '16px'
-    div.style.backgroundColor = 'white'
-    div.style.top = '16px'
-    div.style.right = '16px'
-    document.getElementById('spacecast3d').appendChild(div)
+    var sunInfo = {
+      name: 'Sun',
+      description: 'Our home star.',
+    }
+    this.setStarInfo(sunInfo)
     this.updateInfo(camera)
     document.getElementById('canvas-spacecast3d').addEventListener('mousedown', () => {return this.updateInfo(camera)})
   	document.getElementById('canvas-spacecast3d').addEventListener('wheel', () => {return this.updateInfo(camera)})
   	document.getElementById('canvas-spacecast3d').addEventListener('touchstart', () => {return this.updateInfo(camera)})
   	document.getElementById('canvas-spacecast3d').addEventListener('touchend', () => {return this.updateInfo(camera)})
   	document.getElementById('canvas-spacecast3d').addEventListener('touchmove', () => {return this.updateInfo(camera)})
+  },
+
+  setStarInfo: function(info) {
+    document.getElementById("spacecast3d-info-name").innerHTML = info.name
+    document.getElementById("spacecast3d-info-description").innerHTML =
+      info.description != null ? info.description : "None."
   },
 
   uiController: function(container) {
@@ -1030,10 +1034,11 @@ Spacecast3D.Helper = {
     var y = camera.position.y
     var z = camera.position.z
     var distance = Math.sqrt(x*x + y*y + z*z)
+    var distanceDisplay = document.getElementById("spacecast3d-info-distance")
     if (distance < Spacecast3D.SPACECAST3D_LY*0.001) {
-      document.getElementById('spacecast3d-info').innerHTML = 'Distance from Sun: ' + Math.trunc(distance*7917).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' miles'
+      distanceDisplay.innerHTML = Math.trunc(distance*7917).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' miles'
     } else {
-      document.getElementById('spacecast3d-info').innerHTML = 'Distance from Sun: ' + Math.trunc(distance/Spacecast3D.SPACECAST3D_LY).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' light-years'
+      distanceDisplay.innerHTML = Math.trunc(distance/Spacecast3D.SPACECAST3D_LY).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' light-years'
       Spacecast3D.State.datGUI.__controllers.find((controller) => {return controller.property === 'Distance (light-year)'}).setValue(distance/Spacecast3D.SPACECAST3D_LY)
     }
   },
