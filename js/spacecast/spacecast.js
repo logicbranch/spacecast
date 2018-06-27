@@ -113,6 +113,8 @@ Spacecast3D.Setup = {
   nearestStars: {
     aCentauri: {
       name: 'Alpha Centauri',
+      // see: https://en.wikipedia.org/wiki/Alpha_Centauri
+      description: 'Alpha Centauri is the nearest star to the Solar System. It is actually three stars locked in orbit, called Alpha Centauri A, B, and C. Alpha Centauri C is a red dwarf, much dimmer than the other two. A and B make Alpha Centauri the brightest star in the Centaurus constellation.',
       dis: Spacecast3D.Utils.dis(4.2421), // distance: 4.2421 light-years
       asc: Spacecast3D.Utils.asc(14, 29, 43), // right ascension: 14h 29m 43.0s
       dec: Spacecast3D.Utils.dec(62, 40, 46, true), // declination: −62° 40′ 46″
