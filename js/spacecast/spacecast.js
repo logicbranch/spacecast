@@ -137,6 +137,8 @@ Spacecast3D.Setup = {
     },
     wolf359: {
       name: 'Wolf 359',
+      // see: https://en.wikipedia.org/wiki/Wolf_359
+      description: 'Wolf 359 is a red dwarf in the constellation Leo. It is invisible to the naked eye, being one of the faintest stars known along with one of the smallest.',
       dis: Spacecast3D.Utils.dis(7.7825), // distance: 7.7825 light-years
       asc: Spacecast3D.Utils.asc(10, 56, 29.2), // right ascension: 10h 56m 29.2s
       dec: Spacecast3D.Utils.dec(7, 0, 53), // declination: +07° 00′ 53″
