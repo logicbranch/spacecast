@@ -201,6 +201,8 @@ Spacecast3D.Setup = {
     },
     ross128: {
       name: 'Ross 128',
+      // see: https://en.wikipedia.org/wiki/Ross_128
+      description: 'Ross 128 is a faint red dwarf in the constellation Virgo. It harbors a planet called Ross 128 b, which was the second exoplanet discovered. The roughly Earth-sized planet lies in the habitable zone of the star, and is a prime candidate for life.',
       dis: Spacecast3D.Utils.dis(10.919), // distance: 10.919 light-years
       asc: Spacecast3D.Utils.asc(11, 47, 44.4), // right ascension: 11h 47m 44.4s
       dec: Spacecast3D.Utils.dec(0, 48, 16) // declination: +00° 48′ 16″
