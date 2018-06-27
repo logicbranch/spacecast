@@ -866,11 +866,11 @@ Spacecast3D.Helper = {
 
       // end points of the vertical line segment
       var pointA = new THREE.Vector3()
-      pointA.x = 0;
-      pointA.y = 0;
-      pointA.z = 0;
       var pointB = new THREE.Vector3()
       pointB.setFromSpherical(starPosition)
+      pointA.x = pointB.x
+      pointA.y = 0
+      pointA.z = pointB.z
 
       // define the geometry of the line segment
       var geometry = new THREE.Geometry()
