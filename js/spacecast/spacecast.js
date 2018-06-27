@@ -169,6 +169,8 @@ Spacecast3D.Setup = {
     },
     ross154: {
       name: 'Ross 154',
+      // see: https://en.wikipedia.org/wiki/Ross_154
+      description: 'Ross 154 is a red dwarf in the constellation Sagittarius. Although it is the closest star to the sun in its constellation, it is completely invisible to the unaided eye.',
       dis: Spacecast3D.Utils.dis(9.6813), // distance: 9.6813 light-years
       asc: Spacecast3D.Utils.asc(18, 49, 49.4), // right ascension: 18h 49m 49.4s
       dec: Spacecast3D.Utils.dec(23, 50, 10, true) // declination: −23° 50′ 10″
