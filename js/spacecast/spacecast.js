@@ -185,6 +185,8 @@ Spacecast3D.Setup = {
     },
     epsilonEridani: {
       name: 'Epsilon Eridani',
+      // see: https://en.wikipedia.org/wiki/Epsilon_Eridani
+      description: 'Epsilon Eridani is a star residing in the constellation Eridanus. It is somewhat smaller than the sun, and is less than one billion years old. Being still young, its solar wind is thirty times stronger than that of the sun.',
       dis: Spacecast3D.Utils.dis(10.522), // distance: 10.522 light-years
       asc: Spacecast3D.Utils.asc(3, 32, 55.8), // right ascension: 03h 32m 55.8s
       dec: Spacecast3D.Utils.dec(9, 27, 30, true) // declination: −09° 27′ 30″
