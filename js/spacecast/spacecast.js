@@ -129,6 +129,8 @@ Spacecast3D.Setup = {
     },
     luhman16: {
       name: 'Luhman 16',
+      // see: https://en.wikipedia.org/wiki/Luhman_16
+      description: 'Luhman 16 is not really a star at all, but a pair of orbiting brown dwarfs. These bodies are too small to be stars, but each one is still about thirty times the mass of Jupiter.',
       dis: Spacecast3D.Utils.dis(6.59), // distance: 6.59 light-years
       asc: Spacecast3D.Utils.asc(10, 49, 15.57), // right ascension: 10h 49m 15.57s
       dec: Spacecast3D.Utils.dec(53, 29, 06), // declination: 10h 49m 15.57s
