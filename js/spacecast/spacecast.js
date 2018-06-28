@@ -233,6 +233,8 @@ Spacecast3D.Setup = {
     },
     _61cyngi: {
       name: '61 Cyngi',
+      // see: https://en.wikipedia.org/wiki/61_Cygni
+      description: '61 Cyngi is a pair of orange-colored dwarfs in the Cygnus constellation. In areas with little light polution, the system can be seen with the naked eye.',
       dis: Spacecast3D.Utils.dis(11.403), // distance: 11.403 light-years
       asc: Spacecast3D.Utils.asc(21, 6, 53.9), // right ascension: 21h 06m 53.9s
       dec: Spacecast3D.Utils.dec(38, 44, 58) // declination: +38° 44′ 58″
