@@ -241,6 +241,8 @@ Spacecast3D.Setup = {
     },
     struve2398: {
       name: 'Struve 2398',
+      // see: https://en.wikipedia.org/wiki/Struve_2398
+      description: 'Struve 2398 is a binary dwarf star in the constellation Draco. It is invisible without viewing equipment.',
       dis: Spacecast3D.Utils.dis(11.525), // distance: 11.525 light-years
       asc: Spacecast3D.Utils.asc(18, 42, 46.7), // right ascension: 18h 42m 46.7s
       dec: Spacecast3D.Utils.dec(59, 37, 49) // declination: +59° 37′ 49″
