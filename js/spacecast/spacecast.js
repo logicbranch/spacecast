@@ -209,6 +209,8 @@ Spacecast3D.Setup = {
     },
     wise15067027: {
       name: 'Wise 1506 7027',
+      // see: https://en.wikipedia.org/wiki/WISE_1506%2B7027
+      description: 'Wise 1506 7027 is a sub-stellar brown dwarf in the constellation Ursa Minor.',
       dis: Spacecast3D.Utils.dis(11.089), // distance: 11.089 light-years
       asc: Spacecast3D.Utils.asc(15, 6, 49.9), // right ascension: 15h 06m 49.9s
       dec: Spacecast3D.Utils.dec(70, 27, 36) // declination: +70° 27′ 36″
