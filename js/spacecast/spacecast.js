@@ -265,6 +265,8 @@ Spacecast3D.Setup = {
     },
     dxCancri: {
       name: 'Dx Cancri',
+      // see: https://en.wikipedia.org/wiki/DX_Cancri
+      description: 'Dx Cancri is a faint red dwarf in the constellation Cancer. It is a flare star, meaning its brightness can increase fivefold for short times.',
       dis: Spacecast3D.Utils.dis(11.826), // distance: 11.826 light-years
       asc: Spacecast3D.Utils.asc(8, 29, 49.5), // right ascension: 08h 29m 49.5s
       dec: Spacecast3D.Utils.dec(26, 46, 37) // declination: +26° 46′ 37″
