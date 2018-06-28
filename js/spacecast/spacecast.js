@@ -281,6 +281,8 @@ Spacecast3D.Setup = {
     },
     gj1061: {
       name: 'GJ 1061',
+      // see: https://en.wikipedia.org/wiki/Gliese_1061
+      description: 'GJ 1061 is a red dwarf in the Horologium constellation. It is only 0.1% as luminous as the sun.',
       dis: Spacecast3D.Utils.dis(11.991), // distance: 11.991 light-years
       asc: Spacecast3D.Utils.asc(3, 35, 59.7), // right ascension: 03h 35m 59.7s
       dec: Spacecast3D.Utils.dec(44, 30, 45, true) // declination: −44° 30′ 45″
