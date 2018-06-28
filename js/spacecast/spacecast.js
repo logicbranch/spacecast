@@ -289,6 +289,8 @@ Spacecast3D.Setup = {
     },
     wise03505658: {
       name: 'Wise 0350-5658',
+      // see: https://en.wikipedia.org/wiki/WISE_0350%E2%88%925658
+      description: 'Wise 0350-5658, a brown dwarf, is the closest system in the constellation Reticulum.',
       dis: Spacecast3D.Utils.dis(12.068), // distance: 12.068 light-years
       asc: Spacecast3D.Utils.asc(3, 50, .32), // right ascension: 03h 50m 00.32s
       dec: Spacecast3D.Utils.dec(56, 58, 30.2, true) // declination: −56° 58′ 30.2″
