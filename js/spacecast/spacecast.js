@@ -217,6 +217,8 @@ Spacecast3D.Setup = {
     },
     ezAquarii: {
       name: 'Ez Aquarii',
+      // see: https://en.wikipedia.org/wiki/EZ_Aquarii
+      description: 'Ez Aquarii is a system of three red dwarfs. Two orbit each other and the third orbits them. All three reside in the constellation Aquarius.',
       dis: Spacecast3D.Utils.dis(11.266), // distance: 11.266 light-years
       asc: Spacecast3D.Utils.asc(22, 38, 33.4), // right ascension: 22h 38m 33.4s
       dec: Spacecast3D.Utils.dec(15, 17, 57, true) // declination: −15° 17′ 57″
