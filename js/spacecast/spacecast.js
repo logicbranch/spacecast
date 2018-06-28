@@ -249,12 +249,16 @@ Spacecast3D.Setup = {
     },
     groombridge34: {
       name: 'Groombridge 34',
+      // see: https://en.wikipedia.org/wiki/Groombridge_34
+      description: 'Groombridge 34 is a binary system of red dwarf stars of the Andromeda constellation. It is moving away from the Solar System relatively fast at 11.6 km/s.',
       dis: Spacecast3D.Utils.dis(11.624), // distance: 11.624 light-years
       asc: Spacecast3D.Utils.asc(0, 18, 22.9), // right ascension: 0h 18m 22.9s
       dec: Spacecast3D.Utils.dec(44, 1, 23) // declination: +44° 01′ 23″
     },
     epsilonIndi: {
       name: 'Epsilon Indi',
+      // see: https://en.wikipedia.org/wiki/Epsilon_Indi
+      description: 'Epsilon Indi is a triple star system in the constellation of Indus. It contains one orange dwarf and two brown dwarfs. The orange star harbors a gas giant, the closest known outside the Solar System, with 2.7 times the mass of Jupiter.',
       dis: Spacecast3D.Utils.dis(11.824), // distance: 11.824 light-years
       asc: Spacecast3D.Utils.asc(22, 03, 21.7), // right ascension: 22h 03m 21.7s
       dec: Spacecast3D.Utils.dec(56, 47, 10) // declination: −56° 47′ 10″
