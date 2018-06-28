@@ -225,6 +225,8 @@ Spacecast3D.Setup = {
     },
     procyon: {
       name: 'Procyon',
+      // see: https://en.wikipedia.org/wiki/Procyon
+      description: 'Procyon is the brightest star in the constellation Canis Minor and the eighth brightest in the sky. It consists of two white stars, one of which is a faint white dwarf.',
       dis: Spacecast3D.Utils.dis(11.402), // distance: 11.402 light-years
       asc: Spacecast3D.Utils.asc(7, 39, 18.1), // right ascension: 07h 39m 18.1s
       dec: Spacecast3D.Utils.dec(5, 13, 30) // declination: +05° 13′ 30″
