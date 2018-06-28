@@ -273,6 +273,8 @@ Spacecast3D.Setup = {
     },
     tauCeti: {
       name: 'Tau Ceti',
+      // see: https://en.wikipedia.org/wiki/Tau_Ceti
+      description: 'Tau Ceti is a single star in the constellation Cetus with 78% of the sun\'s mass. There is evidence that five planets orbit the star, of which two are in the habitable zone. Because of this, Tau Ceti is a candidate for life. However, it is also orbited by a disk of debris, and the resulting higher frequency of impacts would be a barrier for such life.',
       dis: Spacecast3D.Utils.dis(11.887), // distance: 11.887 light-years
       asc: Spacecast3D.Utils.asc(1, 44, 4.1), // right ascension: 01h 44m 04.1s
       dec: Spacecast3D.Utils.dec(15, 56, 15, true) // declination: −15° 56′ 15″
