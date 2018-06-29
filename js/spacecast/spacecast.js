@@ -1016,6 +1016,13 @@ Spacecast3D.Helper = {
     document.getElementById("spacecast3d-info-name").innerHTML = info.name
     document.getElementById("spacecast3d-info-description").innerHTML =
       info.description != null ? info.description : "None."
+    var link = document.getElementById("spacecast3d-info-link")
+    if (info.descriptionSource != null) {
+      link.innerHTML = "More information"
+      link.setAttribute('href', info.descriptionSource)
+    } else {
+      link.innerHTML = null
+    }
   },
 
   uiController: function(container) {
