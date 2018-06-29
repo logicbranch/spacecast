@@ -297,6 +297,8 @@ Spacecast3D.Setup = {
     },
     yzCeti: {
       name: 'YZ Ceti',
+      // see: https://en.wikipedia.org/wiki/YZ_Ceti
+      description: 'YZ Ceti is a red dwarf in the Cetus constellation. It is unusually close to its nearest neighbor Tau Ceti at mere 1.6 light years away.',
       dis: Spacecast3D.Utils.dis(12.132), // distance: 12.132 light-years
       asc: Spacecast3D.Utils.asc(1, 12, 30.6), // right ascension: 01h 12m 30.6s
       dec: Spacecast3D.Utils.dec(16, 59, 56, true) // declination: −16° 59′ 56″
