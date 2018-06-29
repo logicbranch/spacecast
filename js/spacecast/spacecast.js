@@ -113,7 +113,7 @@ Spacecast3D.Setup = {
   nearestStars: {
     aCentauri: {
       name: 'Alpha Centauri',
-      // see: https://en.wikipedia.org/wiki/Alpha_Centauri
+      descriptionSource: "https://en.wikipedia.org/wiki/Alpha_Centauri",
       description: 'Alpha Centauri is the nearest star to the Solar System. It is actually three stars locked in orbit, called Alpha Centauri A, B, and C. Alpha Centauri C is a red dwarf, much dimmer than the other two. A and B make Alpha Centauri the brightest star in the Centaurus constellation.',
       dis: Spacecast3D.Utils.dis(4.2421), // distance: 4.2421 light-years
       asc: Spacecast3D.Utils.asc(14, 29, 43), // right ascension: 14h 29m 43.0s
@@ -121,7 +121,7 @@ Spacecast3D.Setup = {
     },
     barnard: {
       name: 'Barnard',
-      // see: https://en.wikipedia.org/wiki/Barnard%27s_Star
+      descriptionSource: "https://en.wikipedia.org/wiki/Barnard%27s_Star",
       description: 'Barnard is a small red dwarf star in the constellation Ophiuchus. It is too dim to be seen with the naked eye.',
       dis: Spacecast3D.Utils.dis(5.9630), // distance: 5.9630 light-years
       asc: Spacecast3D.Utils.asc(17, 29, 43), // right ascension: 17h 57m 48.5s
@@ -129,7 +129,7 @@ Spacecast3D.Setup = {
     },
     luhman16: {
       name: 'Luhman 16',
-      // see: https://en.wikipedia.org/wiki/Luhman_16
+      descriptionSource: "https://en.wikipedia.org/wiki/Luhman_16",
       description: 'Luhman 16 is not really a star at all, but a pair of orbiting brown dwarfs. These bodies are too small to be stars, but each one is still about thirty times the mass of Jupiter.',
       dis: Spacecast3D.Utils.dis(6.59), // distance: 6.59 light-years
       asc: Spacecast3D.Utils.asc(10, 49, 15.57), // right ascension: 10h 49m 15.57s
@@ -137,7 +137,7 @@ Spacecast3D.Setup = {
     },
     wolf359: {
       name: 'Wolf 359',
-      // see: https://en.wikipedia.org/wiki/Wolf_359
+      descriptionSource: "https://en.wikipedia.org/wiki/Wolf_359",
       description: 'Wolf 359 is a red dwarf in the constellation Leo. It is invisible to the naked eye, being one of the faintest stars known along with one of the smallest.',
       dis: Spacecast3D.Utils.dis(7.7825), // distance: 7.7825 light-years
       asc: Spacecast3D.Utils.asc(10, 56, 29.2), // right ascension: 10h 56m 29.2s
@@ -145,7 +145,7 @@ Spacecast3D.Setup = {
     },
     lalande21185: {
       name: 'Lalande 21185',
-      // see: https://en.wikipedia.org/wiki/Lalande_21185
+      descriptionSource: "https://en.wikipedia.org/wiki/Lalande_21185",
       description: 'Lalande 21185 is a red dwarf in the constellation Ursa Major. It is the brightest red dwarf in the northern hemisphere. However, one still needs at least binoculars or a small telescope to observe this star.',
       dis: Spacecast3D.Utils.dis(8.2905), // distance: 8.2905 light-years
       asc: Spacecast3D.Utils.asc(11, 3, 20.2), // right ascension: 11h 03m 20.2s
@@ -153,7 +153,7 @@ Spacecast3D.Setup = {
     },
     sirius: {
       name: 'Sirius',
-      // see: https://en.wikipedia.org/wiki/Sirius
+      descriptionSource: "https://en.wikipedia.org/wiki/Sirius",
       description: 'Sirius is the brightest star in our sky. It is a binary system consisting of Sirius A and Sirius B. Sirius A, which creates most of the light, is twice the mass of our sun. Sirius B, on the other hand, is a white dwarf, the faded core left after a supernova.',
       dis: Spacecast3D.Utils.dis(8.5828), // distance: 8.5828 light-years
       asc: Spacecast3D.Utils.asc(6, 45, 8.9), // right ascension: 06h 45m 08.9s
@@ -161,7 +161,7 @@ Spacecast3D.Setup = {
     },
     luyten7268: {
       name: 'Luyten 726-8',
-      // see: https://en.wikipedia.org/wiki/Luyten_726-8
+      descriptionSource: "https://en.wikipedia.org/wiki/Luyten_726-8",
       description: 'Star system Luyten 726-8 consists of two stars of very similar brightness. Both are flare stars, occasionally increasing in brightness for a few minutes. Luyten 726-8B is especially remarkable in this respect.',
       dis: Spacecast3D.Utils.dis(8.7280), // distance: 8.7280 light-years
       asc: Spacecast3D.Utils.asc(1, 39, 1.3), // right ascension: 01h 39m 01.3s
@@ -169,7 +169,7 @@ Spacecast3D.Setup = {
     },
     ross154: {
       name: 'Ross 154',
-      // see: https://en.wikipedia.org/wiki/Ross_154
+      descriptionSource: "https://en.wikipedia.org/wiki/Ross_154",
       description: 'Ross 154 is a red dwarf in the constellation Sagittarius. Although it is the closest star to the sun in its constellation, it is completely invisible to the unaided eye.',
       dis: Spacecast3D.Utils.dis(9.6813), // distance: 9.6813 light-years
       asc: Spacecast3D.Utils.asc(18, 49, 49.4), // right ascension: 18h 49m 49.4s
@@ -177,7 +177,7 @@ Spacecast3D.Setup = {
     },
     ross248: {
       name: 'Ross 248',
-      // see: https://en.wikipedia.org/wiki/Ross_248
+      descriptionSource: "https://en.wikipedia.org/wiki/Ross_248",
       description: 'Ross 248 is a red dwarf too dim to be seen without visual assistance. It slightly fluctuates in brightness, which is attributed to spots on its photosphere.',
       dis: Spacecast3D.Utils.dis(10.322), // distance: 10.322 light-years
       asc: Spacecast3D.Utils.asc(23, 41, 54.7), // right ascension: 23h 41m 54.7s
@@ -185,7 +185,7 @@ Spacecast3D.Setup = {
     },
     epsilonEridani: {
       name: 'Epsilon Eridani',
-      // see: https://en.wikipedia.org/wiki/Epsilon_Eridani
+      descriptionSource: "https://en.wikipedia.org/wiki/Epsilon_Eridani",
       description: 'Epsilon Eridani is a star residing in the constellation Eridanus. It is somewhat smaller than the sun, and is less than one billion years old. Being still young, its solar wind is thirty times stronger than that of the sun.',
       dis: Spacecast3D.Utils.dis(10.522), // distance: 10.522 light-years
       asc: Spacecast3D.Utils.asc(3, 32, 55.8), // right ascension: 03h 32m 55.8s
@@ -193,7 +193,7 @@ Spacecast3D.Setup = {
     },
     lacaille9352: {
       name: 'Lacaille 9352',
-      // see: https://en.wikipedia.org/wiki/Lacaille_9352
+      descriptionSource: "https://en.wikipedia.org/wiki/Lacaille_9352",
       description: 'Lacaille 9352 is the closest star in the constellation Piscis Austrinus. However, it is still imperceptible to the naked eye.',
       dis: Spacecast3D.Utils.dis(10.742), // distance: 10.742 light-years
       asc: Spacecast3D.Utils.asc(23, 5, 52), // right ascension: 23h 05m 52.0s
@@ -201,7 +201,7 @@ Spacecast3D.Setup = {
     },
     ross128: {
       name: 'Ross 128',
-      // see: https://en.wikipedia.org/wiki/Ross_128
+      descriptionSource: "https://en.wikipedia.org/wiki/Ross_128",
       description: 'Ross 128 is a faint red dwarf in the constellation Virgo. It harbors a planet called Ross 128 b, which was the second exoplanet discovered. The roughly Earth-sized planet lies in the habitable zone of the star, and is a prime candidate for life.',
       dis: Spacecast3D.Utils.dis(10.919), // distance: 10.919 light-years
       asc: Spacecast3D.Utils.asc(11, 47, 44.4), // right ascension: 11h 47m 44.4s
@@ -209,7 +209,7 @@ Spacecast3D.Setup = {
     },
     wise15067027: {
       name: 'Wise 1506 7027',
-      // see: https://en.wikipedia.org/wiki/WISE_1506%2B7027
+      descriptionSource: "https://en.wikipedia.org/wiki/WISE_1506%2B7027",
       description: 'Wise 1506 7027 is a sub-stellar brown dwarf in the constellation Ursa Minor.',
       dis: Spacecast3D.Utils.dis(11.089), // distance: 11.089 light-years
       asc: Spacecast3D.Utils.asc(15, 6, 49.9), // right ascension: 15h 06m 49.9s
@@ -217,7 +217,7 @@ Spacecast3D.Setup = {
     },
     ezAquarii: {
       name: 'Ez Aquarii',
-      // see: https://en.wikipedia.org/wiki/EZ_Aquarii
+      descriptionSource: "https://en.wikipedia.org/wiki/EZ_Aquarii",
       description: 'Ez Aquarii is a system of three red dwarfs. Two orbit each other and the third orbits them. All three reside in the constellation Aquarius.',
       dis: Spacecast3D.Utils.dis(11.266), // distance: 11.266 light-years
       asc: Spacecast3D.Utils.asc(22, 38, 33.4), // right ascension: 22h 38m 33.4s
@@ -225,7 +225,7 @@ Spacecast3D.Setup = {
     },
     procyon: {
       name: 'Procyon',
-      // see: https://en.wikipedia.org/wiki/Procyon
+      descriptionSource: "https://en.wikipedia.org/wiki/Procyon",
       description: 'Procyon is the brightest star in the constellation Canis Minor and the eighth brightest in the sky. It consists of two white stars, one of which is a faint white dwarf.',
       dis: Spacecast3D.Utils.dis(11.402), // distance: 11.402 light-years
       asc: Spacecast3D.Utils.asc(7, 39, 18.1), // right ascension: 07h 39m 18.1s
@@ -233,7 +233,7 @@ Spacecast3D.Setup = {
     },
     _61cyngi: {
       name: '61 Cyngi',
-      // see: https://en.wikipedia.org/wiki/61_Cygni
+      descriptionSource: "https://en.wikipedia.org/wiki/61_Cygni",
       description: '61 Cyngi is a pair of orange-colored dwarfs in the Cygnus constellation. In areas with little light polution, the system can be seen with the naked eye.',
       dis: Spacecast3D.Utils.dis(11.403), // distance: 11.403 light-years
       asc: Spacecast3D.Utils.asc(21, 6, 53.9), // right ascension: 21h 06m 53.9s
@@ -241,7 +241,7 @@ Spacecast3D.Setup = {
     },
     struve2398: {
       name: 'Struve 2398',
-      // see: https://en.wikipedia.org/wiki/Struve_2398
+      descriptionSource: "https://en.wikipedia.org/wiki/Struve_2398",
       description: 'Struve 2398 is a binary dwarf star in the constellation Draco. It is invisible without viewing equipment.',
       dis: Spacecast3D.Utils.dis(11.525), // distance: 11.525 light-years
       asc: Spacecast3D.Utils.asc(18, 42, 46.7), // right ascension: 18h 42m 46.7s
@@ -249,7 +249,7 @@ Spacecast3D.Setup = {
     },
     groombridge34: {
       name: 'Groombridge 34',
-      // see: https://en.wikipedia.org/wiki/Groombridge_34
+      descriptionSource: "https://en.wikipedia.org/wiki/Groombridge_34",
       description: 'Groombridge 34 is a binary system of red dwarf stars of the Andromeda constellation. It is moving away from the Solar System relatively fast at 11.6 km/s.',
       dis: Spacecast3D.Utils.dis(11.624), // distance: 11.624 light-years
       asc: Spacecast3D.Utils.asc(0, 18, 22.9), // right ascension: 0h 18m 22.9s
@@ -257,7 +257,7 @@ Spacecast3D.Setup = {
     },
     epsilonIndi: {
       name: 'Epsilon Indi',
-      // see: https://en.wikipedia.org/wiki/Epsilon_Indi
+      descriptionSource: "https://en.wikipedia.org/wiki/Epsilon_Indi",
       description: 'Epsilon Indi is a triple star system in the constellation of Indus. It contains one orange dwarf and two brown dwarfs. The orange star harbors a gas giant, the closest known outside the Solar System, with 2.7 times the mass of Jupiter.',
       dis: Spacecast3D.Utils.dis(11.824), // distance: 11.824 light-years
       asc: Spacecast3D.Utils.asc(22, 03, 21.7), // right ascension: 22h 03m 21.7s
@@ -265,7 +265,7 @@ Spacecast3D.Setup = {
     },
     dxCancri: {
       name: 'Dx Cancri',
-      // see: https://en.wikipedia.org/wiki/DX_Cancri
+      descriptionSource: "https://en.wikipedia.org/wiki/DX_Cancri",
       description: 'Dx Cancri is a faint red dwarf in the constellation Cancer. It is a flare star, meaning its brightness can increase fivefold for short times.',
       dis: Spacecast3D.Utils.dis(11.826), // distance: 11.826 light-years
       asc: Spacecast3D.Utils.asc(8, 29, 49.5), // right ascension: 08h 29m 49.5s
@@ -273,7 +273,7 @@ Spacecast3D.Setup = {
     },
     tauCeti: {
       name: 'Tau Ceti',
-      // see: https://en.wikipedia.org/wiki/Tau_Ceti
+      descriptionSource: "https://en.wikipedia.org/wiki/Tau_Ceti",
       description: 'Tau Ceti is a single star in the constellation Cetus with 78% of the sun\'s mass. There is evidence that five planets orbit the star, of which two are in the habitable zone. Because of this, Tau Ceti is a candidate for life. However, it is also orbited by a disk of debris, and the resulting higher frequency of impacts would be a barrier for such life.',
       dis: Spacecast3D.Utils.dis(11.887), // distance: 11.887 light-years
       asc: Spacecast3D.Utils.asc(1, 44, 4.1), // right ascension: 01h 44m 04.1s
@@ -281,7 +281,7 @@ Spacecast3D.Setup = {
     },
     gj1061: {
       name: 'GJ 1061',
-      // see: https://en.wikipedia.org/wiki/Gliese_1061
+      descriptionSource: "https://en.wikipedia.org/wiki/Gliese_1061",
       description: 'GJ 1061 is a red dwarf in the Horologium constellation. It is only 0.1% as luminous as the sun.',
       dis: Spacecast3D.Utils.dis(11.991), // distance: 11.991 light-years
       asc: Spacecast3D.Utils.asc(3, 35, 59.7), // right ascension: 03h 35m 59.7s
@@ -289,7 +289,7 @@ Spacecast3D.Setup = {
     },
     wise03505658: {
       name: 'Wise 0350-5658',
-      // see: https://en.wikipedia.org/wiki/WISE_0350%E2%88%925658
+      descriptionSource: "https://en.wikipedia.org/wiki/WISE_0350%E2%88%925658",
       description: 'Wise 0350-5658, a brown dwarf, is the closest system in the constellation Reticulum.',
       dis: Spacecast3D.Utils.dis(12.068), // distance: 12.068 light-years
       asc: Spacecast3D.Utils.asc(3, 50, .32), // right ascension: 03h 50m 00.32s
@@ -297,7 +297,7 @@ Spacecast3D.Setup = {
     },
     yzCeti: {
       name: 'YZ Ceti',
-      // see: https://en.wikipedia.org/wiki/YZ_Ceti
+      descriptionSource: "https://en.wikipedia.org/wiki/YZ_Ceti",
       description: 'YZ Ceti is a red dwarf in the Cetus constellation. It is unusually close to its nearest neighbor Tau Ceti at mere 1.6 light years away.',
       dis: Spacecast3D.Utils.dis(12.132), // distance: 12.132 light-years
       asc: Spacecast3D.Utils.asc(1, 12, 30.6), // right ascension: 01h 12m 30.6s
@@ -1000,6 +1000,7 @@ Spacecast3D.Helper = {
   displayInfo: function(camera) {
     var sunInfo = {
       name: 'Sun',
+      descriptionSource: "https://en.wikipedia.org/wiki/Sun",
       description: 'Our home star.',
     }
     this.setStarInfo(sunInfo)
