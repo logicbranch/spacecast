@@ -329,6 +329,8 @@ Spacecast3D.Setup = {
       dec: Spacecast3D.Utils.dec(57, 41, 45) // declination: +57° 41′ 45″
     },
     'DEN 1048 3956': {
+      descriptionSource: "https://en.wikipedia.org/wiki/DEN_1048%E2%88%923956",
+      description: 'DEN 1048-3956 is a brown dwarf in the Antlia constellation. It was first detected when it emitted a powerful radio flare.',
       dis: Spacecast3D.Utils.dis(13.167), // distance: 13.167 light-years
       asc: Spacecast3D.Utils.asc(10, 48, 14.7), // right ascension: 10h 48m 14.7s
       dec: Spacecast3D.Utils.dec(39, 56, 6, true) // declination: −39° 56′ 06″
