@@ -563,6 +563,19 @@ Spacecast3D.Helper = {
     scene.add(light)
     scene.add(camera)
 
+    var starNameField = document.getElementById('spacecast3d-info-name')
+    starNameField.addEventListener("keypress", function(event) {
+      const KEYCODE_ENTER = 13;
+      if (event.keyCode !== KEYCODE_ENTER)
+        return;
+
+      var starLabel = Spacecast3D.Helper.searchForStar(starNameField.value)
+      if (starLabel != null) {
+        Spacecast3D.Helper.focusOnStar(starLabel)
+        Spacecast3D.Helper.updateInfo(Spacecast3D.State.universe.camera)
+      }
+    })
+
     var setup =   Spacecast3D.Setup
     var solarSetup = setup.solarSystem
     var state = Spacecast3D.State
@@ -638,13 +651,7 @@ Spacecast3D.Helper = {
 
   	var intersects = raycaster.intersectObjects(Spacecast3D.State.nearestStarsLabels)
   	if (intersects.length > 0) {
-      var starLabel = intersects[0].object;
-      Spacecast3D.Helper.resetCameraPositionForStar(starLabel.position)
-
-      // load star information
-      var starInfo = Spacecast3D.Setup.nearestStars[starLabel.name]
-      // show star information
-      Spacecast3D.Helper.setStarInfo(starInfo)
+      Spacecast3D.Helper.focusOnStar(intersects[0].object)
   	}
   },
 
@@ -965,6 +972,15 @@ Spacecast3D.Helper = {
   	return new THREE.Sprite(spriteMaterial)
   },
 
+  searchForStar: function(name) {
+    return Spacecast3D.State.nearestStarsLabels.find(label => label.name === name)
+  },
+
+  focusOnStar: function(starLabel) {
+    this.resetCameraPositionForStar(starLabel.position)
+    this.setStarInfo(Spacecast3D.Setup.nearestStars[starLabel.name])
+  },
+
   getTextWidth: function(text, fontSize, fontFace) {
     var canvas = document.createElement('canvas')
   	var context = canvas.getContext('2d')
@@ -1013,7 +1029,7 @@ Spacecast3D.Helper = {
   },
 
   setStarInfo: function(info) {
-    document.getElementById("spacecast3d-info-name").innerHTML = info.name
+    document.getElementById("spacecast3d-info-name").value = info.name
     document.getElementById("spacecast3d-info-description").innerHTML =
       info.description != null ? info.description : "None."
     var link = document.getElementById("spacecast3d-info-link")
