@@ -308,6 +308,8 @@ Spacecast3D.Setup = {
       dec: Spacecast3D.Utils.dec(45, 1, 6, true) // declination: −45° 01′ 06″
     },
     'Lacaille 8760': {
+      descriptionSource: "https://en.wikipedia.org/wiki/Lacaille_8760",
+      description: 'Lacaille 8760 is a red dwarf in the Microscopium constellation. The star is one of the brightest red dwarfs known, but is still only visible to the naked eye under exceptional viewing conditions.',
       dis: Spacecast3D.Utils.dis(12.870), // distance: 12.870 light-years
       asc: Spacecast3D.Utils.asc(21, 17, 15.3), // right ascension: 21h 17m 15.3s
       dec: Spacecast3D.Utils.dec(38, 52, 3, true) // declination: −38° 52′ 03″
