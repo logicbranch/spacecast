@@ -322,6 +322,8 @@ Spacecast3D.Setup = {
       dec: Spacecast3D.Utils.dec(75, 0, 24.9, true) // declination: −75° 00′ 24.9″
     },
     'Kruger 60': {
+      descriptionSource: "https://en.wikipedia.org/wiki/Kruger_60",
+      description: 'Kruger 60 is a pair of red dwarfs in the Cepheus constellation. The average distance between the two is about the same as the distance between the sun and Saturn. the stars complete one orbit every 44.6 years.',
       dis: Spacecast3D.Utils.dis(13.149), // distance: 13.149 light-years
       asc: Spacecast3D.Utils.asc(22, 27, 59.5), // right ascension: 22h 27m 59.5s
       dec: Spacecast3D.Utils.dec(57, 41, 45) // declination: +57° 41′ 45″
