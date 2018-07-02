@@ -336,6 +336,8 @@ Spacecast3D.Setup = {
       dec: Spacecast3D.Utils.dec(39, 56, 6, true) // declination: −39° 56′ 06″
     },
     'UGPS 0722-05': {
+      descriptionSource: "https://en.wikipedia.org/wiki/UGPS_J0722-0540",
+      description: 'UGPS 0722-05 is a brown dwarf in the constellation Monoceros about Jupiter\'s volume.',
       dis: Spacecast3D.Utils.dis(13.259), // distance: 13.259 light-years
       asc: Spacecast3D.Utils.asc(7, 22, 27.3), // right ascension: 07h 22m 27.3s
       dec: Spacecast3D.Utils.dec(5, 40, 30, true) // declination: –05° 40′ 30″
