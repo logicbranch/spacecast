@@ -31,7 +31,7 @@
     <div id="explorer-view-content">
       <div id="spacecast3d">
           <div id="spacecast3d-info">
-            <b>Star name</b>: <input id="spacecast3d-info-name"></input>
+            <b>Star name</b>: <input id="spacecast3d-info-name" type=text list="spacecast3d-star-list"></input>
             <br />
             <b>Distance from the sun</b>: <span id="spacecast3d-info-distance"></span>
             <br />
@@ -42,6 +42,7 @@
       </div>
       <div id="spacecast-controls"></div>
     </div>
+    <datalist id="spacecast3d-star-list"></datalist>
     <script src="/js/underscore/underscore.min.js"></script>
     <script src="/js/three/three.min.js"></script>
     <script src="/js/dat.gui/build/dat.gui.min.js"></script>
