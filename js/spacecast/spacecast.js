@@ -315,6 +315,8 @@ Spacecast3D.Setup = {
       dec: Spacecast3D.Utils.dec(38, 52, 3, true) // declination: −38° 52′ 03″
     },
     'Wise 0535-7500': {
+      descriptionSource: "https://en.wikipedia.org/wiki/WISE_0535%E2%88%927500",
+      description: 'Wise 0535-7500 is a pair of bodies in the constellation Mensa. Both are too small for any fusion to occur within them, so they are essentially free-floating planets.',
       dis: Spacecast3D.Utils.dis(13.0), // distance: 13.0 light-years
       asc: Spacecast3D.Utils.asc(5, 35, 16.8), // right ascension: 05h 35m 16.8s
       dec: Spacecast3D.Utils.dec(75, 0, 24.9, true) // declination: −75° 00′ 24.9″
