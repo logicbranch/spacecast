@@ -280,6 +280,8 @@ Spacecast3D.Setup = {
       dec: Spacecast3D.Utils.dec(16, 59, 56, true) // declination: −16° 59′ 56″
     },
     'Luytens Star': {
+      descriptionSource: "https://en.wikipedia.org/wiki/Luyten%27s_Star",
+      description: 'Luyten\'s Star is a red dwarf in the Canis Minor constellation. Orbiting it are two planets. One of these, called GJ 273b, is a rocky planet larger than Earth. GJ 273b is within the habitable zone, so it could be home to extraterrestrial life.',
       dis: Spacecast3D.Utils.dis(12.366), // distance: 12.366 light-years
       asc: Spacecast3D.Utils.asc(7, 27, 24.5), // right ascension: 07h 27m 24.5s
       dec: Spacecast3D.Utils.dec(5, 13, 33) // declination: +05° 13′ 33″
