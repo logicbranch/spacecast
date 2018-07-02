@@ -925,9 +925,11 @@ Spacecast3D.Helper = {
 
   fillStarList: function(labels) {
     var starList = document.getElementById("spacecast3d-star-list")
-    labels.forEach(function(label) {
+    var names = labels.map(label => label.name)
+    names.sort()
+    names.forEach(function(name) {
       var entry = document.createElement('option')
-      entry.setAttribute('value', label.name)
+      entry.setAttribute('value', name)
       starList.appendChild(entry)
     })
   },
