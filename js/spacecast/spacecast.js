@@ -832,6 +832,8 @@ Spacecast3D.Helper = {
       nearestStars.add(star)
       nearestStars.add(label)
       Spacecast3D.State.nearestStarsLabels.push(label)
+
+      starData.label = label
     }
     return nearestStars
   },
@@ -918,7 +920,7 @@ Spacecast3D.Helper = {
   },
 
   searchForStar: function(name) {
-    return Spacecast3D.State.nearestStarsLabels.find(l => l.name === name)
+    return Spacecast3D.Setup.nearestStars[name].label
   },
 
   fillStarList: function(labels) {
