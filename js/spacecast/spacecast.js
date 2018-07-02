@@ -518,6 +518,7 @@ Spacecast3D.Helper = {
       if (starLabel != null) {
         Spacecast3D.Helper.focusOnStar(starLabel)
         Spacecast3D.Helper.updateInfo(Spacecast3D.State.universe.camera)
+        starNameField.value = null
       }
     })
 
@@ -988,7 +989,7 @@ Spacecast3D.Helper = {
   },
 
   setStarInfo: function(name, info) {
-    document.getElementById("spacecast3d-info-name").value = name
+    document.getElementById("spacecast3d-info-name").setAttribute("placeholder", name)
     document.getElementById("spacecast3d-info-description").innerHTML =
       info.description != null ? info.description : "None."
     var link = document.getElementById("spacecast3d-info-link")
