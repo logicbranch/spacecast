@@ -287,6 +287,8 @@ Spacecast3D.Setup = {
       dec: Spacecast3D.Utils.dec(5, 13, 33) // declination: +05° 13′ 33″
     },
     'Teegardens Star': {
+      descriptionSource: "https://en.wikipedia.org/wiki/Teegarden%27s_Star",
+      description: 'Teegarden\'s Star is an invisible red dwarf in the constellation of Aries. The star is moving across the sky at about 1.4E-3 degrees per year, which is extraordinarily fast.',
       dis: Spacecast3D.Utils.dis(12.514), // distance: 12.514 light-years
       asc: Spacecast3D.Utils.asc(2, 53, .9), // right ascension: 02h 53m 00.9s
       dec: Spacecast3D.Utils.dec(16, 52, 53) // declination: +16° 52′ 53″
