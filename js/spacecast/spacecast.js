@@ -301,6 +301,8 @@ Spacecast3D.Setup = {
       dec: Spacecast3D.Utils.dec(63, 57, 48, true) // declination: −63° 57′ 48″
     },
     'Kapteyns Star': {
+      descriptionSource: "https://en.wikipedia.org/wiki/Kapteyn%27s_Star",
+      description: 'Kapteyn\'s Star is a red subdwarf in the constellation Pictor. It harbors two planets. One of them, Kapteyn b, is potentially habitable. This would make the planet the oldest habitable planet known, with an age of about 11 billion years. Kapteyn\'s Star is visible through binoculars.',
       dis: Spacecast3D.Utils.dis(12.777), // distance: 12.777 light-years
       asc: Spacecast3D.Utils.asc(5, 11, 40.6), // right ascension: 05h 11m 40.6s
       dec: Spacecast3D.Utils.dec(45, 1, 6, true) // declination: −45° 01′ 06″
