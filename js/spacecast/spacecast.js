@@ -294,6 +294,8 @@ Spacecast3D.Setup = {
       dec: Spacecast3D.Utils.dec(16, 52, 53) // declination: +16° 52′ 53″
     },
     'SCR 1845-6357': {
+      descriptionSource: "https://en.wikipedia.org/wiki/SCR_1845-6357",
+      description: 'SCR 1845-6357 is a binary system of the Pavo constellation. One star is a red dwarf. The other is a sub-stellar brown dwarf 40-50 times the mass of Jupiter. Being about 50 times fainter than its companion, the brown dwarf was discovered years later.',
       dis: Spacecast3D.Utils.dis(12.571), // distance: 12.571 light-years
       asc: Spacecast3D.Utils.asc(18, 45, 5.3), // right ascension: 18h 45m 05.3s
       dec: Spacecast3D.Utils.dec(63, 57, 48, true) // declination: −63° 57′ 48″
