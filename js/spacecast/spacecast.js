@@ -667,9 +667,9 @@ Spacecast3D.Helper = {
   			contextResult.putImageData(dataResult,0,0)
   			material.map.needsUpdate = true
   		})
-  		imageTrans.src	= '/images/earthcloudmaptrans.jpg'
+  		imageTrans.src	= './images/earthcloudmaptrans.jpg'
   	}, false)
-  	imageMap.src	= '/images/earthcloudmap.jpg'
+  	imageMap.src	= './images/earthcloudmap.jpg'
 
   	var geometry	= new THREE.SphereGeometry(radius, 128, 128)
   	var material	= new THREE.MeshPhongMaterial({
@@ -683,12 +683,12 @@ Spacecast3D.Helper = {
   },
 
   createSun: function(radius) {
-    var sunMaterial	= new THREE.MeshPhongMaterial({map: new THREE.TextureLoader().load('/images/sunmap.jpg'),})
+    var sunMaterial	= new THREE.MeshPhongMaterial({map: new THREE.TextureLoader().load('./images/sunmap.jpg'),})
     var sun = this.createSphere(radius, sunMaterial)
     sun.name = 'star'
 
     var sunSprite = new THREE.Sprite(new THREE.SpriteMaterial({
-      map: new THREE.TextureLoader().load('/images/sunsprite.png'),
+      map: new THREE.TextureLoader().load('./images/sunsprite.png'),
       blending: THREE.AdditiveBlending,
       color: 0xffffff,
     }))
@@ -716,8 +716,8 @@ Spacecast3D.Helper = {
 
   createMercury: function(radius, orbitRadius) {
     var mercuryMaterial	= new THREE.MeshPhongMaterial({
-  		map	: new THREE.TextureLoader().load('/images/mercurymap.jpg'),
-  		bumpMap	: new THREE.TextureLoader().load('/images/mercurybump.jpg'),
+  		map	: new THREE.TextureLoader().load('./images/mercurymap.jpg'),
+  		bumpMap	: new THREE.TextureLoader().load('./images/mercurybump.jpg'),
   		bumpScale	: 0.1,
   	})
     return this.createPlanet(mercuryMaterial, radius, orbitRadius)
@@ -725,8 +725,8 @@ Spacecast3D.Helper = {
 
   createVenus: function(radius, orbitRadius) {
     var venusMaterial	= new THREE.MeshPhongMaterial({
-  		map	: new THREE.TextureLoader().load('/images/venusmap.jpg'),
-  		bumpMap	: new THREE.TextureLoader().load('/images/venusbump.jpg'),
+  		map	: new THREE.TextureLoader().load('./images/venusmap.jpg'),
+  		bumpMap	: new THREE.TextureLoader().load('./images/venusbump.jpg'),
   		bumpScale	: 0.1,
   	})
     return this.createPlanet(venusMaterial, radius, orbitRadius)
@@ -734,8 +734,8 @@ Spacecast3D.Helper = {
 
   createEarth: function(radius, orbitRadius) {
     var earthMaterial	= new THREE.MeshPhongMaterial({
-  		map	: new THREE.TextureLoader().load('/images/earthmap.jpg'),
-  		bumpMap	: new THREE.TextureLoader().load('/images/earthbump.jpg'),
+  		map	: new THREE.TextureLoader().load('./images/earthmap.jpg'),
+  		bumpMap	: new THREE.TextureLoader().load('./images/earthbump.jpg'),
   		bumpScale	: 0.1,
   	})
     var atmosphereMaterial	= Spacecast3D.Atmosphere.createMaterial(0x00b3ff)
@@ -764,8 +764,8 @@ Spacecast3D.Helper = {
 
   createMars: function(radius, orbitRadius) {
     var marsMaterial	= new THREE.MeshPhongMaterial({
-  		map	: new THREE.TextureLoader().load('/images/marsmap.jpg'),
-  		bumpMap	: new THREE.TextureLoader().load('/images/marsbump.jpg'),
+  		map	: new THREE.TextureLoader().load('./images/marsmap.jpg'),
+  		bumpMap	: new THREE.TextureLoader().load('./images/marsbump.jpg'),
   		bumpScale	: 0.1,
   	})
     return this.createPlanet(marsMaterial, radius, orbitRadius)
@@ -773,28 +773,28 @@ Spacecast3D.Helper = {
 
   createJupiter: function(radius, orbitRadius) {
     var jupiterMaterial	= new THREE.MeshPhongMaterial({
-  		map	: new THREE.TextureLoader().load('/images/jupitermap.jpg'),
+  		map	: new THREE.TextureLoader().load('./images/jupitermap.jpg'),
   	})
     return this.createPlanet(jupiterMaterial, radius, orbitRadius)
   },
 
   createSaturn: function(radius, orbitRadius) {
     var saturnMaterial	= new THREE.MeshPhongMaterial({
-  		map	: new THREE.TextureLoader().load('/images/saturnmap.jpg'),
+  		map	: new THREE.TextureLoader().load('./images/saturnmap.jpg'),
   	})
     return this.createPlanet(saturnMaterial, radius, orbitRadius)
   },
 
   createUranus: function(radius, orbitRadius) {
     var uranusMaterial	= new THREE.MeshPhongMaterial({
-  		map	: new THREE.TextureLoader().load('/images/uranusmap.jpg'),
+  		map	: new THREE.TextureLoader().load('./images/uranusmap.jpg'),
   	})
     return this.createPlanet(uranusMaterial, radius, orbitRadius)
   },
 
   createNeptune: function(radius, orbitRadius) {
     var neptuneMaterial	= new THREE.MeshPhongMaterial({
-  		map	: new THREE.TextureLoader().load('/images/neptunemap.jpg'),
+  		map	: new THREE.TextureLoader().load('./images/neptunemap.jpg'),
   	})
     return this.createPlanet(neptuneMaterial, radius, orbitRadius)
   },
@@ -815,7 +815,7 @@ Spacecast3D.Helper = {
 
   createMilkyWay: function(radius) {
   	var material	= new THREE.MeshBasicMaterial({
-  		map	: new THREE.TextureLoader().load('/images/galaxy.jpg'),
+  		map	: new THREE.TextureLoader().load('./images/galaxy.jpg'),
   		side	: THREE.BackSide
   	})
   	var geometry	= new THREE.SphereGeometry(radius, 32, 32)
@@ -824,7 +824,7 @@ Spacecast3D.Helper = {
 
   createStar: function(position) {
     var star = new THREE.Sprite(new THREE.SpriteMaterial({
-      map: new THREE.TextureLoader().load('/images/starsprite.png'),
+      map: new THREE.TextureLoader().load('./images/starsprite.png'),
       blending: THREE.AdditiveBlending,
       color: 0xffffff,
     }))
