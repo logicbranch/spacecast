@@ -399,6 +399,8 @@ Spacecast3D.Setup = {
       dec: Spacecast3D.Utils.dec(68, 20, 21) // declination: +68° 20′ 21″
     },
     'LHS 292': {
+      descriptionSource: "https://en.wikipedia.org/wiki/LHS_292",
+      description: 'LHS 292 resides in the Sextans constellation. Being a faint red dwarf, it can only be seen through a large telescope.',
       dis: Spacecast3D.Utils.dis(14.805), // distance: 14.805 light-years
       asc: Spacecast3D.Utils.asc(10, 48, 12.6), // right ascension: 10h 48m 12.6s
       dec: Spacecast3D.Utils.dec(11, 20, 14, true) // declination: −11° 20′ 14″
