@@ -442,6 +442,8 @@ Spacecast3D.Setup = {
       dec: Spacecast3D.Utils.dec(14, 15, 49, true) // declination: −14° 15′ 49″
     },
     'LHS 288': {
+      descriptionSource: "https://en.wikipedia.org/wiki/LHS_288",
+      description: 'LHS 288 is normally invisible red dwarf in the constellation Carina. It might have a gaseous planet orbiting it, but this is not confirmed.',
       dis: Spacecast3D.Utils.dis(15.610), // distance: 15.610 light-years
       asc: Spacecast3D.Utils.asc(10, 44, 21.2), // right ascension: 10h 44m 21.2s
       dec: Spacecast3D.Utils.dec(61, 12, 36, true) // declination: −61° 12′ 36″
