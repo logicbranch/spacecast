@@ -491,6 +491,8 @@ Spacecast3D.Setup = {
       dec: Spacecast3D.Utils.dec(47, 0, 52, true) // declination: −47° 00′ 52″
     },
     'GJ 1005': {
+      descriptionSource: "https://en.wikipedia.org/wiki/GJ_1005",
+      description: 'GJ 1005 is a binary system of two faint red dwarfs in the Cetus constellation.',
       dis: Spacecast3D.Utils.dis(16.265), // distance: 16.265 light-years
       asc: Spacecast3D.Utils.asc(0, 15, 28.11), // right ascension: 00h 15m 28.11s
       dec: Spacecast3D.Utils.dec(16, 8, 1.6, true) // declination: −16° 08′ 01.6″
