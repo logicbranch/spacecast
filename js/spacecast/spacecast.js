@@ -350,6 +350,8 @@ Spacecast3D.Setup = {
       dec: Spacecast3D.Utils.dec(2, 48, 50, true) // declination: −02° 48′ 50″
     },
     'Wolf 1061': {
+      descriptionSource: "https://en.wikipedia.org/wiki/Wolf_1061",
+      description: 'Wolf 1061 is a red dwarf of the constellation Ophiuchus. It harbors three planets, two of which might be home to life.',
       dis: Spacecast3D.Utils.dis(13.820), // distance: 13.820 light-years
       asc: Spacecast3D.Utils.asc(16, 30, 18.1), // right ascension: 16h 30m 18.1s
       dec: Spacecast3D.Utils.dec(12, 39, 45, true) // declination: −12° 39′ 45″
