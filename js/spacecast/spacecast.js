@@ -343,6 +343,8 @@ Spacecast3D.Setup = {
       dec: Spacecast3D.Utils.dec(5, 40, 30, true) // declination: –05° 40′ 30″
     },
     'Ross 614': {
+      descriptionSource: "https://en.wikipedia.org/wiki/Ross_614",
+      description: 'Ross 614 is a binary red dwarf system in the constellation Monoceros. The system is too dim to be seen without the aid of a telescope.',
       dis: Spacecast3D.Utils.dis(13.349), // distance: 13.349 light-years
       asc: Spacecast3D.Utils.asc(6, 29, 23.4), // right ascension: 06h 29m 23.4s
       dec: Spacecast3D.Utils.dec(2, 48, 50, true) // declination: −02° 48′ 50″
