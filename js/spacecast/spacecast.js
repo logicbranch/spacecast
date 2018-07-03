@@ -378,6 +378,8 @@ Spacecast3D.Setup = {
       dec: Spacecast3D.Utils.dec(9, 1, 15) // declination: +09° 01′ 15″
     },
     '2MASS J154043': {
+      descriptionSource: "https://en.wikipedia.org/wiki/2MASS_J154043.42-510135.7",
+      description: '2MASS J154043 is a dim red dwarf in the Norma constellation.',
       dis: Spacecast3D.Utils.dis(14.4), // distance: 14.4 light-years
       asc: Spacecast3D.Utils.asc(15, 40, 43.42), // right ascension: 15h 40m 43.42s
       dec: Spacecast3D.Utils.dec(51, 1, 35.7, true) // declination: −51° 01′ 35.7″
