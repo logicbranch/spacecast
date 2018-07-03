@@ -392,6 +392,8 @@ Spacecast3D.Setup = {
       dec: Spacecast3D.Utils.dec(13, 3, 8) // declination: +13° 03′ 08″
     },
     'Gliese 687': {
+      descriptionSource: "https://en.wikipedia.org/wiki/Gliese_687",
+      description: 'Gliese 687 is a red dwarf in the constellation of Draco. A moderately sized telescope is required to spot it. Gliese 687 is orbited by a planet about the mass of Neptune.',
       dis: Spacecast3D.Utils.dis(14.793), // distance: 14.793 light-years
       asc: Spacecast3D.Utils.asc(17, 36, 25.9), // right ascension: 17h 36m 25.9s
       dec: Spacecast3D.Utils.dec(68, 20, 21) // declination: +68° 20′ 21″
