@@ -420,11 +420,15 @@ Spacecast3D.Setup = {
       dec: Spacecast3D.Utils.dec(44, 24, 55) // declination: +44° 24′ 55″
     },
     'LP 145-141': {
+      descriptionSource: "https://en.wikipedia.org/wiki/LP_145-141",
+      description: 'LP 145-141 is a white dwarf in the Musca constellation. It is thought to follow a highly eccentric orbit around the galaxy.',
       dis: Spacecast3D.Utils.dis(15.060), // distance: 15.060 light-years
       asc: Spacecast3D.Utils.asc(11, 45, 42.9), // right ascension: 11h 45m 42.9s
       dec: Spacecast3D.Utils.dec(64, 50, 29, true) // declination: −64° 50′ 29″
     },
     'GJ 1002': {
+      descriptionSource: "https://en.wikipedia.org/wiki/Gliese_1002",
+      description: 'GJ 1002 is a red dwarf in the Cetus constellation. Unlike many red dwarfs, it does not emit any flares.',
       dis: Spacecast3D.Utils.dis(15.313), // distance: 15.313 light-years
       asc: Spacecast3D.Utils.asc(0, 6, 43.8), // right ascension: 00h 06m 43.8s
       dec: Spacecast3D.Utils.dec(7, 32, 22, true) // declination: −07° 32′ 22″
