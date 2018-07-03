@@ -357,6 +357,8 @@ Spacecast3D.Setup = {
       dec: Spacecast3D.Utils.dec(12, 39, 45, true) // declination: −12° 39′ 45″
     },
     'Van Maanens Star': {
+      descriptionSource: "https://en.wikipedia.org/wiki/Van_Maanen_2",
+      description: 'van Maanen\'s Star resides in the constellation Pisces. It is a dense white dwarf, a remnant left over by a much larger star. It is the closest known white dwarf lacking a companion star.',
       dis: Spacecast3D.Utils.dis(14.066), // distance: 14.066 light-years
       asc: Spacecast3D.Utils.asc(0, 49, 9.9), // right ascension: 00h 49m 09.9s
       dec: Spacecast3D.Utils.dec(5, 23, 19) // declination: +05° 23′ 19″
