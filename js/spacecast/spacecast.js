@@ -484,6 +484,8 @@ Spacecast3D.Setup = {
       dec: Spacecast3D.Utils.dec(49, 0, 32, true) // declination: −49° 00′ 32″
     },
     'DEN 0255-4700': {
+      descriptionSource: "https://en.wikipedia.org/wiki/DEN_0255-4700",
+      description: 'DEN 0255-4700 is a brown dwarf in the constellation of Eridanus. It is the faintest of any known brown dwarf.',
       dis: Spacecast3D.Utils.dis(16.197), // distance: 16.197 light-years
       asc: Spacecast3D.Utils.asc(2, 55, 3.7), // right ascension: 02h 55m 03.7s
       dec: Spacecast3D.Utils.dec(47, 0, 52, true) // declination: −47° 00′ 52″
