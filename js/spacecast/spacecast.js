@@ -385,6 +385,8 @@ Spacecast3D.Setup = {
       dec: Spacecast3D.Utils.dec(51, 1, 35.7, true) // declination: −51° 01′ 35.7″
     },
     'L 1159-16': {
+      descriptionSource: "https://en.wikipedia.org/wiki/L_1159-16",
+      description: 'L 1159-16 is a red dwarf in the Aries constellation. It is too faint to be visible without a telescope.',
       dis: Spacecast3D.Utils.dis(14.509), // distance: 14.509 light-years
       asc: Spacecast3D.Utils.asc(2, 0, 13.2), // right ascension: 02h 00m 13.2s
       dec: Spacecast3D.Utils.dec(13, 3, 8) // declination: +13° 03′ 08″
