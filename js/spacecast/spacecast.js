@@ -279,14 +279,14 @@ Spacecast3D.Setup = {
       asc: Spacecast3D.Utils.asc(1, 12, 30.6), // right ascension: 01h 12m 30.6s
       dec: Spacecast3D.Utils.dec(16, 59, 56, true) // declination: −16° 59′ 56″
     },
-    "Luytens Star": {
+    "Luyten's Star": {
       descriptionSource: "https://en.wikipedia.org/wiki/Luyten%27s_Star",
       description: "Luyten's Star is a red dwarf in the Canis Minor constellation. Orbiting it are two planets. One of these, called GJ 273b, is a rocky planet larger than Earth. GJ 273b is within the habitable zone, so it could be home to extraterrestrial life.",
       dis: Spacecast3D.Utils.dis(12.366), // distance: 12.366 light-years
       asc: Spacecast3D.Utils.asc(7, 27, 24.5), // right ascension: 07h 27m 24.5s
       dec: Spacecast3D.Utils.dec(5, 13, 33) // declination: +05° 13′ 33″
     },
-    "Teegardens Star": {
+    "Teegarden's Star": {
       descriptionSource: "https://en.wikipedia.org/wiki/Teegarden%27s_Star",
       description: "Teegarden's Star is an invisible red dwarf in the constellation of Aries. The star is moving across the sky at about 1.4E-3 degrees per year, which is extraordinarily fast.",
       dis: Spacecast3D.Utils.dis(12.514), // distance: 12.514 light-years
@@ -300,7 +300,7 @@ Spacecast3D.Setup = {
       asc: Spacecast3D.Utils.asc(18, 45, 5.3), // right ascension: 18h 45m 05.3s
       dec: Spacecast3D.Utils.dec(63, 57, 48, true) // declination: −63° 57′ 48″
     },
-    "Kapteyns Star": {
+    "Kapteyn's Star": {
       descriptionSource: "https://en.wikipedia.org/wiki/Kapteyn%27s_Star",
       description: "Kapteyn's Star is a red subdwarf in the constellation Pictor. It harbors two planets. One of them, Kapteyn b, is potentially habitable. This would make the planet the oldest habitable planet known, with an age of about 11 billion years. Kapteyn's Star is visible through binoculars.",
       dis: Spacecast3D.Utils.dis(12.777), // distance: 12.777 light-years
@@ -356,7 +356,7 @@ Spacecast3D.Setup = {
       asc: Spacecast3D.Utils.asc(16, 30, 18.1), // right ascension: 16h 30m 18.1s
       dec: Spacecast3D.Utils.dec(12, 39, 45, true) // declination: −12° 39′ 45″
     },
-    "Van Maanens Star": {
+    "Van Maanen's Star": {
       descriptionSource: "https://en.wikipedia.org/wiki/Van_Maanen_2",
       description: "van Maanen's Star resides in the constellation Pisces. It is a dense white dwarf, a remnant left over by a much larger star. It is the closest known white dwarf lacking a companion star.",
       dis: Spacecast3D.Utils.dis(14.066), // distance: 14.066 light-years
