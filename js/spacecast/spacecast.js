@@ -406,6 +406,8 @@ Spacecast3D.Setup = {
       dec: Spacecast3D.Utils.dec(11, 20, 14, true) // declination: −11° 20′ 14″
     },
     'Gliese 674': {
+      descriptionSource: "https://en.wikipedia.org/wiki/Gliese_674",
+      description: 'Gliese 674 is a red dwarf in the constellation Ara. A planet about twelve times the mass of Earth orbits the star.',
       dis: Spacecast3D.Utils.dis(14.809), // distance: 14.809 light-years
       asc: Spacecast3D.Utils.asc(17, 28, 39.9), // right ascension: 17h 28m 39.9s
       dec: Spacecast3D.Utils.dec(46, 53, 43, true) // declination: −46° 53′ 43″
