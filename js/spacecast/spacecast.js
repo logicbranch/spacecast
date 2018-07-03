@@ -470,6 +470,8 @@ Spacecast3D.Setup = {
       dec: Spacecast3D.Utils.dec(19, 52, 10) // declination: +19° 52′ 10″
     },
     'Denis J081730': {
+      descriptionSource: "https://en.wikipedia.org/wiki/DENIS_J081730.0-615520",
+      description: 'Denis J081730 is a sub-stellar brown dwarf in the Carina constellation. It has a mass fifteen times that of Jupiter.',
       dis: Spacecast3D.Utils.dis(16.067), // distance: 16.067 light-years
       asc: Spacecast3D.Utils.asc(8, 17, 30.1), // right ascension: 08h 17m 30.1s
       dec: Spacecast3D.Utils.dec(61, 55, 16, true) // declination: −61° 55′ 16″
