@@ -434,6 +434,9 @@ Spacecast3D.Setup = {
       dec: Spacecast3D.Utils.dec(7, 32, 22, true) // declination: −07° 32′ 22″
     },
     'Gliese 876': {
+      descriptionSource: "https://en.wikipedia.org/wiki/Gliese_876#Planetary_system",
+      // TODO: Talk about inclination of planets?
+      description: 'Gliese 876 is a red dwarf in the Aquarius constellation. It is orbited by four planets. The middle two of these are in the habitable zone of the star, although they are both gas giants. Three of the planets are also in a 1:2:4 resonance. They are the only known example of this phenomenon other than Jupiter\'s inner three Galilean moons.',
       dis: Spacecast3D.Utils.dis(15.342), // distance: 15.342 light-years
       asc: Spacecast3D.Utils.asc(22, 53, 16.7), // right ascension: 22h 53m 16.7s
       dec: Spacecast3D.Utils.dec(14, 15, 49, true) // declination: −14° 15′ 49″
