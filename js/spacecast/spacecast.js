@@ -477,6 +477,8 @@ Spacecast3D.Setup = {
       dec: Spacecast3D.Utils.dec(61, 55, 16, true) // declination: −61° 55′ 16″
     },
     'Gliese 832': {
+      descriptionSource: "https://en.wikipedia.org/wiki/Gliese_832",
+      description: 'Gliese 832 is a normally invisible red dwarf in the Grus constellation. It is home to two planets. One of these is a gas giant, while the other is rocky and potentially habitable.',
       dis: Spacecast3D.Utils.dis(16.085), // distance: 16.085 light-years
       asc: Spacecast3D.Utils.asc(21, 33, 34), // right ascension: 21h 33m 34.0s
       dec: Spacecast3D.Utils.dec(49, 0, 32, true) // declination: −49° 00′ 32″
