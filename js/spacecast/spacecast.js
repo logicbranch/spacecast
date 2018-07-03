@@ -364,6 +364,8 @@ Spacecast3D.Setup = {
       dec: Spacecast3D.Utils.dec(5, 23, 19) // declination: +05° 23′ 19″
     },
     'Gliese 1': {
+      descriptionSource: "https://en.wikipedia.org/wiki/Gliese_1",
+      description: 'Gliese 1 is a red dwarf in the constellation of Sculptor. Its faintness makes it impossible to see with the unaided eye.',
       dis: Spacecast3D.Utils.dis(14.231), // distance: 14.231 light-years
       asc: Spacecast3D.Utils.asc(0, 5, 24.4), // right ascension: 00h 05m 24.4s
       dec: Spacecast3D.Utils.dec(37, 21, 27, true) // declination: −37° 21′ 27″
