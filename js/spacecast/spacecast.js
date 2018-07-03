@@ -456,6 +456,8 @@ Spacecast3D.Setup = {
       dec: Spacecast3D.Utils.dec(43, 31, 36) // declination: +43° 31′ 36″
     },
     'Groombridge 1618': {
+      descriptionSource: "https://en.wikipedia.org/wiki/Groombridge_1618",
+      description: 'Groombridge 1618 is a star in the constellation Ursa Major. It is theorized that it has a planetary companion at least four times the mass of Jupiter. If this companion exists, then it is in the habitable zone.',
       dis: Spacecast3D.Utils.dis(15.848), // distance: 15.848 light-years
       asc: Spacecast3D.Utils.asc(10, 11, 22.1), // right ascension: 10h 11m 22.1s
       dec: Spacecast3D.Utils.dec(49, 27, 15) // declination: +49° 27′ 15″
