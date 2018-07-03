@@ -412,7 +412,7 @@ Spacecast3D.Setup = {
       asc: Spacecast3D.Utils.asc(17, 28, 39.9), // right ascension: 17h 28m 39.9s
       dec: Spacecast3D.Utils.dec(46, 53, 43, true) // declination: −46° 53′ 43″
     },
-    'G 208-44': {
+    'GJ 1245': {
       descriptionSource: "https://en.wikipedia.org/wiki/GJ_1245",
       description: 'GJ 1245 is a system in the Cygnus constellation. It is made of three red dwarfs. Two orbit each other and this binary system orbits another red dwarf.',
       dis: Spacecast3D.Utils.dis(14.812), // distance: 14.812 light-years
