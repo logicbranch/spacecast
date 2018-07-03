@@ -371,6 +371,8 @@ Spacecast3D.Setup = {
       dec: Spacecast3D.Utils.dec(37, 21, 27, true) // declination: −37° 21′ 27″
     },
     'Wolf 424': {
+      descriptionSource: "https://en.wikipedia.org/wiki/Wolf_424",
+      description: 'Wolf 424 is a binary red dwarf system in the Virgo constellation. The stars are two of the dimmest known nearby stars in the sky.',
       dis: Spacecast3D.Utils.dis(14.312), // distance: 14.312 light-years
       asc: Spacecast3D.Utils.asc(12, 33, 17.2), // right ascension: 12h 33m 17.2s
       dec: Spacecast3D.Utils.dec(9, 1, 15) // declination: +09° 01′ 15″
