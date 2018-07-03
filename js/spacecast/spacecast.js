@@ -449,6 +449,8 @@ Spacecast3D.Setup = {
       dec: Spacecast3D.Utils.dec(61, 12, 36, true) // declination: −61° 12′ 36″
     },
     'Gliese 412': {
+      descriptionSource: "https://en.wikipedia.org/wiki/Gliese_412",
+      description: 'Gliese 412 is a dim red dwarf duo thought to form a binary system. The two are part of the constellation Ursa Major.',
       dis: Spacecast3D.Utils.dis(15.832), // distance: 15.832 light-years
       asc: Spacecast3D.Utils.asc(11, 5, 28.6), // right ascension: 11h 05m 28.6s
       dec: Spacecast3D.Utils.dec(43, 31, 36) // declination: +43° 31′ 36″
