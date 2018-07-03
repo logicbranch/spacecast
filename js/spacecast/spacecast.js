@@ -463,6 +463,8 @@ Spacecast3D.Setup = {
       dec: Spacecast3D.Utils.dec(49, 27, 15) // declination: +49° 27′ 15″
     },
     'AD Leonis': {
+      descriptionSource: "https://en.wikipedia.org/wiki/AD_Leonis",
+      description: 'AD Leonis is a red dwarf in the constellation Leo. While red dwarfs can be much older than the sun, AD Leonis is thought to be relatively young, at only 25–300 million years of age.',
       dis: Spacecast3D.Utils.dis(15.942), // distance: 15.942 light-years
       asc: Spacecast3D.Utils.asc(10, 19, 36.4), // right ascension: 10h 19m 36.4s
       dec: Spacecast3D.Utils.dec(19, 52, 10) // declination: +19° 52′ 10″
