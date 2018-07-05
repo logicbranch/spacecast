@@ -579,7 +579,7 @@ Spacecast3D.Helper = {
         return;
 
       var starLabel = Spacecast3D.Helper.searchForStar(starNameField.value)
-      if (starLabel != null) {
+      if (starLabel !== undefined) {
         Spacecast3D.Helper.focusOnStar(starLabel)
         Spacecast3D.Helper.updateInfo(Spacecast3D.State.universe.camera)
         starNameField.value = null
