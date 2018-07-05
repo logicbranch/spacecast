@@ -109,6 +109,7 @@ Spacecast3D.Setup = {
     baseColor: 'rgba(255,255,0,1)',
     activeColor: 'rgba(0,255,255,1)',
   },
+  beamMaterial: new THREE.MeshBasicMaterial({color: 'green', side: THREE.DoubleSide}),
   // see: https://en.wikipedia.org/wiki/List_of_nearest_stars_and_brown_dwarfs
   nearestStars: {
     "Alpha Centauri": {
@@ -813,30 +814,27 @@ Spacecast3D.Helper = {
   },
 
   createBeam(distance, declination, rightAcension) {
-    var earthOrbitRadius = Spacecast3D.Setup.solarSystem.earth.orbitRadius
-    var origin = new THREE.Vector3(0, 0, earthOrbitRadius)
-    var end = new THREE.Vector3()
-    end.setFromSpherical(new THREE.Spherical(distance, declination, rightAcension))
+    var beam = this.createBeamMesh(distance, 30 / 180 * Math.PI, 128)
+    var decAxis = new THREE.Vector3().setFromCylindrical(new THREE.Cylindrical(1, rightAcension + Math.PI / 2, 0))
+    beam.rotateOnAxis(decAxis, declination)
+    beam.rotateY(rightAcension)
+    beam.position.set(0, 0, Spacecast3D.Setup.solarSystem.earth.orbitRadius)
+    return beam;
+  },
 
-    // define the geometry of the line segment
-    var geometry = new THREE.Geometry()
-    geometry.vertices.push(origin, end)
-
-    // define the material of the line segment
-    var material = new THREE.LineBasicMaterial({color: 'green'})
-
-    // create the vertical line segment
-    var segment = new THREE.LineSegments(geometry, material)
-
-    return segment;
-
-
-    // Cone example
-    
-    // var geometry = new THREE.ConeGeometry( 5000000, Spacecast3D.SPACECAST3D_LY, 128 );
-    // var material = new THREE.MeshBasicMaterial( {color: 'green', side: THREE.DoubleSide} );
-    // var cone = new THREE.Mesh( geometry, material );
-    // return cone;
+  createBeamMesh(length, angle, radialSegments) {
+    var capGeom = new THREE.SphereGeometry(length, radialSegments, 128, 0, Math.PI * 2, 0, angle)
+    var cap = new THREE.Mesh(capGeom, Spacecast3D.Setup.beamMaterial)
+    var coneRadius = Math.sin(angle) * length
+    var coneLength = Math.cos(angle) * length
+    var coneGeom = new THREE.ConeGeometry(coneRadius, coneLength, radialSegments, 1, true)
+    var cone = new THREE.Mesh(coneGeom, Spacecast3D.Setup.beamMaterial)
+    cone.rotation.x += Math.PI
+    cone.position.y += coneLength / 2
+    var beam = new THREE.Group()
+    beam.add(cap)
+    beam.add(cone)
+    return beam;
   },
 
   createMars: function(radius, orbitRadius) {
