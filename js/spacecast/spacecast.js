@@ -801,10 +801,42 @@ Spacecast3D.Helper = {
     var orbit = this.circleLine(orbitRadius, 0xffffff)
     orbit.name = 'orbit'
 
+    var lalandeStar = Spacecast3D.Setup.nearestStars['Lalande 21185'];
+    var beam = this.createBeam(lalandeStar.dis, lalandeStar.dec, lalandeStar.asc)
+    beam.name = 'beam'
+
     var group = new THREE.Group()
     group.add(planetEarth)
     group.add(orbit)
+    group.add(beam)
     return group
+  },
+
+  createBeam(distance, declination, rightAcension) {
+    var earthOrbitRadius = Spacecast3D.Setup.solarSystem.earth.orbitRadius
+    var origin = new THREE.Vector3(0, 0, earthOrbitRadius)
+    var end = new THREE.Vector3()
+    end.setFromSpherical(new THREE.Spherical(distance, declination, rightAcension))
+
+    // define the geometry of the line segment
+    var geometry = new THREE.Geometry()
+    geometry.vertices.push(origin, end)
+
+    // define the material of the line segment
+    var material = new THREE.LineBasicMaterial({color: 'green'})
+
+    // create the vertical line segment
+    var segment = new THREE.LineSegments(geometry, material)
+
+    return segment;
+
+
+    // Cone example
+    
+    // var geometry = new THREE.ConeGeometry( 5000000, Spacecast3D.SPACECAST3D_LY, 128 );
+    // var material = new THREE.MeshBasicMaterial( {color: 'green', side: THREE.DoubleSide} );
+    // var cone = new THREE.Mesh( geometry, material );
+    // return cone;
   },
 
   createMars: function(radius, orbitRadius) {
