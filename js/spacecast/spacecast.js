@@ -109,6 +109,7 @@ Spacecast3D.Setup = {
     baseColor: 'rgba(255,255,0,1)',
     activeColor: 'rgba(0,255,255,1)',
   },
+  beamAngle: 30 * (Math.PI/180),
   beamMaterial: new THREE.MeshBasicMaterial({
     color: 'green',
     opacity: 0.2,
@@ -819,7 +820,7 @@ Spacecast3D.Helper = {
   },
 
   createBeam(distance, declination, rightAcension) {
-    var beam = this.createBeamMesh(distance, 30 / 180 * Math.PI, 128)
+    var beam = this.createBeamMesh(distance, Spacecast3D.Setup.beamAngle, 128)
     var decAxis = new THREE.Vector3().setFromCylindrical(new THREE.Cylindrical(1, rightAcension + Math.PI / 2, 0))
     beam.rotateOnAxis(decAxis, declination)
     beam.rotateY(rightAcension)
