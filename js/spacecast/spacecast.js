@@ -1014,7 +1014,9 @@ Spacecast3D.Helper = {
   },
 
   searchForStar: function(name) {
-    return Spacecast3D.Setup.nearestStars[name].label
+    var star = Spacecast3D.Setup.nearestStars[name]
+    if (star !== undefined)
+      return star.label
   },
 
   fillStarList: function(labels) {
