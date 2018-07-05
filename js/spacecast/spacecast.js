@@ -109,7 +109,11 @@ Spacecast3D.Setup = {
     baseColor: 'rgba(255,255,0,1)',
     activeColor: 'rgba(0,255,255,1)',
   },
-  beamMaterial: new THREE.MeshBasicMaterial({color: 'green', side: THREE.DoubleSide}),
+  beamMaterial: new THREE.MeshBasicMaterial({
+    color: 'green',
+    side: THREE.DoubleSide,
+    transparent: true,
+  }),
   // see: https://en.wikipedia.org/wiki/List_of_nearest_stars_and_brown_dwarfs
   nearestStars: {
     "Alpha Centauri": {
