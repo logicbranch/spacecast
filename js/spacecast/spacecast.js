@@ -111,6 +111,7 @@ Spacecast3D.Setup = {
   },
   beamMaterial: new THREE.MeshBasicMaterial({
     color: 'green',
+    opacity: 0.2,
     side: THREE.DoubleSide,
     transparent: true,
   }),
