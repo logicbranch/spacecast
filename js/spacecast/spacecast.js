@@ -13,13 +13,18 @@ Spacecast3D.Utils = {
     return n * Spacecast3D.SPACECAST3D_LY
   },
 
+  // Convert degrees to radians
+  radians: function(d) {
+    return d * (Math.PI/180)
+  },
+
   // calculate ascention in radians
   asc: function(h, m, s) {
     var hDeg = h * 360 / 24
     var mDeg = m * 30 / 60
     var sDeg = s * .5 / 60
     var degrees = hDeg + mDeg + sDeg
-    return degrees * (Math.PI/180) // convert degrees to radians
+    return this.radians(degrees)
   },
 
   // calculate declination in radians
@@ -30,7 +35,7 @@ Spacecast3D.Utils = {
     } else {
       degrees = 90 - degrees
     }
-    return degrees * (Math.PI/180) // convert degrees to radians
+    return this.radians(degrees) // convert degrees to radians
   },
 
   // find next closest power of 2 of a number
@@ -109,7 +114,7 @@ Spacecast3D.Setup = {
     baseColor: 'rgba(255,255,0,1)',
     activeColor: 'rgba(0,255,255,1)',
   },
-  beamAngle: 30 * (Math.PI/180),
+  beamAngle: Spacecast3D.Utils.radians(30),
   beamMaterial: new THREE.MeshBasicMaterial({
     color: 'green',
     opacity: 0.2,
