@@ -115,7 +115,13 @@ Spacecast3D.Setup = {
     activeColor: 'rgba(0,255,255,1)',
   },
   beamAngle: Spacecast3D.Utils.radians(30),
-  beamMaterial: new THREE.MeshBasicMaterial({
+  beamCapMaterial: new THREE.MeshBasicMaterial({
+    color: 'green',
+    opacity: 0.24,
+    side: THREE.DoubleSide,
+    transparent: true,
+  }),
+  beamConeMaterial: new THREE.MeshBasicMaterial({
     color: 'green',
     opacity: 0.2,
     side: THREE.DoubleSide,
@@ -835,11 +841,11 @@ Spacecast3D.Helper = {
 
   createBeamMesh(length, angle, radialSegments) {
     var capGeom = new THREE.SphereGeometry(length, radialSegments, 128, 0, Math.PI * 2, 0, angle)
-    var cap = new THREE.Mesh(capGeom, Spacecast3D.Setup.beamMaterial)
+    var cap = new THREE.Mesh(capGeom, Spacecast3D.Setup.beamCapMaterial)
     var coneRadius = Math.sin(angle) * length
     var coneLength = Math.cos(angle) * length
     var coneGeom = new THREE.ConeGeometry(coneRadius, coneLength, radialSegments, 1, true)
-    var cone = new THREE.Mesh(coneGeom, Spacecast3D.Setup.beamMaterial)
+    var cone = new THREE.Mesh(coneGeom, Spacecast3D.Setup.beamConeMaterial)
     cone.rotation.x += Math.PI
     cone.position.y += coneLength / 2
     var beam = new THREE.Group()
