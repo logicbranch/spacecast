@@ -139,6 +139,10 @@ Spacecast3D.Setup = {
     side: THREE.DoubleSide,
     transparent: true,
   }),
+  beamDirection: {
+    asc: Spacecast3D.Utils.asc(14, 29, 43), // right ascension: 14h 29m 43.0s
+    dec: Spacecast3D.Utils.dec(62, 40, 46, true), // declination: −62° 40′ 46″
+  },
   // see: https://en.wikipedia.org/wiki/List_of_nearest_stars_and_brown_dwarfs
   nearestStars: {
     "Alpha Centauri": {
@@ -1235,16 +1239,16 @@ Spacecast3D.Helper = {
   },
 
   updateBeam: function(earth, date) {
-      var years = Math.abs(date.getTime() - Spacecast3D.Setup.startDate.getTime()) / 3.154e10
-      var lalandeStar = Spacecast3D.Setup.nearestStars['Lalande 21185'];
-      var beam = this.createBeam(years * Spacecast3D.SPACECAST3D_LY, lalandeStar.dec, lalandeStar.asc)
-      beam.name = 'beam'
+    var setup = Spacecast3D.Setup
+    var years = Math.abs(date.getTime() - setup.startDate.getTime()) / 3.154e10
+    var beam = this.createBeam(years * Spacecast3D.SPACECAST3D_LY, setup.beamDirection.dec, setup.beamDirection.asc)
+    beam.name = 'beam'
 
-      var oldBeam = earth.getObjectByName(beam.name)
-      if (oldBeam) {
-        earth.remove(oldBeam)
-      }
-      earth.add(beam)
+    var oldBeam = earth.getObjectByName(beam.name)
+    if (oldBeam) {
+      earth.remove(oldBeam)
+    }
+    earth.add(beam)
   },
 
   updateObjectPositions: function(date) {
