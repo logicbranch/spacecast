@@ -43,6 +43,10 @@ Spacecast3D.Utils = {
     return Math.pow(2, Math.ceil(Math.log(number) / Math.log(2)))
   },
 
+  // Convert a date to a concise string representation
+  dateToConciseString: function(date) {
+    return (date.getMonth() + 1)+'/'+date.getDate()+'/'+date.getFullYear();
+  }
 }
 
 Spacecast3D.Setup = {
@@ -100,6 +104,7 @@ Spacecast3D.Setup = {
       orbitRadius: 30.06 * Spacecast3D.SPACECAST3D_AU,
     },
   },
+  startDate: new Date("12/26/2012"),
   milkyWayRadius: Spacecast3D.MILKY_WAY_RADIUS,
   renderer: {
     width: document.getElementById("explorer-view-content").offsetWidth,
@@ -819,14 +824,10 @@ Spacecast3D.Helper = {
     var orbit = this.circleLine(orbitRadius, 0xffffff)
     orbit.name = 'orbit'
 
-    var lalandeStar = Spacecast3D.Setup.nearestStars['Lalande 21185'];
-    var beam = this.createBeam(lalandeStar.dis, lalandeStar.dec, lalandeStar.asc)
-    beam.name = 'beam'
-
     var group = new THREE.Group()
     group.add(planetEarth)
     group.add(orbit)
-    group.add(beam)
+    this.updateBeam(group, new Date())
     return group
   },
 
@@ -1117,7 +1118,7 @@ Spacecast3D.Helper = {
     var setup = Spacecast3D.Setup
     var state = Spacecast3D.State
     var text = {
-      'Date': '12/26/2012',
+      'Date': Spacecast3D.Utils.dateToConciseString((new Date())),
       'Distance (light-year)': 0.0001,
       'Reference': 'Sun',
       'Planets size': 1.00,
@@ -1125,7 +1126,14 @@ Spacecast3D.Helper = {
       'Show central plane': false,
     }
     var gui = new dat.GUI({autoPlace: false, closeOnTop: true})
-    gui.add(text, 'Date')
+    gui.add(text, 'Date').onChange(function(dateString) {
+      var date = new Date(dateString)
+      if (isNaN(date)) {
+        console.log('Invalid date')
+      } else {
+        Spacecast3D.Helper.updateObjectPositions(date)
+      }
+    })
     gui.add(text, 'Distance (light-year)', 0.0001, 10000)
     .onChange(function(distanceLightYear) {
       var cameraSphericalPosition = new THREE.Spherical().setFromVector3(state.universe.camera.position)
@@ -1219,6 +1227,23 @@ Spacecast3D.Helper = {
       distanceDisplay.innerHTML = Math.trunc(distance/Spacecast3D.SPACECAST3D_LY).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' light-years'
       Spacecast3D.State.datGUI.__controllers.find((controller) => {return controller.property === 'Distance (light-year)'}).setValue(distance/Spacecast3D.SPACECAST3D_LY)
     }
+  },
+
+  updateBeam: function(earth, date) {
+      var years = Math.abs(date.getTime() - Spacecast3D.Setup.startDate.getTime()) / 3.154e10
+      var lalandeStar = Spacecast3D.Setup.nearestStars['Lalande 21185'];
+      var beam = this.createBeam(years * Spacecast3D.SPACECAST3D_LY, lalandeStar.dec, lalandeStar.asc)
+      beam.name = 'beam'
+
+      var oldBeam = earth.getObjectByName(beam.name)
+      if (oldBeam) {
+        earth.remove(oldBeam)
+      }
+      earth.add(beam)
+  },
+
+  updateObjectPositions: function(date) {
+    this.updateBeam(Spacecast3D.State.solarSystem.earth, date)
   },
 }
 
