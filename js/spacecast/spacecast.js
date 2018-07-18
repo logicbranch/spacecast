@@ -6,6 +6,8 @@ Spacecast3D.SPACECAST3D_MILE = Spacecast3D.EARTH_DIAMETER / 7917, // 1 mile
 Spacecast3D.SPACECAST3D_AU = Spacecast3D.EARTH_DIAMETER * 11740,   // 1 astronomical unit
 Spacecast3D.SPACECAST3D_LY = Spacecast3D.SPACECAST3D_AU * 63241,   // 1 light year
 Spacecast3D.MILKY_WAY_RADIUS = Spacecast3D.SPACECAST3D_LY * 100000, // 100k light year
+Spacecast3D.SPACECAST3D_MS = 1, // millisecond
+Spacecast3D.SPACECAST3D_YEAR = Spacecast3D.SPACECAST3D_MS * 3.1536e10, // 1 year
 
 Spacecast3D.Utils = {
   // convert light year to earth diameter (spacecast basic unit of distance)
@@ -1240,7 +1242,7 @@ Spacecast3D.Helper = {
 
   updateBeam: function(earth, date) {
     var setup = Spacecast3D.Setup
-    var years = Math.abs(date.getTime() - setup.startDate.getTime()) / 3.154e10
+    var years = Math.abs(date.getTime() - setup.startDate.getTime()) / Spacecast3D.SPACECAST3D_YEAR
     var beam = this.createBeam(years * Spacecast3D.SPACECAST3D_LY, setup.beamDirection.dec, setup.beamDirection.asc)
     beam.name = 'beam'
 
