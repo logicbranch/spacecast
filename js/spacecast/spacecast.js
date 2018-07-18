@@ -38,6 +38,13 @@ Spacecast3D.Utils = {
     return this.radians(degrees) // convert degrees to radians
   },
 
+  // Rotate an Object3D by a given right ascension and declination
+  rotateObject: function(object, asc, dec) {
+    var decAxis = new THREE.Vector3().setFromCylindrical(new THREE.Cylindrical(1, asc + Math.PI / 2, 0))
+    object.rotateOnAxis(decAxis, dec)
+    object.rotateY(asc)
+  },
+
   // find next closest power of 2 of a number
   nearestPow2: function(number){
     return Math.pow(2, Math.ceil(Math.log(number) / Math.log(2)))
@@ -833,9 +840,7 @@ Spacecast3D.Helper = {
 
   createBeam(distance, declination, rightAcension) {
     var beam = this.createBeamMesh(distance, Spacecast3D.Setup.beamAngle, 128)
-    var decAxis = new THREE.Vector3().setFromCylindrical(new THREE.Cylindrical(1, rightAcension + Math.PI / 2, 0))
-    beam.rotateOnAxis(decAxis, declination)
-    beam.rotateY(rightAcension)
+    Spacecast3D.Utils.rotateObject(beam, rightAcension, declination)
     beam.position.set(0, 0, Spacecast3D.Setup.solarSystem.earth.orbitRadius)
     return beam;
   },
