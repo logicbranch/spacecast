@@ -1095,7 +1095,8 @@ Spacecast3D.Helper = {
     if (cameraSphericalPosition.radius == 0) {
       cameraSphericalPosition.radius = 1
     }
-    cameraSphericalPosition.radius += minDistance * 5
+    cameraSphericalPosition.phi -= minDistance / cameraSphericalPosition.radius
+    cameraSphericalPosition.radius += minDistance
     camera.position.setFromSpherical(cameraSphericalPosition)
 
     orbitControls.minDistance = minDistance * 2
