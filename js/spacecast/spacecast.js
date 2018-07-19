@@ -1139,12 +1139,14 @@ Spacecast3D.Helper = {
     }
   },
 
-  focusOnLocalBody: function(bodyGroup, bodyKind) {
-    var body = bodyGroup.getObjectByName(bodyKind)
+  focusOnLocalBody: function(name, kind) {
+    var body = Spacecast3D.State.solarSystem[name].getObjectByName(kind)
     body.updateMatrixWorld()
-    var box = new THREE.Box3().setFromObject(body)
+
+    var minDistance = new THREE.Box3().setFromObject(body).getSize().x/2
     var position = body.getWorldPosition()
-    this.resetCameraPositionForPlanet(body.getWorldPosition(), bodyGroup.radius, box.getSize().x/2)
+    var radius = Spacecast3D.Setup.solarSystem[name].radius
+    this.resetCameraPositionForPlanet(position, radius, minDistance)
   },
 
   uiController: function(container) {
@@ -1179,7 +1181,7 @@ Spacecast3D.Helper = {
       var orbitControls = state.orbitControls
       bodyName = bodyName.toLowerCase()
       var bodyKind = bodyName === 'sun' ? 'star' : 'planet'
-      this.focusOnLocalBody(state.solarSystem[bodyName], bodyKind)
+      this.focusOnLocalBody(bodyName, bodyKind)
     })
     gui.add(text, 'Planets size', 1, 4000)
     .onChange((scale) => {
