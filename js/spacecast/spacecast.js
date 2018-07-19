@@ -1139,6 +1139,12 @@ Spacecast3D.Helper = {
     }
   },
 
+  focusOnLocalBody: function(bodyGroup, bodyKind) {
+    var body = bodyGroup.getObjectByName(bodyKind)
+    var box = new THREE.Box3().setFromObject(body)
+    this.resetCameraPositionForPlanet(body.position, bodyGroup.radius, box.getSize().x/2)
+  },
+
   uiController: function(container) {
     var setup = Spacecast3D.Setup
     var state = Spacecast3D.State
@@ -1166,56 +1172,12 @@ Spacecast3D.Helper = {
       state.universe.camera.position.setFromSpherical(cameraSphericalPosition)
     })
     gui.add(text, 'Reference', ['Sun', 'Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'])
-    .onChange((planet) => {
+    .onChange((bodyName) => {
       var camera = state.universe.camera
       var orbitControls = state.orbitControls
-      switch (planet) {
-        case 'Sun':
-          var sun = state.solarSystem.sun.getObjectByName('star')
-          var box = new THREE.Box3().setFromObject(sun)
-          this.resetCameraPositionForPlanet(sun.position, setup.solarSystem.sun.radius, box.getSize().x/2)
-          break
-        case 'Mercury':
-          var mercury = state.solarSystem.mercury.getObjectByName('planet')
-          var box = new THREE.Box3().setFromObject(mercury)
-          this.resetCameraPositionForPlanet(mercury.position, setup.solarSystem.mercury.radius, box.getSize().x/2)
-          break
-        case 'Venus':
-          var venus = state.solarSystem.venus.getObjectByName('planet')
-          var box = new THREE.Box3().setFromObject(venus)
-          this.resetCameraPositionForPlanet(venus.position, setup.solarSystem.venus.radius, box.getSize().x/2)
-          break
-        case 'Earth':
-          var earth = state.solarSystem.earth.getObjectByName('planet')
-          var box = new THREE.Box3().setFromObject(earth)
-          this.resetCameraPositionForPlanet(earth.position, setup.solarSystem.earth.radius, box.getSize().x/2)
-          break
-        case 'Mars':
-          var mars = state.solarSystem.mars.getObjectByName('planet')
-          var box = new THREE.Box3().setFromObject(mars)
-          this.resetCameraPositionForPlanet(mars.position, setup.solarSystem.mars.radius, box.getSize().x/2)
-          break
-        case 'Jupiter':
-          var jupiter = state.solarSystem.jupiter.getObjectByName('planet')
-          var box = new THREE.Box3().setFromObject(jupiter)
-          this.resetCameraPositionForPlanet(jupiter.position, setup.solarSystem.jupiter.radius, box.getSize().x/2)
-          break
-        case 'Saturn':
-          var saturn = state.solarSystem.saturn.getObjectByName('planet')
-          var box = new THREE.Box3().setFromObject(saturn)
-          this.resetCameraPositionForPlanet(saturn.position, setup.solarSystem.saturn.radius, box.getSize().x/2)
-          break
-        case 'Uranus':
-          var uranus = state.solarSystem.uranus.getObjectByName('planet')
-          var box = new THREE.Box3().setFromObject(uranus)
-          this.resetCameraPositionForPlanet(uranus.position, setup.solarSystem.uranus.radius, box.getSize().x/2)
-          break
-        case 'Neptune':
-          var neptune = state.solarSystem.neptune.getObjectByName('planet')
-          var box = new THREE.Box3().setFromObject(neptune)
-          this.resetCameraPositionForPlanet(neptune.position, setup.solarSystem.neptune.radius, box.getSize().x/2)
-          break
-      }
+      bodyName = bodyName.toLowerCase()
+      var bodyKind = bodyName === 'sun' ? 'star' : 'planet'
+      this.focusOnLocalBody(state.solarSystem[bodyName], bodyKind)
     })
     gui.add(text, 'Planets size', 1, 4000)
     .onChange((scale) => {
