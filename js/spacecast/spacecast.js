@@ -7,7 +7,7 @@ Spacecast3D.SPACECAST3D_AU = Spacecast3D.EARTH_DIAMETER * 11740,   // 1 astronom
 Spacecast3D.SPACECAST3D_LY = Spacecast3D.SPACECAST3D_AU * 63241,   // 1 light year
 Spacecast3D.MILKY_WAY_RADIUS = Spacecast3D.SPACECAST3D_LY * 100000, // 100k light year
 Spacecast3D.SPACECAST3D_MS = 1, // millisecond
-Spacecast3D.SPACECAST3D_YEAR = Spacecast3D.SPACECAST3D_MS * 3.1536e10, // 1 year
+Spacecast3D.SPACECAST3D_YEAR = Spacecast3D.SPACECAST3D_MS * 3.1536e10, // 1 earth year
 
 Spacecast3D.Utils = {
   // convert light year to earth diameter (spacecast basic unit of distance)
@@ -55,7 +55,11 @@ Spacecast3D.Utils = {
   // Convert a date to a concise string representation
   dateToConciseString: function(date) {
     return (date.getMonth() + 1)+'/'+date.getDate()+'/'+date.getFullYear();
-  }
+  },
+
+  timeBetween: function(beginning, after) {
+    return after.getTime() - beginning.getTime();
+  },
 }
 
 Spacecast3D.Setup = {
@@ -80,37 +84,47 @@ Spacecast3D.Setup = {
     sun: {
       radius: 432169 * Spacecast3D.SPACECAST3D_MILE,
     },
+    // Year lengths from https://nssdc.gsfc.nasa.gov/planetary/factsheet/planet_table_ratio.html
+    // TODO: higher precision year lengths
     mercury: {
       radius: 1516 * Spacecast3D.SPACECAST3D_MILE,
       orbitRadius: 0.387 * Spacecast3D.SPACECAST3D_AU,
+      year: 0.241 * Spacecast3D.SPACECAST3D_YEAR,
     },
     venus: {
       radius: 1516 * Spacecast3D.SPACECAST3D_MILE,
       orbitRadius: 0.723 * Spacecast3D.SPACECAST3D_AU,
+      year: 0.615 * Spacecast3D.SPACECAST3D_YEAR,
     },
     earth: {
       radius: Spacecast3D.EARTH_DIAMETER/2,
       orbitRadius: Spacecast3D.SPACECAST3D_AU,
+      year: Spacecast3D.SPACECAST3D_YEAR,
     },
     mars: {
       radius: 2106 * Spacecast3D.SPACECAST3D_MILE,
       orbitRadius: 1.524 * Spacecast3D.SPACECAST3D_AU,
+      year: 1.88 * Spacecast3D.SPACECAST3D_YEAR,
     },
     jupiter: {
       radius: 43441 * Spacecast3D.SPACECAST3D_MILE,
       orbitRadius: 5.203 * Spacecast3D.SPACECAST3D_AU,
+      year: 11.9 * Spacecast3D.SPACECAST3D_YEAR,
     },
     saturn: {
       radius: 36184 * Spacecast3D.SPACECAST3D_MILE,
       orbitRadius: 9.539 * Spacecast3D.SPACECAST3D_AU,
+      year: 29.4 * Spacecast3D.SPACECAST3D_YEAR,
     },
     uranus: {
       radius: 15759 * Spacecast3D.SPACECAST3D_MILE,
       orbitRadius: 19.18 * Spacecast3D.SPACECAST3D_AU,
+      year: 83.7 * Spacecast3D.SPACECAST3D_YEAR,
     },
     neptune: {
       radius: 15299 * Spacecast3D.SPACECAST3D_MILE,
       orbitRadius: 30.06 * Spacecast3D.SPACECAST3D_AU,
+      year: 163.7 * Spacecast3D.SPACECAST3D_YEAR,
     },
   },
   startDate: new Date("12/26/2012"),
@@ -1242,7 +1256,7 @@ Spacecast3D.Helper = {
 
   updateBeam: function(earth, date) {
     var setup = Spacecast3D.Setup
-    var years = Math.abs(date.getTime() - setup.startDate.getTime()) / Spacecast3D.SPACECAST3D_YEAR
+    var years = Spacecast3D.Utils.timeBetween(setup.startDate, date) / Spacecast3D.SPACECAST3D_YEAR
     var beam = this.createBeam(years * Spacecast3D.SPACECAST3D_LY, setup.beamDirection.dec, setup.beamDirection.asc)
     beam.name = 'beam'
 
@@ -1254,7 +1268,29 @@ Spacecast3D.Helper = {
   },
 
   updateObjectPositions: function(date) {
+    this.updatePlanetPositions(date)
     this.updateBeam(Spacecast3D.State.solarSystem.earth, date)
+  },
+
+  updatePlanetPositions: function(date) {
+    var setup = Spacecast3D.Setup
+    var timePassed = Spacecast3D.Utils.timeBetween(setup.startDate, date)
+    var planets = [
+      'mercury',
+      'venus',
+      'earth',
+      'mars',
+      'jupiter',
+      'saturn',
+      'uranus',
+      'neptune'
+    ]
+    planets.forEach((planetName) => {
+      var rotation = timePassed / setup.solarSystem[planetName].year * Math.PI * 2
+      console.log(`name: ${planetName}, rotation: ${rotation}`)
+      Spacecast3D.State.solarSystem[planetName]
+        .setRotationFromAxisAngle(new THREE.Vector3(0, 1, 0), rotation)
+    })
   },
 }
 
