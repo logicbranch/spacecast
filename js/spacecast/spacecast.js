@@ -1218,22 +1218,23 @@ Spacecast3D.Helper = {
     }
   },
 
-  updateBeam: function(earth, date) {
+  updateBeam: function(date) {
     var setup = Spacecast3D.Setup
+    var scene = Spacecast3D.State.universe.scene
     var years = Spacecast3D.Utils.timeBetween(setup.startDate, date) / Spacecast3D.SPACECAST3D_YEAR
     var beam = this.createBeam(years * Spacecast3D.SPACECAST3D_LY, setup.beamDirection.dec, setup.beamDirection.asc)
     beam.name = 'beam'
 
-    var oldBeam = earth.getObjectByName(beam.name)
+    var oldBeam = scene.getObjectByName(beam.name)
     if (oldBeam) {
-      earth.remove(oldBeam)
+      scene.remove(oldBeam)
     }
-    earth.add(beam)
+    scene.add(beam)
   },
 
   updateObjectPositions: function(date) {
     this.updatePlanetPositions(date)
-    this.updateBeam(Spacecast3D.State.solarSystem.earth, date)
+    this.updateBeam(date)
   },
 
   updatePlanetPositions: function(date) {
