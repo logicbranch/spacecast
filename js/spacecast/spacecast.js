@@ -669,6 +669,9 @@ Spacecast3D.Helper = {
       controls: controls,
       renderer: renderer,
     }
+
+    this.updateObjectPositions(new Date())
+
     return Spacecast3D.State.universe
   },
 
@@ -854,7 +857,6 @@ Spacecast3D.Helper = {
     var group = new THREE.Group()
     group.add(planetEarth)
     group.add(orbit)
-    this.updateBeam(group, new Date())
     return group
   },
 
