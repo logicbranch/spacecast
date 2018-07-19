@@ -8,8 +8,8 @@
   <body>
     <div id="explorer-view-content">
       <div id="spacecast3d">
-          <div class="main-div translucent" id="spacecast3d-info">
-            <div class="translucent" id="spacecast3d-info-header">
+          <div class="main-div" id="spacecast3d-info">
+            <div id="spacecast3d-info-header">
               <span class="labelled" data-label="Star name">
                 <input id="spacecast3d-info-name" type=text list="spacecast3d-star-list">
                   <script src="./js/datalist-polyfill/datalist-polyfill.min.js"></script>
@@ -17,12 +17,12 @@
                 </input>
               </span>
             </div>
-            <span class="labelled" id="spacecast3d-info-distance" data-label="Distance from the sun"></span>
+            <h3 class="labelled" id="spacecast3d-info-distance" data-label="Distance from the sun"></h3>
             <p id="spacecast3d-info-description"></p>
             <a id="spacecast3d-info-link" target=_blank></a>
           </div>
       </div>
-      <div class="main-div translucent" id="spacecast-controls"></div>
+      <div class="main-div" id="spacecast-controls"></div>
     </div>
     <script src="./js/underscore/underscore.min.js"></script>
     <script src="./js/three/three.min.js"></script>
