@@ -866,7 +866,7 @@ Spacecast3D.Helper = {
   },
 
   createBeamMesh(length, angle, radialSegments) {
-    var capGeom = new THREE.SphereGeometry(length, radialSegments, 128, 0, Math.PI * 2, 0, angle)
+    var capGeom = new THREE.SphereGeometry(length, radialSegments, 128, 0, Math.TAU, 0, angle)
     var cap = new THREE.Mesh(capGeom, Spacecast3D.Setup.beamCapMaterial)
     var coneRadius = Math.sin(angle) * length
     var coneLength = Math.cos(angle) * length
@@ -1286,7 +1286,7 @@ Spacecast3D.Helper = {
       'neptune'
     ]
     planets.forEach((planetName) => {
-      var rotation = timePassed / setup.solarSystem[planetName].year * Math.PI * 2
+      var rotation = timePassed / setup.solarSystem[planetName].year * Math.TAU
       console.log(`name: ${planetName}, rotation: ${rotation}`)
       Spacecast3D.State.solarSystem[planetName]
         .setRotationFromAxisAngle(new THREE.Vector3(0, 1, 0), rotation)
@@ -1296,6 +1296,9 @@ Spacecast3D.Helper = {
 
 Spacecast3D.Core = {
   init: function() {
+    if (!Math.TAU) {
+      Math.TAU = Math.PI * 2
+    }
     var state = Spacecast3D.State
     var universe = Spacecast3D.Helper.createUniverse()
     document.getElementById('spacecast-controls').appendChild(Spacecast3D.Helper.uiController())
