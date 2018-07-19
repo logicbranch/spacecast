@@ -1095,8 +1095,6 @@ Spacecast3D.Helper = {
     if (cameraSphericalPosition.radius == 0) {
       cameraSphericalPosition.radius = 1
     }
-    cameraSphericalPosition.phi = (Math.PI / 2) - (minDistance/cameraSphericalPosition.radius) * 2
-    cameraSphericalPosition.theta = (minDistance/cameraSphericalPosition.radius) * 2
     cameraSphericalPosition.radius += minDistance * 5
     camera.position.setFromSpherical(cameraSphericalPosition)
 
@@ -1143,8 +1141,10 @@ Spacecast3D.Helper = {
 
   focusOnLocalBody: function(bodyGroup, bodyKind) {
     var body = bodyGroup.getObjectByName(bodyKind)
+    body.updateMatrixWorld()
     var box = new THREE.Box3().setFromObject(body)
-    this.resetCameraPositionForPlanet(body.position, bodyGroup.radius, box.getSize().x/2)
+    var position = body.getWorldPosition()
+    this.resetCameraPositionForPlanet(body.getWorldPosition(), bodyGroup.radius, box.getSize().x/2)
   },
 
   uiController: function(container) {
