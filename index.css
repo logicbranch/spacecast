@@ -1,0 +1,21 @@
+body {
+  margin: 0;
+}
+#explorer-view-content {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+#spacecast-controls {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+}
+#spacecast3d-info {
+  position: absolute;
+  padding: 16px;
+  background-color: white;
+  top: 16px;
+  right: 16px;
+  max-width: 50%;
+}
