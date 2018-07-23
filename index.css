@@ -15,10 +15,6 @@ h3 {
   display: inline;
 }
 
-p {
-  font-size: 16px;
-}
-
 label {
   color: #FFD667;
   float: right;
@@ -26,6 +22,10 @@ label {
   text-transform: uppercase;
   position: relative;
   top: 0.5em;
+}
+
+p {
+  font-size: 16px;
 }
 
 .main-div {
@@ -44,6 +44,53 @@ label {
   top: 16px;
   left: 16px;
 }
+
+#spacecast-controls[data-is-expanded=false] {
+  height: 1em;
+  padding-bottom: 0;
+}
+
+#spacecast-controls[data-is-expanded=false] .main {
+  height: 0;
+  overflow: hidden;
+}
+
+#spacecast-controls-header {
+  position: absolute;
+  top: 4px;
+  left: 5px;
+  right: 7px;
+  margin: 0;
+  height: auto;
+}
+
+#spacecast-controls-header span {
+  text-transform: uppercase;
+  color: #A0C5FF;
+}
+
+#spacecast-controls-header #spacecast-controls-header-x {
+  background-color: #0000;
+  border: none;
+  float: right;
+  font-size: 18px;
+  padding: 0;
+  margin: 0;
+  width: 13px;
+  height: 13px;
+}
+
+#spacecast-controls-header #spacecast-controls-header-x::after {
+  position: absolute;
+  bottom: 0;
+  right: 1px;
+  content: '+';
+}
+
+#spacecast-controls-header #spacecast-controls-header-x:checked::after {
+  content: '\D7';
+}
+
 
 #spacecast3d-info {
   position: absolute;
@@ -89,58 +136,15 @@ label {
   border: none;
 }
 
-#spacecast-controls .close-top {
-  appearance: None;
-  -moz-appearance: None;
-	-webkit-appearance: None;
-  color: #0000;
-  height: 0;
-}
-
-#spacecast-controls .slider {
-  height: 5px;
-  background-color: #707070;
-  position: relative;
-  top: 7px;
-}
-
-#spacecast-controls .slider-fg {
-  background-color: white;
-  display: inline-block;
-  height: 5px;
-  position: absolute;
-  top: 0;
-}
-
-#spacecast-controls input,
-#spacecast-controls select {
+#spacecast-controls input {
   background-color: rgba(255, 255, 255, 0.28);
 }
 
-#spacecast-controls li.number input[type="text"] {
-  text-align: right;
-  background: none;
-}
-
 #spacecast-controls input[type="checkbox"] {
-  width: 22px;
-  height: 22px;
   border: 1px solid #707070;
-}
-
-#spacecast-controls input[type="checkbox"] {
-  font-size: 18px;
-}
-
-#spacecast-controls input[type="checkbox"],
-#spacecast-controls select {
   appearance: None;
   -moz-appearance: None;
 	-webkit-appearance: None;
-  display: inline-block;
-}
-
-#spacecast-controls input[type="checkbox"] {
   color: white;
   padding: 0;
   width: 16px;
@@ -149,17 +153,35 @@ label {
   text-align: center;
 }
 
-#spacecast-controls select {
-  padding: 3px 0 4px 10px;
-  border: none;
-  border-radius: 0;
-  width: 100%;
-}
-
 #spacecast-controls input[type="checkbox"]:checked::after {
   content: '\2713';
   position: relative;
   bottom: 2px;
+}
+
+#spacecast-controls li.number input[type="text"] {
+  text-align: right;
+  background: none;
+}
+
+#spacecast-controls select {
+  appearance: None;
+  -moz-appearance: None;
+	-webkit-appearance: None;
+  display: inline-block;
+  padding: 3px 0 4px 10px;
+  border: none;
+  border-radius: 0;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.28);
+}
+
+#spacecast-controls .close-top {
+  appearance: None;
+  -moz-appearance: None;
+	-webkit-appearance: None;
+  color: #0000;
+  height: 0;
 }
 
 #spacecast-controls .property-name {
@@ -175,48 +197,17 @@ label {
   content: '';
 }
 
-#spacecast-controls-header {
+#spacecast-controls .slider {
+  height: 5px;
+  background-color: #707070;
+  position: relative;
+  top: 7px;
+}
+
+#spacecast-controls .slider-fg {
+  background-color: white;
+  display: inline-block;
+  height: 5px;
   position: absolute;
-  top: 4px;
-  left: 5px;
-  right: 7px;
-  margin: 0;
-  height: auto;
-}
-
-#spacecast-controls-header span {
-  text-transform: uppercase;
-  color: #A0C5FF;
-}
-
-#spacecast-controls-header #spacecast-controls-header-x {
-  background-color: #0000;
-  border: none;
-  float: right;
-  font-size: 18px;
-  padding: 0;
-  margin: 0;
-  width: 13px;
-  height: 13px;
-}
-
-#spacecast-controls-header #spacecast-controls-header-x::after {
-  position: absolute;
-  bottom: 0;
-  right: 1px;
-  content: '+';
-}
-
-#spacecast-controls-header #spacecast-controls-header-x:checked::after {
-  content: '\D7';
-}
-
-#spacecast-controls[data-is-expanded=false] {
-  height: 1em;
-  padding-bottom: 0;
-}
-
-#spacecast-controls[data-is-expanded=false] .main {
-  height: 0;
-  overflow: hidden;
+  top: 0;
 }
