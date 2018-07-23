@@ -138,9 +138,14 @@ label {
   -moz-appearance: None;
 	-webkit-appearance: None;
   display: inline-block;
+}
+
+#spacecast-controls input[type="checkbox"] {
   color: white;
-  padding: 3px;
-  padding-top: 0;
+  padding: 0;
+  width: 16px;
+  height: 16px;
+  font-size: 14px;
   text-align: center;
 }
 
@@ -153,6 +158,8 @@ label {
 
 #spacecast-controls input[type="checkbox"]:checked::after {
   content: '\2713';
+  position: relative;
+  bottom: 2px;
 }
 
 #spacecast-controls .property-name {
