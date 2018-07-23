@@ -127,6 +127,7 @@ Spacecast3D.Setup = {
       year: 163.7 * Spacecast3D.SPACECAST3D_YEAR,
     },
   },
+  baseDate: new Date("1/1/2000"),
   startDate: new Date("12/26/2012"),
   milkyWayRadius: Spacecast3D.MILKY_WAY_RADIUS,
   renderer: {
@@ -551,6 +552,7 @@ Spacecast3D.Setup = {
 }
 
 Spacecast3D.State = {
+  beamPosition: null,
   universe: null,
   solarSystem: {
     sun: null,
@@ -661,6 +663,10 @@ Spacecast3D.Helper = {
     scene.add(state.solarSystem.neptune)
     // scene.add(state.centralPlane)
     scene.add(state.nearestStars)
+
+    var earth = state.solarSystem.earth.getObjectByName('planet')
+    earth.updateMatrixWorld()
+    state.beamPosition = this.findPlanetPosition(setup.solarSystem.earth, setup.startDate)
 
     Spacecast3D.State.universe = {
       scene: scene,
@@ -862,7 +868,7 @@ Spacecast3D.Helper = {
   createBeam(distance, declination, rightAcension) {
     var beam = this.createBeamMesh(distance, Spacecast3D.Setup.beamAngle, 128)
     Spacecast3D.Utils.rotateObject(beam, rightAcension, declination)
-    beam.position.set(0, 0, Spacecast3D.Setup.solarSystem.earth.orbitRadius)
+    beam.position.copy(Spacecast3D.State.beamPosition)
     return beam;
   },
 
@@ -1243,9 +1249,18 @@ Spacecast3D.Helper = {
     this.updateBeam(date)
   },
 
-  updatePlanetPositions: function(date) {
+  findPlanetPosition: function(planet, date) {
     var setup = Spacecast3D.Setup
-    var timePassed = Spacecast3D.Utils.timeBetween(setup.startDate, date)
+    var timePassed = Spacecast3D.Utils.timeBetween(setup.baseDate, date)
+    var rotation = timePassed / planet.year * Math.TAU
+    var quaternion = new THREE.Quaternion()
+    quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), rotation)
+    var vector = new THREE.Vector3(0, 0, planet.orbitRadius)
+    vector.applyQuaternion(quaternion)
+    return vector
+  },
+
+  updatePlanetPositions: function(date) {
     var planets = [
       'mercury',
       'venus',
@@ -1256,10 +1271,9 @@ Spacecast3D.Helper = {
       'uranus',
       'neptune'
     ]
-    planets.forEach((planetName) => {
-      var rotation = timePassed / setup.solarSystem[planetName].year * Math.TAU
-      Spacecast3D.State.solarSystem[planetName]
-        .setRotationFromAxisAngle(new THREE.Vector3(0, 1, 0), rotation)
+    planets.forEach((name) => {
+      Spacecast3D.State.solarSystem[name].getObjectByName('planet').position
+        .copy(this.findPlanetPosition(Spacecast3D.Setup.solarSystem[name], date))
     })
   },
 }
