@@ -10,14 +10,14 @@
       <div id="spacecast3d">
           <div class="main-div" id="spacecast3d-info">
             <div id="spacecast3d-info-header">
-              <span class="labelled" data-label="Star name">
-                <input id="spacecast3d-info-name" type=text list="spacecast3d-star-list">
-                  <script src="./js/datalist-polyfill/datalist-polyfill.min.js"></script>
-                  <datalist id="spacecast3d-star-list"></datalist>
-                </input>
-              </span>
+              <input id="spacecast3d-info-name" type=text list="spacecast3d-star-list">
+                <script src="./js/datalist-polyfill/datalist-polyfill.min.js"></script>
+                <datalist id="spacecast3d-star-list"></datalist>
+              </input>
+              <label for="spacecast3d-info-name">Star name</label>
             </div>
-            <h3 class="labelled" id="spacecast3d-info-distance" data-label="Distance from the sun"></h3>
+            <h3 id="spacecast3d-info-distance"></h3>
+            <label for="spacecast3d-info-distance">Distance from the sun</label>
             <p id="spacecast3d-info-description"></p>
             <a id="spacecast3d-info-link" target=_blank></a>
           </div>

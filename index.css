@@ -12,18 +12,20 @@ a {
 h3 {
   font-size: 20px;
   font-weight: normal;
+  display: inline;
 }
 
 p {
   font-size: 16px;
 }
 
-.labelled::after {
+label {
   color: #FFD667;
-  content: attr(data-label);
-  font-size: 12px;
   float: right;
+  font-size: 12px;
   text-transform: uppercase;
+  position: relative;
+  top: 0.5em;
 }
 
 .main-div {
