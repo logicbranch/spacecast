@@ -1272,9 +1272,15 @@ Spacecast3D.Core = {
     if (!Math.TAU) {
       Math.TAU = Math.PI * 2
     }
+    var controls = document.getElementById('spacecast-controls')
+    var ex = document.getElementById('spacecast-controls-header-x')
+    ex.addEventListener('click', function(ev) {
+      console.log(ex.checked)
+      controls.setAttribute('data-is-expanded', ex.checked)
+    })
     var state = Spacecast3D.State
     var universe = Spacecast3D.Helper.createUniverse()
-    document.getElementById('spacecast-controls').appendChild(Spacecast3D.Helper.uiController())
+    controls.appendChild(Spacecast3D.Helper.uiController())
     Spacecast3D.Helper.displayInfo(universe.camera)
     state.onRenderFunctions.push(() => { universe.renderer.render(universe.scene, universe.camera) })
     state.onRenderFunctions.push(() => { universe.controls.update() })
