@@ -1163,9 +1163,7 @@ Spacecast3D.Helper = {
     var gui = new dat.GUI({autoPlace: false, closeOnTop: true})
     gui.add(text, 'Date').onChange(function(dateString) {
       var date = new Date(dateString)
-      if (isNaN(date)) {
-        console.log('Invalid date')
-      } else {
+      if (!isNaN(date)) {
         Spacecast3D.Helper.updateObjectPositions(date)
       }
     })
@@ -1260,7 +1258,6 @@ Spacecast3D.Helper = {
     ]
     planets.forEach((planetName) => {
       var rotation = timePassed / setup.solarSystem[planetName].year * Math.TAU
-      console.log(`name: ${planetName}, rotation: ${rotation}`)
       Spacecast3D.State.solarSystem[planetName]
         .setRotationFromAxisAngle(new THREE.Vector3(0, 1, 0), rotation)
     })
@@ -1275,7 +1272,6 @@ Spacecast3D.Core = {
     var controls = document.getElementById('spacecast-controls')
     var ex = document.getElementById('spacecast-controls-header-x')
     ex.addEventListener('click', function(ev) {
-      console.log(ex.checked)
       controls.setAttribute('data-is-expanded', ex.checked)
     })
     var state = Spacecast3D.State
