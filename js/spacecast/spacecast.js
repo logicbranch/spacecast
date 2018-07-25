@@ -171,6 +171,7 @@ Spacecast3D.Setup = {
       inclination: Spacecast3D.Utils.radians(17.16),
       eccentricity: 0.2488,
       period: 248.0 * Spacecast3D.SPACECAST3D_YEAR,
+      lastPerihelion: new Date("September 5, 1989"),
     },
     // source: https://en.wikipedia.org/wiki/Ceres_(dwarf_planet)
     "Ceres": {
@@ -181,6 +182,8 @@ Spacecast3D.Setup = {
       inclination: Spacecast3D.Utils.radians(9.20),
       eccentricity: 0.075823,
       period: 4.60 * Spacecast3D.SPACECAST3D_YEAR,
+      // source: https://in-the-sky.org/news.php?id=20180422_13_100
+      lastPerihelion: new Date("April 22, 2018"),
     },
     // https://en.wikipedia.org/wiki/Halley%27s_Comet
     "Halley's Comet": {
@@ -191,6 +194,7 @@ Spacecast3D.Setup = {
       inclination: Spacecast3D.Utils.radians(162.26),
       eccentricity: 0.96714,
       period: 75.32 * Spacecast3D.SPACECAST3D_YEAR,
+      lastPerihelion: new Date("February 9, 1986"),
     },
     // source: https://en.wikipedia.org/wiki/3200_Phaethon
     "3200 Phaethon": {
@@ -201,6 +205,7 @@ Spacecast3D.Setup = {
       inclination: Spacecast3D.Utils.radians(22.253),
       eccentricity: 0.88994,
       period: 1.433 * Spacecast3D.SPACECAST3D_YEAR,
+      lastPerihelion: new Date("July 2009"),
     },
     // source: https://en.wikipedia.org/wiki/Comet_Hale–Bopp
     "Comet Hale-Bopp": {
@@ -213,6 +218,7 @@ Spacecast3D.Setup = {
       inclination: Spacecast3D.Utils.radians(89.4),
       eccentricity: 0.995086,
       period: 2526 * Spacecast3D.SPACECAST3D_YEAR,
+      lastPerihelion: new Date("April 1, 1997"),
     },
     // source: https://en.wikipedia.org/wiki/Haumea
     "Haumea": {
@@ -223,6 +229,7 @@ Spacecast3D.Setup = {
       inclination: Spacecast3D.Utils.radians(28.19),
       eccentricity: 0.19126,
       period: 284.12 * Spacecast3D.SPACECAST3D_YEAR,
+      lastPerihelion: new Date("1850"),
     },
   },
   baseDate: new Date("1/1/2000"),
