@@ -91,6 +91,7 @@ Spacecast3D.Utils = {
       orbit.rotateX(Math.PI / 2)
       orbit.rotateZ(ascNode - Math.PI / 2)
       orbit.rotateY(-inc)
+      orbit.rotateZ(periArg)
     }
   },
 }
