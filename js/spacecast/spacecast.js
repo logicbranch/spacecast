@@ -161,6 +161,70 @@ Spacecast3D.Setup = {
       year: 163.7 * Spacecast3D.SPACECAST3D_YEAR,
     },
   },
+  ellipticalOrbiters: {
+    // source: https://en.wikipedia.org/wiki/Pluto
+    "Pluto": {
+      aphelion: 49.305 * Spacecast3D.SPACECAST3D_AU,
+      perihelion: 29.658 * Spacecast3D.SPACECAST3D_AU,
+      perihelionArgument: Spacecast3D.Utils.radians(113.834),
+      ascendingNode: Spacecast3D.Utils.radians(110.299),
+      inclination: Spacecast3D.Utils.radians(17.16),
+      eccentricity: 0.2488,
+      period: 248.0 * Spacecast3D.SPACECAST3D_YEAR,
+    },
+    // source: https://en.wikipedia.org/wiki/Ceres_(dwarf_planet)
+    "Ceres": {
+      aphelion: 2.9773 * Spacecast3D.SPACECAST3D_AU,
+      perihelion: 2.5577 * Spacecast3D.SPACECAST3D_AU,
+      perihelionArgument: Spacecast3D.Utils.radians(72.5220),
+      ascendingNode: Spacecast3D.Utils.radians(80.3293),
+      inclination: Spacecast3D.Utils.radians(9.20),
+      eccentricity: 0.075823,
+      period: 4.60 * Spacecast3D.SPACECAST3D_YEAR,
+    },
+    // https://en.wikipedia.org/wiki/Halley%27s_Comet
+    "Halley's Comet": {
+      aphelion: 35.082 * Spacecast3D.SPACECAST3D_AU,
+      perihelion: 0.586 * Spacecast3D.SPACECAST3D_AU,
+      perihelionArgument: Spacecast3D.Utils.radians(111.33),
+      ascendingNode: Spacecast3D.Utils.radians(58.42),
+      inclination: Spacecast3D.Utils.radians(162.26),
+      eccentricity: 0.96714,
+      period: 75.32 * Spacecast3D.SPACECAST3D_YEAR,
+    },
+    // source: https://en.wikipedia.org/wiki/3200_Phaethon
+    "3200 Phaethon": {
+      aphelion: 2.4025 * Spacecast3D.SPACECAST3D_AU,
+      perihelion: 0.13991 * Spacecast3D.SPACECAST3D_AU,
+      perihelionArgument: Spacecast3D.Utils.radians(322.17),
+      ascendingNode: Spacecast3D.Utils.radians(58.42),
+      inclination: Spacecast3D.Utils.radians(22.253),
+      eccentricity: 0.88994,
+      period: 1.433 * Spacecast3D.SPACECAST3D_YEAR,
+    },
+    // source: https://en.wikipedia.org/wiki/Comet_Hale–Bopp
+    "Comet Hale-Bopp": {
+      aphelion: 370.8 * Spacecast3D.SPACECAST3D_AU,
+      perihelion: 0.914 * Spacecast3D.SPACECAST3D_AU,
+      // source: https://nssdc.gsfc.nasa.gov/planetary/halebopp.html
+      perihelionArgument: Spacecast3D.Utils.radians(130.59),
+      // source: https://nssdc.gsfc.nasa.gov/planetary/halebopp.html
+      ascendingNode: Spacecast3D.Utils.radians(282.47),
+      inclination: Spacecast3D.Utils.radians(89.4),
+      eccentricity: 0.995086,
+      period: 2526 * Spacecast3D.SPACECAST3D_YEAR,
+    },
+    // source: https://en.wikipedia.org/wiki/Haumea
+    "Haumea": {
+      aphelion: 51.483 * Spacecast3D.SPACECAST3D_AU,
+      perihelion: 34.952 * Spacecast3D.SPACECAST3D_AU,
+      perihelionArgument: Spacecast3D.Utils.radians(240.20),
+      ascendingNode: Spacecast3D.Utils.radians(121.79),
+      inclination: Spacecast3D.Utils.radians(28.19),
+      eccentricity: 0.19126,
+      period: 284.12 * Spacecast3D.SPACECAST3D_YEAR,
+    },
+  },
   baseDate: new Date("1/1/2000"),
   startDate: new Date("12/26/2012"),
   milkyWayRadius: Spacecast3D.MILKY_WAY_RADIUS,
@@ -697,6 +761,10 @@ Spacecast3D.Helper = {
     scene.add(state.solarSystem.neptune)
     // scene.add(state.centralPlane)
     scene.add(state.nearestStars)
+
+    Object.entries(setup.ellipticalOrbiters).forEach(([name, body]) => {
+      scene.add(Spacecast3D.Utils.orbit(body).shape)
+    })
 
     var earth = state.solarSystem.earth.getObjectByName('planet')
     earth.updateMatrixWorld()
