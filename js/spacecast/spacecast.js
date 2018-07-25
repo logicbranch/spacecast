@@ -7,7 +7,11 @@ Spacecast3D.SPACECAST3D_AU = Spacecast3D.EARTH_DIAMETER * 11740,   // 1 astronom
 Spacecast3D.SPACECAST3D_LY = Spacecast3D.SPACECAST3D_AU * 63241,   // 1 light year
 Spacecast3D.MILKY_WAY_RADIUS = Spacecast3D.SPACECAST3D_LY * 100000, // 100k light year
 Spacecast3D.SPACECAST3D_MS = 1, // millisecond
-Spacecast3D.SPACECAST3D_YEAR = Spacecast3D.SPACECAST3D_MS * 3.1536e10, // 1 earth year
+Spacecast3D.SPACECAST3D_SEC = Spacecast3D.SPACECAST3D_MS * 1000 // 1 second
+Spacecast3D.SPACECAST3D_MIN = Spacecast3D.SPACECAST3D_SEC * 60 // 1 minute
+Spacecast3D.SPACECAST3D_HOUR = Spacecast3D.SPACECAST3D_MIN * 60 // 1 hour
+Spacecast3D.SPACECAST3D_DAY = Spacecast3D.SPACECAST3D_HOUR * 24 // 1 earth day
+Spacecast3D.SPACECAST3D_YEAR = Spacecast3D.SPACECAST3D_DAY * 365, // 1 earth year
 
 Spacecast3D.Utils = {
   // convert light year to earth diameter (spacecast basic unit of distance)
@@ -59,6 +63,37 @@ Spacecast3D.Utils = {
 
   timeBetween: function(beginning, after) {
     return after.getTime() - beginning.getTime();
+  },
+
+  // Calculate an elliptical orbit from the information given by Wikipedia.
+  orbit: function(info) {
+    var orbit = {}
+    var majorAxis = (info.aphelion + info.perihelion) / 2;
+    var focusOffset = majorAxis - info.perihelion
+    var minorAxis = getMinorAxis(majorAxis, focusOffset, info.eccentricity)
+    var shape = new THREE.EllipseCurve(0, 0, majorAxis, minorAxis)
+    var path = new THREE.Path()
+    path.add(shape)
+    var geom = new THREE.Geometry()
+    orbit.days = Math.ceil(info.period / Spacecast3D.SPACECAST3D_DAY)
+    orbit.points =  shape.getPoints(orbit.days)
+    geom.setFromPoints(orbit.points)
+    geom.translate(-focusOffset, 0, 0)
+    var object = new THREE.Line(geom)
+    setRotation(object, info.perihelionArgument, info.ascendingNode, info.inclination)
+    orbit.shape = object
+    return orbit;
+
+    function getMinorAxis(major, focusOffset, eccentricity) {
+      var hypot = focusOffset / eccentricity
+      return Math.sqrt(hypot ** 2 - focusOffset ** 2)
+    }
+
+    function setRotation(orbit, periArg, ascNode, inc) {
+      orbit.rotateX(Math.PI / 2)
+      orbit.rotateZ(ascNode - Math.PI / 2)
+      orbit.rotateY(-inc)
+    }
   },
 }
 
