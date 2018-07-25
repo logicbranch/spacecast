@@ -208,7 +208,7 @@ Spacecast3D.Setup = {
       inclination: Spacecast3D.Utils.radians(22.253),
       eccentricity: 0.88994,
       period: 1.433 * Spacecast3D.SPACECAST3D_YEAR,
-      lastPerihelion: new Date("July 2009"),
+      lastPerihelion: new Date("July 1, 2009"),
     },
     // source: https://en.wikipedia.org/wiki/Comet_Hale–Bopp
     "Comet Hale-Bopp": {
@@ -673,6 +673,7 @@ Spacecast3D.State = {
     neptune: null,
     uranus: null,
   },
+  ellipticalOrbiters: {},
   lights: null,
   milkyWay: null,
   centralPlane: null,
@@ -773,7 +774,9 @@ Spacecast3D.Helper = {
     scene.add(state.nearestStars)
 
     Object.entries(setup.ellipticalOrbiters).forEach(([name, body]) => {
-      scene.add(Spacecast3D.Utils.orbit(body).shape)
+      state.ellipticalOrbiters[name] = Spacecast3D.Utils.orbit(body)
+      state.ellipticalOrbiters[name].lastPerihelion = body.lastPerihelion
+      scene.add(state.ellipticalOrbiters[name].shape)
     })
 
     var earth = state.solarSystem.earth.getObjectByName('planet')
@@ -1356,8 +1359,25 @@ Spacecast3D.Helper = {
     }
   },
 
+  updateEllipticalOrbiterPositions: function(date) {
+    var state = Spacecast3D.State
+    Object.entries(state.ellipticalOrbiters).forEach(([name, orbiter]) => {
+      var sincePerihelion = Spacecast3D.Utils.timeBetween(orbiter.lastPerihelion, date)
+      var days = Math.floor(sincePerihelion / Spacecast3D.SPACECAST3D_DAY) % orbiter.days
+      var position = orbiter.shape.geometry.vertices[days]
+      var body = orbiter.body
+      if (!body) {
+        body = this.createSphere(Spacecast3D.SPACECAST3D_AU / 10, Spacecast3D.Setup.beamCapMaterial)
+        orbiter.body = body
+        state.universe.scene.add(orbiter.body)
+      }
+      body.position.copy(position)
+    })
+  },
+
   updateObjectPositions: function(date) {
     this.updatePlanetPositions(date)
+    this.updateEllipticalOrbiterPositions(date)
     this.updateBeam(date)
   },
 
