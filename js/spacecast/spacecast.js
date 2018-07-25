@@ -78,6 +78,9 @@ Spacecast3D.Utils = {
     geom.translate(-focusOffset, 0, 0)
     var object = new THREE.Line(geom)
     setRotation(object, info.perihelionArgument, info.ascendingNode, info.inclination)
+    object.updateMatrixWorld()
+    object.geometry.applyMatrix(object.matrix)
+    object.rotation.set(0, 0, 0)
     orbit.shape = object
     orbit.points = object.geometry.vertices
     return orbit;
