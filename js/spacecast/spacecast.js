@@ -72,16 +72,14 @@ Spacecast3D.Utils = {
     var focusOffset = majorAxis - info.perihelion
     var minorAxis = getMinorAxis(majorAxis, focusOffset, info.eccentricity)
     var shape = new THREE.EllipseCurve(0, 0, majorAxis, minorAxis)
-    var path = new THREE.Path()
-    path.add(shape)
     var geom = new THREE.Geometry()
     orbit.days = Math.ceil(info.period / Spacecast3D.SPACECAST3D_DAY)
-    orbit.points =  shape.getPoints(orbit.days)
-    geom.setFromPoints(orbit.points)
+    geom.setFromPoints(shape.getPoints(orbit.days))
     geom.translate(-focusOffset, 0, 0)
     var object = new THREE.Line(geom)
     setRotation(object, info.perihelionArgument, info.ascendingNode, info.inclination)
     orbit.shape = object
+    orbit.points = object.geometry.vertices
     return orbit;
 
     function getMinorAxis(major, focusOffset, eccentricity) {
