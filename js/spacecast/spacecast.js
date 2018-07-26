@@ -1271,6 +1271,8 @@ Spacecast3D.Helper = {
   displayInfo: function(camera) {
     this.fillStarList(Spacecast3D.State.nearestBodiesLabels)
 
+    this.focusOnStar(Spacecast3D.State.solarSystem.Sun.label)
+
     this.updateInfo(camera)
     document.getElementById('canvas-spacecast3d').addEventListener('mousedown', () => {return this.updateInfo(camera)})
   	document.getElementById('canvas-spacecast3d').addEventListener('wheel', () => {return this.updateInfo(camera)})
