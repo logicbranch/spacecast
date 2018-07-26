@@ -100,6 +100,10 @@ p {
   max-width: 509px;
 }
 
+#spacecast3d-info[data-star-focused=false] {
+  visibility: hidden;
+}
+
 #spacecast3d-info-header {
   border-bottom: 1px solid #707070;
   padding: 5px 28px;

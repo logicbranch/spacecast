@@ -801,7 +801,9 @@ Spacecast3D.Helper = {
   	var intersects = raycaster.intersectObjects(Spacecast3D.State.nearestStarsLabels)
   	if (intersects.length > 0) {
       Spacecast3D.Helper.focusOnStar(intersects[0].object)
-  	}
+    } else {
+      document.getElementById("spacecast3d-info").setAttribute("data-star-focused", false)
+    }
   },
 
   // Calculate an elliptical orbit from the information given by Wikipedia.
@@ -1196,7 +1198,9 @@ Spacecast3D.Helper = {
   },
 
   focusOnStar: function(starLabel) {
-    this.resetCameraPositionForStar(starLabel.position)
+    if (Spacecast3D.State.orbitControls.target !== starLabel.position) {
+      this.resetCameraPositionForStar(starLabel.position)
+    }
     this.setStarInfo(starLabel.name, Spacecast3D.Setup.nearestStars[starLabel.name])
   },
 
@@ -1234,11 +1238,6 @@ Spacecast3D.Helper = {
   displayInfo: function(camera) {
     this.fillStarList(Spacecast3D.State.nearestStarsLabels)
 
-    var sunInfo = {
-      descriptionSource: "https://en.wikipedia.org/wiki/Sun",
-      description: "Our home star.",
-    }
-    this.setStarInfo('Sun', sunInfo)
     this.updateInfo(camera)
     document.getElementById('canvas-spacecast3d').addEventListener('mousedown', () => {return this.updateInfo(camera)})
   	document.getElementById('canvas-spacecast3d').addEventListener('wheel', () => {return this.updateInfo(camera)})
@@ -1248,6 +1247,7 @@ Spacecast3D.Helper = {
   },
 
   setStarInfo: function(name, info) {
+    document.getElementById("spacecast3d-info").setAttribute("data-star-focused", true)
     document.getElementById("spacecast3d-info-name").value = name
     document.getElementById("spacecast3d-info-description").innerHTML =
       info.description != null ? info.description : "None."
