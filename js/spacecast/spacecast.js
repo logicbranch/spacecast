@@ -85,7 +85,7 @@ Spacecast3D.Setup = {
     maxDistance: Spacecast3D.MILKY_WAY_RADIUS/10, // farthest that the camera can zoom out
   },
   solarSystem: {
-    sun: {
+    Sun: {
       radius: 432169 * Spacecast3D.SPACECAST3D_MILE,
     },
     // Year lengths from https://nssdc.gsfc.nasa.gov/planetary/factsheet/planet_table_ratio.html
@@ -642,7 +642,7 @@ Spacecast3D.State = {
   beamPosition: null,
   universe: null,
   solarSystem: {
-    sun: null,
+    Sun: null,
     Mercury: null,
     Venus: null,
     Earth: null,
@@ -729,12 +729,12 @@ Spacecast3D.Helper = {
     var state = Spacecast3D.State
     state.nearestBodies = Spacecast3D.Helper.getNearestStars(setup.nearestStars)
     state.milkyWay = Spacecast3D.Helper.createMilkyWay(setup.milkyWayRadius)
-    state.solarSystem.sun = Spacecast3D.Helper.createSun(solarSetup.sun.radius)
+    this.createSun(scene)
     this.createPlanets(scene)
     this.createEarth(scene)
     state.centralPlane = Spacecast3D.Helper.createCentralPlane()
     scene.add(state.milkyWay)
-    scene.add(state.solarSystem.sun)
+    scene.add(state.solarSystem.Sun)
     scene.add(state.solarSystem.Mercury)
     scene.add(state.solarSystem.Venus)
     scene.add(state.solarSystem.Earth)
@@ -908,9 +908,11 @@ Spacecast3D.Helper = {
   	return mesh
   },
 
-  createSun: function(radius) {
+  createSun: function(scene) {
+    var setup = Spacecast3D.Setup
+    var state = Spacecast3D.State
     var sunMaterial	= new THREE.MeshPhongMaterial({map: new THREE.TextureLoader().load('./images/sunmap.jpg'),})
-    var sun = this.createSphere(radius, sunMaterial)
+    var sun = this.createSphere(setup.solarSystem.Sun.radius, sunMaterial)
     sun.name = 'star'
 
     var sunSprite = new THREE.Sprite(new THREE.SpriteMaterial({
@@ -922,10 +924,26 @@ Spacecast3D.Helper = {
     sunSprite.scale.y = 2000 * Spacecast3D.EARTH_DIAMETER
     sunSprite.scale.z = 1
 
+    var label = this.createStarLabel('Sun')
+    label.name = 'Sun'
+    label.scale.x = Spacecast3D.SPACECAST3D_AU
+    label.scale.y = Spacecast3D.SPACECAST3D_AU
+    label.scale.z = 1
+    label.minDistance = Spacecast3D.SPACECAST3D_AU
+    label.translateY(Spacecast3D.SPACECAST3D_AU)
+
     var group = new THREE.Group()
+    group.info = {
+      description: "Our home star.",
+    }
+    group.label = label
+    group.add(label)
     group.add(sun)
     group.add(sunSprite)
-    return group
+    state.solarSystem.Sun = group
+    scene.add(group)
+    state.nearestBodies.add(group)
+    state.nearestBodiesLabels.push(label)
   },
 
   planetLabelScale: function(scale, radius) {
