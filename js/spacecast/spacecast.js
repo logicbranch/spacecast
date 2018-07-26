@@ -1295,23 +1295,12 @@ Spacecast3D.Helper = {
     }
   },
 
-  focusOnLocalBody: function(name, kind) {
-    var body = Spacecast3D.State.solarSystem[name].getObjectByName(kind)
-    body.updateMatrixWorld()
-
-    var minDistance = new THREE.Box3().setFromObject(body).getSize().x/2
-    var position = body.getWorldPosition()
-    var radius = Spacecast3D.Setup.solarSystem[name].radius
-    this.resetCameraPositionForPlanet(position, radius, minDistance)
-  },
-
   uiController: function(container) {
     var setup = Spacecast3D.Setup
     var state = Spacecast3D.State
     var text = {
       'Date': Spacecast3D.Utils.dateToConciseString((new Date())),
       'Distance (light-year)': 0.0001,
-      'Reference': 'Sun',
       'Planets size': 1.00,
       'Show central plane': false,
     }
@@ -1327,14 +1316,6 @@ Spacecast3D.Helper = {
       var cameraSphericalPosition = new THREE.Spherical().setFromVector3(state.universe.camera.position)
       cameraSphericalPosition.radius = distanceLightYear * Spacecast3D.SPACECAST3D_LY
       state.universe.camera.position.setFromSpherical(cameraSphericalPosition)
-    })
-    gui.add(text, 'Reference', ['Sun', 'Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'])
-    .onChange((bodyName) => {
-      var camera = state.universe.camera
-      var orbitControls = state.orbitControls
-      bodyName = bodyName.toLowerCase()
-      var bodyKind = bodyName === 'sun' ? 'star' : 'planet'
-      this.focusOnLocalBody(bodyName, bodyKind)
     })
     gui.add(text, 'Planets size', 1, 4000)
     .onChange((scale) => {
