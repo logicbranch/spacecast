@@ -64,39 +64,6 @@ Spacecast3D.Utils = {
   timeBetween: function(beginning, after) {
     return after.getTime() - beginning.getTime();
   },
-
-  // Calculate an elliptical orbit from the information given by Wikipedia.
-  orbit: function(info) {
-    var orbit = {}
-    var majorAxis = (info.aphelion + info.perihelion) / 2;
-    var focusOffset = majorAxis - info.perihelion
-    var minorAxis = getMinorAxis(majorAxis, focusOffset, info.eccentricity)
-    var shape = new THREE.EllipseCurve(0, 0, majorAxis, minorAxis)
-    var geom = new THREE.Geometry()
-    orbit.days = Math.ceil(info.period / Spacecast3D.SPACECAST3D_DAY)
-    geom.setFromPoints(shape.getPoints(orbit.days))
-    geom.translate(-focusOffset, 0, 0)
-    var object = new THREE.Line(geom)
-    setRotation(object, info.perihelionArgument, info.ascendingNode, info.inclination)
-    object.updateMatrixWorld()
-    object.geometry.applyMatrix(object.matrix)
-    object.rotation.set(0, 0, 0)
-    orbit.shape = object
-    orbit.points = object.geometry.vertices
-    return orbit;
-
-    function getMinorAxis(major, focusOffset, eccentricity) {
-      var hypot = focusOffset / eccentricity
-      return Math.sqrt(hypot ** 2 - focusOffset ** 2)
-    }
-
-    function setRotation(orbit, periArg, ascNode, inc) {
-      orbit.rotateX(Math.PI / 2)
-      orbit.rotateZ(ascNode - Math.PI / 2)
-      orbit.rotateY(-inc)
-      orbit.rotateZ(periArg)
-    }
-  },
 }
 
 Spacecast3D.Setup = {
@@ -774,7 +741,7 @@ Spacecast3D.Helper = {
     scene.add(state.nearestStars)
 
     Object.entries(setup.ellipticalOrbiters).forEach(([name, body]) => {
-      state.ellipticalOrbiters[name] = Spacecast3D.Utils.orbit(body)
+      state.ellipticalOrbiters[name] = this.orbit(body)
       state.ellipticalOrbiters[name].lastPerihelion = body.lastPerihelion
       scene.add(state.ellipticalOrbiters[name].shape)
     })
@@ -835,6 +802,39 @@ Spacecast3D.Helper = {
   	if (intersects.length > 0) {
       Spacecast3D.Helper.focusOnStar(intersects[0].object)
   	}
+  },
+
+  // Calculate an elliptical orbit from the information given by Wikipedia.
+  orbit: function(info) {
+    var orbit = {}
+    var majorAxis = (info.aphelion + info.perihelion) / 2;
+    var focusOffset = majorAxis - info.perihelion
+    var minorAxis = getMinorAxis(majorAxis, focusOffset, info.eccentricity)
+    var shape = new THREE.EllipseCurve(0, 0, majorAxis, minorAxis)
+    var geom = new THREE.Geometry()
+    orbit.days = Math.ceil(info.period / Spacecast3D.SPACECAST3D_DAY)
+    geom.setFromPoints(shape.getPoints(orbit.days))
+    geom.translate(-focusOffset, 0, 0)
+    var object = new THREE.Line(geom)
+    setRotation(object, info.perihelionArgument, info.ascendingNode, info.inclination)
+    object.updateMatrixWorld()
+    object.geometry.applyMatrix(object.matrix)
+    object.rotation.set(0, 0, 0)
+    orbit.shape = object
+    orbit.points = object.geometry.vertices
+    return orbit;
+
+    function getMinorAxis(major, focusOffset, eccentricity) {
+      var hypot = focusOffset / eccentricity
+      return Math.sqrt(hypot ** 2 - focusOffset ** 2)
+    }
+
+    function setRotation(orbit, periArg, ascNode, inc) {
+      orbit.rotateX(Math.PI / 2)
+      orbit.rotateZ(ascNode - Math.PI / 2)
+      orbit.rotateY(-inc)
+      orbit.rotateZ(periArg)
+    }
   },
 
   createSphere: function(radius, material, segments) {
