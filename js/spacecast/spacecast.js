@@ -727,7 +727,7 @@ Spacecast3D.Helper = {
     state.solarSystem.neptune = Spacecast3D.Helper.createNeptune(solarSetup.neptune.radius, solarSetup.neptune.orbitRadius)
     state.centralPlane = Spacecast3D.Helper.createCentralPlane()
     state.nearestStars = Spacecast3D.Helper.getNearestStars(setup.nearestStars)
-    // scene.add(state.milkyWay)
+    scene.add(state.milkyWay)
     scene.add(state.solarSystem.sun)
     scene.add(state.solarSystem.mercury)
     scene.add(state.solarSystem.venus)
@@ -1278,7 +1278,6 @@ Spacecast3D.Helper = {
       'Distance (light-year)': 0.0001,
       'Reference': 'Sun',
       'Planets size': 1.00,
-      'Show Milky Way': false,
       'Show central plane': false,
     }
     var gui = new dat.GUI({autoPlace: false, closeOnTop: true})
@@ -1305,13 +1304,6 @@ Spacecast3D.Helper = {
     gui.add(text, 'Planets size', 1, 4000)
     .onChange((scale) => {
       this.resizePlanets(scale)
-    })
-    gui.add(text, 'Show Milky Way').onChange(function(value) {
-      if (value) {
-        state.universe.scene.add(state.milkyWay)
-      } else {
-        state.universe.scene.remove(state.milkyWay)
-      }
     })
     gui.add(text, 'Show central plane').onChange(function(value) {
       if (value) {
