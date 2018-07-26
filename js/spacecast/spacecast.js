@@ -1429,6 +1429,15 @@ Spacecast3D.Core = {
     if (!Math.TAU) {
       Math.TAU = Math.PI * 2
     }
+    document.addEventListener("keypress", function(ev) {
+      const KEYCODE_SPACE = 32;
+      if (event.keyCode === KEYCODE_SPACE) {
+        var info = document.getElementById("spacecast3d-info")
+        var opened = info.getAttribute("data-star-focused") === "true"
+        console.log(opened, !opened)
+        info.setAttribute("data-star-focused", !opened)
+      }
+    })
     var controls = document.getElementById('spacecast-controls')
     var state = Spacecast3D.State
     var universe = Spacecast3D.Helper.createUniverse()
