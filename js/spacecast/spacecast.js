@@ -90,45 +90,57 @@ Spacecast3D.Setup = {
     },
     // Year lengths from https://nssdc.gsfc.nasa.gov/planetary/factsheet/planet_table_ratio.html
     // TODO: higher precision year lengths
-    mercury: {
+    Mercury: {
       radius: 1516 * Spacecast3D.SPACECAST3D_MILE,
       orbitRadius: 0.387 * Spacecast3D.SPACECAST3D_AU,
       year: 0.241 * Spacecast3D.SPACECAST3D_YEAR,
+      materialMap: "./images/mercurymap.jpg",
+      materialBumpMap: "./images/mercurybump.jpg",
     },
-    venus: {
+    Venus: {
       radius: 1516 * Spacecast3D.SPACECAST3D_MILE,
       orbitRadius: 0.723 * Spacecast3D.SPACECAST3D_AU,
       year: 0.615 * Spacecast3D.SPACECAST3D_YEAR,
+      materialMap: "./images/venusmap.jpg",
+      materialBumpMap: "./images/venusbump.jpg",
     },
-    earth: {
+    Earth: {
       radius: Spacecast3D.EARTH_DIAMETER/2,
       orbitRadius: Spacecast3D.SPACECAST3D_AU,
       year: Spacecast3D.SPACECAST3D_YEAR,
+      materialMap: "./images/earthmap.jpg",
+      materialBumpMap: "./images/earthbump.jpg",
     },
-    mars: {
+    Mars: {
       radius: 2106 * Spacecast3D.SPACECAST3D_MILE,
       orbitRadius: 1.524 * Spacecast3D.SPACECAST3D_AU,
       year: 1.88 * Spacecast3D.SPACECAST3D_YEAR,
+      materialMap: "./images/marsmap.jpg",
+      materialBumpMap: "./images/marsbump.jpg",
     },
-    jupiter: {
+    Jupiter: {
       radius: 43441 * Spacecast3D.SPACECAST3D_MILE,
       orbitRadius: 5.203 * Spacecast3D.SPACECAST3D_AU,
       year: 11.9 * Spacecast3D.SPACECAST3D_YEAR,
+      materialMap: "./images/jupitermap.jpg",
     },
-    saturn: {
+    Saturn: {
       radius: 36184 * Spacecast3D.SPACECAST3D_MILE,
       orbitRadius: 9.539 * Spacecast3D.SPACECAST3D_AU,
       year: 29.4 * Spacecast3D.SPACECAST3D_YEAR,
+      materialMap: "./images/saturnmap.jpg",
     },
-    uranus: {
+    Uranus: {
       radius: 15759 * Spacecast3D.SPACECAST3D_MILE,
       orbitRadius: 19.18 * Spacecast3D.SPACECAST3D_AU,
       year: 83.7 * Spacecast3D.SPACECAST3D_YEAR,
+      materialMap: "./images/uranusmap.jpg",
     },
-    neptune: {
+    Neptune: {
       radius: 15299 * Spacecast3D.SPACECAST3D_MILE,
       orbitRadius: 30.06 * Spacecast3D.SPACECAST3D_AU,
       year: 163.7 * Spacecast3D.SPACECAST3D_YEAR,
+      materialMap: "./images/neptunemap.jpg",
     },
   },
   ellipticalOrbiters: {
@@ -631,14 +643,14 @@ Spacecast3D.State = {
   universe: null,
   solarSystem: {
     sun: null,
-    mercury: null,
-    venus: null,
-    earth: null,
-    mars: null,
-    jupiter: null,
-    saturn: null,
-    neptune: null,
-    uranus: null,
+    Mercury: null,
+    Venus: null,
+    Earth: null,
+    Mars: null,
+    Jupiter: null,
+    Saturn: null,
+    Neptune: null,
+    Uranus: null,
   },
   ellipticalOrbiters: {},
   lights: null,
@@ -718,25 +730,19 @@ Spacecast3D.Helper = {
     state.nearestBodies = Spacecast3D.Helper.getNearestStars(setup.nearestStars)
     state.milkyWay = Spacecast3D.Helper.createMilkyWay(setup.milkyWayRadius)
     state.solarSystem.sun = Spacecast3D.Helper.createSun(solarSetup.sun.radius)
-    state.solarSystem.mercury = Spacecast3D.Helper.createMercury(solarSetup.mercury.radius, solarSetup.mercury.orbitRadius)
-    state.solarSystem.venus = Spacecast3D.Helper.createVenus(solarSetup.venus.radius, solarSetup.venus.orbitRadius)
-    state.solarSystem.earth = Spacecast3D.Helper.createEarth(solarSetup.earth.radius, solarSetup.earth.orbitRadius)
-    state.solarSystem.mars = Spacecast3D.Helper.createMars(solarSetup.mars.radius, solarSetup.mars.orbitRadius)
-    state.solarSystem.jupiter = Spacecast3D.Helper.createJupiter(solarSetup.jupiter.radius, solarSetup.jupiter.orbitRadius)
-    state.solarSystem.saturn = Spacecast3D.Helper.createSaturn(solarSetup.saturn.radius, solarSetup.saturn.orbitRadius)
-    state.solarSystem.uranus = Spacecast3D.Helper.createUranus(solarSetup.uranus.radius, solarSetup.uranus.orbitRadius)
-    state.solarSystem.neptune = Spacecast3D.Helper.createNeptune(solarSetup.neptune.radius, solarSetup.neptune.orbitRadius)
+    this.createPlanets(scene)
+    this.createEarth(scene)
     state.centralPlane = Spacecast3D.Helper.createCentralPlane()
     scene.add(state.milkyWay)
     scene.add(state.solarSystem.sun)
-    scene.add(state.solarSystem.mercury)
-    scene.add(state.solarSystem.venus)
-    scene.add(state.solarSystem.earth)
-    scene.add(state.solarSystem.mars)
-    scene.add(state.solarSystem.jupiter)
-    scene.add(state.solarSystem.saturn)
-    scene.add(state.solarSystem.uranus)
-    scene.add(state.solarSystem.neptune)
+    scene.add(state.solarSystem.Mercury)
+    scene.add(state.solarSystem.Venus)
+    scene.add(state.solarSystem.Earth)
+    scene.add(state.solarSystem.Mars)
+    scene.add(state.solarSystem.Jupiter)
+    scene.add(state.solarSystem.Saturn)
+    scene.add(state.solarSystem.Uranus)
+    scene.add(state.solarSystem.Neptune)
     // scene.add(state.centralPlane)
     scene.add(state.nearestBodies)
 
@@ -746,9 +752,9 @@ Spacecast3D.Helper = {
       scene.add(state.ellipticalOrbiters[name].shape)
     })
 
-    var earth = state.solarSystem.earth.getObjectByName('planet')
+    var earth = state.solarSystem.Earth.getObjectByName('planet')
     earth.updateMatrixWorld()
-    state.beamPosition = this.findPlanetPosition(setup.solarSystem.earth, setup.startDate)
+    state.beamPosition = this.findPlanetPosition(setup.solarSystem.Earth, setup.startDate)
 
     Spacecast3D.State.universe = {
       scene: scene,
@@ -930,8 +936,7 @@ Spacecast3D.Helper = {
     return radius * scale * 2
   },
 
-  createPlanet: function(name, material, radius, orbitRadius) {
-    var planet = this.createSphere(radius, material)
+  makePlanetOrbit: function(planet, name, radius, orbitRadius) {
     planet.radius = radius
     planet.name = 'planet'
     planet.translateZ(orbitRadius)
@@ -958,52 +963,61 @@ Spacecast3D.Helper = {
     return group
   },
 
-  createMercury: function(radius, orbitRadius) {
-    var mercuryMaterial	= new THREE.MeshPhongMaterial({
-  		map	: new THREE.TextureLoader().load('./images/mercurymap.jpg'),
-  		bumpMap	: new THREE.TextureLoader().load('./images/mercurybump.jpg'),
-  		bumpScale	: 0.1,
-  	})
-    return this.createPlanet("mercury", mercuryMaterial, radius, orbitRadius)
+  createPlanet: function(name, material, radius, orbitRadius) {
+    return this.makePlanetOrbit(this.createSphere(radius, material), name, radius, orbitRadius)
   },
 
-  createVenus: function(radius, orbitRadius) {
-    var venusMaterial	= new THREE.MeshPhongMaterial({
-  		map	: new THREE.TextureLoader().load('./images/venusmap.jpg'),
-  		bumpMap	: new THREE.TextureLoader().load('./images/venusbump.jpg'),
-  		bumpScale	: 0.1,
-  	})
-    return this.createPlanet("venus", venusMaterial, radius, orbitRadius)
+  createPlanets: function(scene) {
+    var setup = Spacecast3D.Setup
+    var state = Spacecast3D.State
+    var planets = [
+      'Mercury',
+      'Venus',
+      'Mars',
+      'Jupiter',
+      'Saturn',
+      'Uranus',
+      'Neptune'
+    ]
+    planets.forEach((name) => {
+      var planetInfo = setup.solarSystem[name]
+      var materialInfo = {
+        map: new THREE.TextureLoader().load(planetInfo.materialMap),
+      }
+      if (planetInfo.materialBumpMap) {
+        materialInfo.bumpMap = new THREE.TextureLoader().load(planetInfo.materialBumpMap)
+        materialInfo.bumpScale = 0.1
+      }
+      var material = new THREE.MeshPhongMaterial(materialInfo)
+      var planet = this.createPlanet(name, material, planetInfo.radius, planetInfo.orbitRadius)
+      state.nearestBodies.add(planet)
+      scene.add(planet)
+      state.solarSystem[name] = planet
+    })
   },
 
-  createEarth: function(radius, orbitRadius) {
-    var earthMaterial	= new THREE.MeshPhongMaterial({
-  		map	: new THREE.TextureLoader().load('./images/earthmap.jpg'),
-  		bumpMap	: new THREE.TextureLoader().load('./images/earthbump.jpg'),
-  		bumpScale	: 0.1,
-  	})
-    var atmosphereMaterial	= Spacecast3D.Atmosphere.createMaterial(0x00b3ff)
-
-    var earth = this.createSphere(radius, earthMaterial)
-  	var atmosphere	= this.createSphere(radius*1.04, atmosphereMaterial, 128)
-    var earthCloud	= this.createCloud(radius*1.02)
-  	earthCloud.receiveShadow	= true
-  	earthCloud.castShadow	= true
-
-    var planetEarth = new THREE.Group()
-    planetEarth.add(earth)
-    planetEarth.add(atmosphere)
-  	planetEarth.add(earthCloud)
-    planetEarth.name = 'planet'
-    planetEarth.translateZ(orbitRadius)
-
-    var orbit = this.circleLine(orbitRadius, 0xffffff)
-    orbit.name = 'orbit'
-
-    var group = new THREE.Group()
-    group.add(planetEarth)
-    group.add(orbit)
-    return group
+  createEarth: function(scene) {
+    var setup = Spacecast3D.Setup
+    var state = Spacecast3D.State
+    var earth = setup.solarSystem.Earth
+    var material = new THREE.MeshPhongMaterial({
+      map: new THREE.TextureLoader().load(earth.materialMap),
+      bumpMap: new THREE.TextureLoader().load(earth.materialBumpMap),
+      bumpScale: 0.1,
+    })
+    var earthPlanet = new THREE.Group()
+    earthPlanet.add(this.createSphere(earth.radius, material))
+    var atmosphereMaterial = Spacecast3D.Atmosphere.createMaterial(0x00b3ff)
+    var atmosphere = this.createSphere(earth.radius*1.04, atmosphereMaterial, 128)
+    var earthCloud = this.createCloud(earth.radius*1.02)
+    earthCloud.receiveShadow = true
+    earthCloud.castShadow = true
+    earthPlanet.add(atmosphere)
+    earthPlanet.add(earthCloud)
+    var earthGroup = this.makePlanetOrbit(earthPlanet, 'Earth', earth.radius, earth.orbitRadius)
+    state.nearestBodies.add(earthGroup)
+    scene.add(earthGroup)
+    state.solarSystem.Earth = earthGroup
   },
 
   createBeam(distance, declination, rightAcension) {
@@ -1026,43 +1040,6 @@ Spacecast3D.Helper = {
     beam.add(cap)
     beam.add(cone)
     return beam;
-  },
-
-  createMars: function(radius, orbitRadius) {
-    var marsMaterial	= new THREE.MeshPhongMaterial({
-  		map	: new THREE.TextureLoader().load('./images/marsmap.jpg'),
-  		bumpMap	: new THREE.TextureLoader().load('./images/marsbump.jpg'),
-  		bumpScale	: 0.1,
-  	})
-    return this.createPlanet("mars", marsMaterial, radius, orbitRadius)
-  },
-
-  createJupiter: function(radius, orbitRadius) {
-    var jupiterMaterial	= new THREE.MeshPhongMaterial({
-  		map	: new THREE.TextureLoader().load('./images/jupitermap.jpg'),
-  	})
-    return this.createPlanet("jupiter", jupiterMaterial, radius, orbitRadius)
-  },
-
-  createSaturn: function(radius, orbitRadius) {
-    var saturnMaterial	= new THREE.MeshPhongMaterial({
-  		map	: new THREE.TextureLoader().load('./images/saturnmap.jpg'),
-  	})
-    return this.createPlanet("saturn", saturnMaterial, radius, orbitRadius)
-  },
-
-  createUranus: function(radius, orbitRadius) {
-    var uranusMaterial	= new THREE.MeshPhongMaterial({
-  		map	: new THREE.TextureLoader().load('./images/uranusmap.jpg'),
-  	})
-    return this.createPlanet("uranus", uranusMaterial, radius, orbitRadius)
-  },
-
-  createNeptune: function(radius, orbitRadius) {
-    var neptuneMaterial	= new THREE.MeshPhongMaterial({
-  		map	: new THREE.TextureLoader().load('./images/neptunemap.jpg'),
-  	})
-    return this.createPlanet("neptune", neptuneMaterial, radius, orbitRadius)
   },
 
   resizePlanets: function(scale) {
@@ -1424,14 +1401,14 @@ Spacecast3D.Helper = {
 
   updatePlanetPositions: function(date) {
     var planets = [
-      'mercury',
-      'venus',
-      'earth',
-      'mars',
-      'jupiter',
-      'saturn',
-      'uranus',
-      'neptune'
+      'Mercury',
+      'Venus',
+      'Earth',
+      'Mars',
+      'Jupiter',
+      'Saturn',
+      'Uranus',
+      'Neptune'
     ]
     planets.forEach((name) => {
       var planet = Spacecast3D.State.solarSystem[name].getObjectByName('planet')
