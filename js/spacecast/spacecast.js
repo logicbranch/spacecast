@@ -215,7 +215,18 @@ Spacecast3D.Setup = {
     },
   },
   baseDate: new Date("1/1/2000"),
-  startDate: new Date("12/26/2012"),
+  beams: [
+    {
+      start: new Date("12/26/2012"),
+      asc: Spacecast3D.Utils.asc(14, 29, 43), // right ascension: 14h 29m 43.0s
+      dec: Spacecast3D.Utils.dec(62, 40, 46, true), // declination: −62° 40′ 46″
+    },
+    {
+      start: new Date("8/7/2015"),
+      asc: Spacecast3D.Utils.asc(17, 29, 43), // right ascension: 17h 57m 48.5s
+      dec: Spacecast3D.Utils.dec(4, 41, 36), // declination: +04° 41′ 36″
+    },
+  ],
   milkyWayRadius: Spacecast3D.MILKY_WAY_RADIUS,
   renderer: {
     width: document.getElementById("explorer-view-content").offsetWidth,
@@ -754,7 +765,8 @@ Spacecast3D.Helper = {
 
     var earth = state.solarSystem.Earth.getObjectByName('planet')
     earth.updateMatrixWorld()
-    state.beamPosition = this.findPlanetPosition(setup.solarSystem.Earth, setup.startDate)
+    state.beamPositions =
+      setup.beams.map((beam) => this.findPlanetPosition(setup.solarSystem.Earth, beam.start))
 
     Spacecast3D.State.universe = {
       scene: scene,
@@ -1038,10 +1050,10 @@ Spacecast3D.Helper = {
     state.solarSystem.Earth = earthGroup
   },
 
-  createBeam(distance, declination, rightAcension) {
+  createBeam(distance, declination, rightAcension, origin) {
     var beam = this.createBeamMesh(distance, Spacecast3D.Setup.beamAngle, 128)
     Spacecast3D.Utils.rotateObject(beam, rightAcension, declination)
-    beam.position.copy(Spacecast3D.State.beamPosition)
+    beam.position.copy(origin)
     return beam;
   },
 
@@ -1348,23 +1360,29 @@ Spacecast3D.Helper = {
   },
 
   updateBeam: function(date) {
-    const BEAM_NAME = 'beam'
+    const BEAM_GROUP_NAME = 'beams'
 
     var setup = Spacecast3D.Setup
-    var scene = Spacecast3D.State.universe.scene
+    var state = Spacecast3D.State
+    var scene = state.universe.scene
 
-    var oldBeam = scene.getObjectByName(BEAM_NAME)
-    if (oldBeam) {
-      scene.remove(oldBeam)
+    var oldBeams = scene.getObjectByName(BEAM_GROUP_NAME)
+    if (oldBeams) {
+      scene.remove(oldBeams)
     }
 
-    var milliseconds = Spacecast3D.Utils.timeBetween(setup.startDate, date)
-    if (milliseconds > 0) {
-      var years = milliseconds / Spacecast3D.SPACECAST3D_YEAR
-      var beam = this.createBeam(years * Spacecast3D.SPACECAST3D_LY, setup.beamDirection.dec, setup.beamDirection.asc)
-      beam.name = BEAM_NAME
-      scene.add(beam)
-    }
+    var beams = new THREE.Group()
+    beams.name = BEAM_GROUP_NAME
+    setup.beams.forEach((beam, i) => {
+      var milliseconds = Spacecast3D.Utils.timeBetween(beam.start, date)
+      if (milliseconds > 0) {
+        var years = milliseconds / Spacecast3D.SPACECAST3D_YEAR
+        var beam =
+          this.createBeam(years * Spacecast3D.SPACECAST3D_LY, beam.dec, beam.asc, state.beamPositions[i])
+        beams.add(beam)
+      }
+    })
+    scene.add(beams)
   },
 
   updateEllipticalOrbiterPositions: function(date) {
