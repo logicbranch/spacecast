@@ -44,7 +44,7 @@ p {
   top: 16px;
   right: 16px;
   padding: 28px;
-  max-width: 509px;
+  max-width: 50%;
 }
 
 #spacecast3d-info[data-star-focused=false] {
@@ -73,9 +73,14 @@ p {
 #spacecast3d-info-name {
   color: #FFD667;
   font-size: 27px;
+  width: 50%;
 }
 
 /* dat.gui overrides */
+
+#spacecast-controls {
+  width: fit-content !important;
+}
 
 #spacecast-controls * {
   color: white;
