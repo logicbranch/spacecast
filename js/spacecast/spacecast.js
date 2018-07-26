@@ -1305,7 +1305,7 @@ Spacecast3D.Helper = {
       'Show central plane': false,
     }
     var gui = new dat.GUI({autoPlace: false, closeOnTop: true})
-    gui.add(text, 'Date').onChange(function(dateString) {
+    gui.add(text, 'Date').onFinishChange(function(dateString) {
       var date = new Date(dateString)
       if (!isNaN(date)) {
         Spacecast3D.Helper.updateObjectPositions(date)
