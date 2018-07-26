@@ -39,59 +39,6 @@ p {
   position: relative;
 }
 
-#spacecast-controls {
-  position: absolute;
-  top: 16px;
-  left: 16px;
-}
-
-#spacecast-controls[data-is-expanded=false] {
-  height: 1em;
-  padding-bottom: 0;
-}
-
-#spacecast-controls[data-is-expanded=false] .main {
-  height: 0;
-  overflow: hidden;
-}
-
-#spacecast-controls-header {
-  position: absolute;
-  top: 4px;
-  left: 5px;
-  right: 7px;
-  margin: 0;
-  height: auto;
-}
-
-#spacecast-controls-header span {
-  text-transform: uppercase;
-  color: #A0C5FF;
-}
-
-#spacecast-controls-header #spacecast-controls-header-x {
-  background-color: #0000;
-  border: none;
-  float: right;
-  font-size: 18px;
-  padding: 0;
-  margin: 0;
-  width: 13px;
-  height: 13px;
-}
-
-#spacecast-controls-header #spacecast-controls-header-x::after {
-  position: absolute;
-  bottom: 0;
-  right: 1px;
-  content: '+';
-}
-
-#spacecast-controls-header #spacecast-controls-header-x:checked::after {
-  content: '\D7';
-}
-
-
 #spacecast3d-info {
   position: absolute;
   top: 16px;
@@ -129,10 +76,6 @@ p {
 }
 
 /* dat.gui overrides */
-
-#spacecast-controls {
-  padding: 24px 24px 24px 30px;
-}
 
 #spacecast-controls * {
   color: white;
@@ -181,11 +124,8 @@ p {
 }
 
 #spacecast-controls .close-top {
-  appearance: None;
-  -moz-appearance: None;
-	-webkit-appearance: None;
-  color: #0000;
   height: 0;
+  visibility: hidden;
 }
 
 #spacecast-controls .property-name {

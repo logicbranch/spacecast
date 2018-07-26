@@ -1430,10 +1430,6 @@ Spacecast3D.Core = {
       Math.TAU = Math.PI * 2
     }
     var controls = document.getElementById('spacecast-controls')
-    var ex = document.getElementById('spacecast-controls-header-x')
-    ex.addEventListener('click', function(ev) {
-      controls.setAttribute('data-is-expanded', ex.checked)
-    })
     var state = Spacecast3D.State
     var universe = Spacecast3D.Helper.createUniverse()
     controls.appendChild(Spacecast3D.Helper.uiController())
