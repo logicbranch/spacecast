@@ -745,16 +745,6 @@ Spacecast3D.Helper = {
     this.createEarth(scene)
     state.centralPlane = Spacecast3D.Helper.createCentralPlane()
     scene.add(state.milkyWay)
-    scene.add(state.solarSystem.Sun)
-    scene.add(state.solarSystem.Mercury)
-    scene.add(state.solarSystem.Venus)
-    scene.add(state.solarSystem.Earth)
-    scene.add(state.solarSystem.Mars)
-    scene.add(state.solarSystem.Jupiter)
-    scene.add(state.solarSystem.Saturn)
-    scene.add(state.solarSystem.Uranus)
-    scene.add(state.solarSystem.Neptune)
-    // scene.add(state.centralPlane)
     scene.add(state.nearestBodies)
 
     Object.entries(setup.ellipticalOrbiters).forEach(([name, body]) => {
