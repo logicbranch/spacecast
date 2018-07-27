@@ -1442,7 +1442,6 @@ Spacecast3D.Core = {
       if (event.keyCode === KEYCODE_SPACE) {
         var info = document.getElementById("spacecast3d-info")
         var opened = info.getAttribute("data-star-focused") === "true"
-        console.log(opened, !opened)
         info.setAttribute("data-star-focused", !opened)
       }
     })
