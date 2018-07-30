@@ -1312,7 +1312,7 @@ Spacecast3D.Helper = {
         Spacecast3D.Helper.updateObjectPositions(date)
       }
     })
-    gui.add(text, 'Distance (light-year)', 0.0001, 10000)
+    gui.add(text, 'Distance (light-year)', 0.0001, 40)
     .onChange(function(distanceLightYear) {
       var cameraSphericalPosition = new THREE.Spherical().setFromVector3(state.universe.camera.position)
       cameraSphericalPosition.radius = distanceLightYear * Spacecast3D.SPACECAST3D_LY
