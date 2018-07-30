@@ -74,8 +74,8 @@ p {
 
 /* dat.gui overrides */
 
-#spacecast-controls {
-  width: fit-content !important;
+#spacecast-controls .dg.main {
+  width: 100% !important;
 }
 
 #spacecast-controls input {
