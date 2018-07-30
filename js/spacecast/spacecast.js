@@ -64,6 +64,12 @@ Spacecast3D.Utils = {
   timeBetween: function(beginning, after) {
     return after.getTime() - beginning.getTime();
   },
+
+  // Fit an integer within the range [0, size)
+  fit: function(n, size) {
+    var fitted = n % size
+    return fitted >= 0 ? fitted : size + fitted
+  },
 }
 
 Spacecast3D.Setup = {
@@ -1392,9 +1398,10 @@ Spacecast3D.Helper = {
 
   updateEllipticalOrbiterPositions: function(date) {
     var state = Spacecast3D.State
+    var utils = Spacecast3D.Utils
     Object.entries(state.ellipticalOrbiters).forEach(([name, orbiter]) => {
-      var sincePerihelion = Spacecast3D.Utils.timeBetween(orbiter.lastPerihelion, date)
-      var days = Math.floor(sincePerihelion / Spacecast3D.SPACECAST3D_DAY) % orbiter.days
+      var sincePerihelion = utils.timeBetween(orbiter.lastPerihelion, date)
+      var days = utils.fit(Math.floor(sincePerihelion / Spacecast3D.SPACECAST3D_DAY), orbiter.days)
       var position = orbiter.shape.geometry.vertices[days]
       var body = orbiter.body
       if (!body) {
