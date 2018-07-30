@@ -1339,11 +1339,7 @@ Spacecast3D.Helper = {
     var y = camera.position.y
     var z = camera.position.z
     var distance = Math.sqrt(x*x + y*y + z*z)
-    var distanceDisplay = document.getElementById("spacecast3d-info-distance")
-    if (distance < Spacecast3D.SPACECAST3D_LY*0.001) {
-      distanceDisplay.innerHTML = Math.trunc(distance*7917).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' miles'
-    } else {
-      distanceDisplay.innerHTML = Math.trunc(distance/Spacecast3D.SPACECAST3D_LY).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' light-years'
+    if (distance >= Spacecast3D.SPACECAST3D_LY*0.001) {
       Spacecast3D.State.datGUI.__controllers.find((controller) => {return controller.property === 'Distance (light-year)'}).setValue(distance/Spacecast3D.SPACECAST3D_LY)
     }
   },
