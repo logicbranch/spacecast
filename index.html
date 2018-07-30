@@ -10,12 +10,13 @@
       <div id="spacecast3d">
           <div class="main-div" id="spacecast3d-info" data-star-focused=false>
             <div id="spacecast3d-info-header">
-              <div id="spacecast-controls"></div>
-              <input id="spacecast3d-info-name" type=text list="spacecast3d-star-list">
-                <script src="./js/datalist-polyfill/datalist-polyfill.min.js"></script>
-                <datalist id="spacecast3d-star-list"></datalist>
-              </input>
-              <label for="spacecast3d-info-name">Celestial Body name</label>
+              <div id="spacecast-controls">
+                <span class="property-name">Celestial body name</span>
+                <input id="spacecast3d-info-name" type=text list="spacecast3d-star-list">
+                  <script src="./js/datalist-polyfill/datalist-polyfill.min.js"></script>
+                  <datalist id="spacecast3d-star-list"></datalist>
+                </input>
+              </div>
             </div>
             <h3 id="spacecast3d-info-distance"></h3>
             <label for="spacecast3d-info-distance">Distance from the sun</label>

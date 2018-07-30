@@ -20,8 +20,6 @@ label {
   float: right;
   font-size: 12px;
   text-transform: uppercase;
-  position: relative;
-  top: 0.5em;
 }
 
 p {
@@ -70,22 +68,21 @@ p {
   outline: None;
 }
 
-#spacecast3d-info-name {
+#spacecast-controls #spacecast3d-info-name {
+  background-color: #0000;
   color: #FFD667;
   font-size: 27px;
   width: 50%;
+}
+
+#spacecast3d-info-name-box {
+  display: inline-block;
 }
 
 /* dat.gui overrides */
 
 #spacecast-controls {
   width: fit-content !important;
-}
-
-#spacecast-controls * {
-  color: white;
-  background-color: #0000;
-  border: none;
 }
 
 #spacecast-controls input {
@@ -111,21 +108,17 @@ p {
   bottom: 2px;
 }
 
+#spacecast-controls li.cr {
+  padding: 0;
+}
+
 #spacecast-controls li.number input[type="text"] {
   text-align: right;
   background: none;
 }
 
 #spacecast-controls select {
-  appearance: None;
-  -moz-appearance: None;
-	-webkit-appearance: None;
-  display: inline-block;
-  padding: 3px 0 4px 10px;
-  border: none;
-  border-radius: 0;
-  width: 100%;
-  background-color: rgba(255, 255, 255, 0.28);
+  z-index: 1;
 }
 
 #spacecast-controls .close-top {
@@ -135,8 +128,10 @@ p {
 
 #spacecast-controls .property-name {
   color: #FFD667;
-  font-size: 12px;
+  font-size: 11px;
   text-align: right;
+  width: 150px;
+  display: inline-block;
   text-transform: uppercase;
 }
 
@@ -159,4 +154,10 @@ p {
   height: 5px;
   position: absolute;
   top: 0;
+}
+
+#spacecast-controls :not(option, select) {
+  color: white;
+  background-color: #0000;
+  border: none;
 }
