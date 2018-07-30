@@ -156,7 +156,7 @@ p {
   top: 0;
 }
 
-#spacecast-controls :not(option, select) {
+#spacecast-controls *:not(option):not(select) {
   color: white;
   background-color: #0000;
   border: none;
