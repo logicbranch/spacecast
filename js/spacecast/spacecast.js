@@ -809,8 +809,6 @@ Spacecast3D.Helper = {
   	var intersects = raycaster.intersectObjects(Spacecast3D.State.nearestBodiesLabels)
   	if (intersects.length > 0) {
       Spacecast3D.Helper.focusOnStar(intersects[0].object)
-    } else {
-      document.getElementById("spacecast3d-info").setAttribute("data-star-focused", false)
     }
   },
 
