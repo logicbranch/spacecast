@@ -650,8 +650,7 @@ Spacecast3D.Setup = {
 }
 
 Spacecast3D.State = {
-  beamsInfo: {},
-  beams: new THREE.Group(),
+  beam: null,
   universe: null,
   solarSystem: {
     Sun: null,
@@ -679,31 +678,33 @@ Spacecast3D.State = {
 }
 
 Spacecast3D.Helper = {
-  addBeam: function(dateString, dec, asc) {
+  setBeam: function(start, dec, asc) {
     var setup = Spacecast3D.Setup
     var state = Spacecast3D.State
-    var start = new Date(dateString)
     var origin = this.findPlanetPosition(setup.solarSystem.Earth, start)
     var millis = Spacecast3D.Utils.timeBetween(start, state.currentDate)
     if (millis < 0) {
-      millis = 0
+      return;
     }
     var travelled = millis / Spacecast3D.SPACECAST3D_YEAR * Spacecast3D.SPACECAST3D_LY
     var beam = this.createBeam(travelled, dec, asc, origin)
-    beam.name = dateString
-    state.beamsInfo[dateString] = {
-      dec: dec,
-      asc: asc,
-      position: origin,
-      start: start,
+    state.beamDec = dec
+    state.beamAsc = asc
+    state.beamPosition = origin
+    state.beamStart = start
+    if (state.beam) {
+      state.universe.scene.remove(state.beam)
     }
-    state.beams.add(beam)
+    state.beam = beam
+    state.universe.scene.add(beam)
   },
 
-  removeBeam: function(dateString) {
+  removeBeam: function() {
     var state = Spacecast3D.State
-    state.beams.remove(state.beams.getObjectByName(dateString))
-    delete state.beamsInfo[dateString]
+    if (state.beam) {
+      state.universe.scene.remove(state.beam)
+      delete state.beam
+    }
   },
 
   createRenderer: function() {
@@ -1374,22 +1375,19 @@ Spacecast3D.Helper = {
     var state = Spacecast3D.State
     var scene = state.universe.scene
 
-    scene.remove(state.beams)
+    if (!state.beam) {
+      return;
+    }
 
-    var beams = new THREE.Group()
-    beams.name = 'beams'
-    Object.entries(state.beamsInfo).forEach(([dateString, beam]) => {
-      var milliseconds = Spacecast3D.Utils.timeBetween(beam.start, date)
-      if (milliseconds > 0) {
-        var years = milliseconds / Spacecast3D.SPACECAST3D_YEAR
-        var beam =
-          this.createBeam(years * Spacecast3D.SPACECAST3D_LY, beam.dec, beam.asc, beam.position)
-        beam.name = dateString
-        beams.add(beam)
-      }
-    })
-    scene.add(beams)
-    state.beams = beams
+    var milliseconds = Spacecast3D.Utils.timeBetween(state.beamStart, date)
+    if (milliseconds > 0) {
+      var years = milliseconds / Spacecast3D.SPACECAST3D_YEAR
+      state.beam = this.createBeam(
+        years * Spacecast3D.SPACECAST3D_LY,
+        state.beamDec, state.beamAsc,
+        state.beamPosition)
+      scene.add(state.beam)
+    }
   },
 
   updateEllipticalOrbiterPositions: function(date) {
@@ -1470,12 +1468,6 @@ Spacecast3D.Core = {
     Spacecast3D.Helper.displayInfo(universe.camera)
     state.onRenderFunctions.push(() => { universe.renderer.render(universe.scene, universe.camera) })
     state.onRenderFunctions.push(() => { universe.controls.update() })
-    Spacecast3D.Helper.addBeam("12/26/2012",
-      Spacecast3D.Utils.dec(62, 40, 46, true),
-      Spacecast3D.Utils.asc(14, 29, 43))
-    Spacecast3D.Helper.addBeam("1/26/2012",
-      Spacecast3D.Utils.dec(62, 40, 46, true),
-      Spacecast3D.Utils.asc(14, 29, 43))
     this.update(universe)
   },
 
