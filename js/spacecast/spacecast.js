@@ -949,7 +949,7 @@ Spacecast3D.Helper = {
   },
 
   planetLabelScale: function(scale, radius) {
-    return Math.max(Math.log(scale) * radius * 2000, 0.8 * Spacecast3D.SPACECAST3D_AU);
+    return Math.min(scale * radius, Spacecast3D.SPACECAST3D_AU) * 2 + Spacecast3D.SPACECAST3D_AU;
   },
 
   planetLabelMinDist: function(scale, radius) {
