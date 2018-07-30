@@ -1209,6 +1209,7 @@ Spacecast3D.Helper = {
       map: texture,
       blending: THREE.AdditiveBlending,
       color: 0xffffff,
+      depthTest: false,
     })
   	return new THREE.Sprite(spriteMaterial)
   },
