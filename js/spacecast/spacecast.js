@@ -149,6 +149,11 @@ Spacecast3D.Setup = {
       materialMap: "./images/neptunemap.jpg",
     },
   },
+  ellipticalOrbitMaterial: new THREE.LineBasicMaterial({
+    color: 0xffffff,
+    transparent: true,
+    opacity: 0.2,
+  }),
   ellipticalOrbiters: {
     // source: https://en.wikipedia.org/wiki/Pluto
     "Pluto": {
@@ -854,7 +859,7 @@ Spacecast3D.Helper = {
     orbit.days = Math.ceil(info.period / Spacecast3D.SPACECAST3D_DAY)
     geom.setFromPoints(shape.getPoints(orbit.days))
     geom.translate(-focusOffset, 0, 0)
-    var object = new THREE.Line(geom)
+    var object = new THREE.Line(geom, Spacecast3D.Setup.ellipticalOrbitMaterial)
     setRotation(object, info.perihelionArgument, info.ascendingNode, info.inclination)
     object.updateMatrixWorld()
     object.geometry.applyMatrix(object.matrix)
