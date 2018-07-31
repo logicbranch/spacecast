@@ -127,12 +127,7 @@ p {
   width: 150px;
   display: inline-block;
   text-transform: uppercase;
-}
-
-#spacecast-controls .property-name::after {
-  width: 14px;
-  display: inline-block;
-  content: '';
+  margin-right: 14px;
 }
 
 #spacecast-controls .slider {
