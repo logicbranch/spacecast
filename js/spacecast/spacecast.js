@@ -1045,7 +1045,6 @@ Spacecast3D.Helper = {
     group.add(planet)
     group.add(orbit)
     var label = this.createStarLabel(name)
-    label.isPlanet = true
     label.name = name
     var labelScale = this.planetLabelScale(1, radius)
     label.scale.x = labelScale
