@@ -12,6 +12,8 @@ Spacecast3D.SPACECAST3D_MIN = Spacecast3D.SPACECAST3D_SEC * 60 // 1 minute
 Spacecast3D.SPACECAST3D_HOUR = Spacecast3D.SPACECAST3D_MIN * 60 // 1 hour
 Spacecast3D.SPACECAST3D_DAY = Spacecast3D.SPACECAST3D_HOUR * 24 // 1 earth day
 Spacecast3D.SPACECAST3D_YEAR = Spacecast3D.SPACECAST3D_DAY * 365, // 1 earth year
+Spacecast3D.KEYCODE_ENTER = 13
+Spacecast3D.KEYCODE_SPACE = 32
 
 Spacecast3D.Utils = {
   // convert light year to earth diameter (spacecast basic unit of distance)
@@ -800,8 +802,7 @@ Spacecast3D.Helper = {
 
     var starNameField = document.getElementById('spacecast3d-info-name')
     starNameField.addEventListener("keypress", function(event) {
-      const KEYCODE_ENTER = 13;
-      if (event.keyCode !== KEYCODE_ENTER)
+      if (event.keyCode !== Spacecast3D.KEYCODE_ENTER)
         return;
 
       var starLabel = Spacecast3D.Helper.searchForStar(starNameField.value)
@@ -1512,8 +1513,7 @@ Spacecast3D.Core = {
       Math.TAU = Math.PI * 2
     }
     document.addEventListener("keypress", function(ev) {
-      const KEYCODE_SPACE = 32;
-      if (event.keyCode === KEYCODE_SPACE) {
+      if (event.keyCode === Spacecast3D.KEYCODE_SPACE) {
         var info = document.getElementById("spacecast3d-info")
         var opened = info.getAttribute("data-star-focused") === "true"
         info.setAttribute("data-star-focused", !opened)
