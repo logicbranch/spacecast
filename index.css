@@ -19,7 +19,12 @@ p {
   font-size: 16px;
 }
 
-input[data-fake-dat-gui] {
+.fake-dat-gui {
+  position: relative;
+  top: 0.5em;
+}
+
+.fake-dat-gui input {
   position: relative;
   left: -7px;
 }

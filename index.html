@@ -11,13 +11,15 @@
           <div class="main-div" id="spacecast3d-info" data-star-focused=false>
             <div id="spacecast3d-info-header">
               <div id="spacecast-controls">
-                <span class="property-name">Celestial body name</span>
-                <input id="spacecast3d-info-name" type=text list="spacecast3d-star-list" data-fake-dat-gui>
-                  <script src="./js/datalist-polyfill/datalist-polyfill.min.js"></script>
-                  <datalist id="spacecast3d-star-list"></datalist>
-                </input>
-                <span class="property-name">Date</span>
-                <input id="spacecast3d-info-date" type=date data-fake-dat-gui></input>
+                <div class="fake-dat-gui">
+                  <span class="property-name">Celestial body name</span>
+                  <input id="spacecast3d-info-name" type=text list="spacecast3d-star-list">
+                    <script src="./js/datalist-polyfill/datalist-polyfill.min.js"></script>
+                    <datalist id="spacecast3d-star-list"></datalist>
+                  </input>
+                  <span class="property-name">Date</span>
+                  <input id="spacecast3d-info-date" type=date></input>
+                </div>
               </div>
             </div>
             <p id="spacecast3d-info-description"></p>
