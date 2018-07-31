@@ -146,6 +146,7 @@ p {
   color: #FFD667;
   font-size: 11px;
   text-align: right;
+  text-shadow: none;
   height: 27px;
   width: 150px;
   display: inline-block;
