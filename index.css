@@ -48,7 +48,7 @@ p {
   max-width: 50%;
 }
 
-#spacecast3d-info[data-star-focused=false] {
+#spacecast3d-info[data-info-open=false] {
   visibility: hidden;
 }
 

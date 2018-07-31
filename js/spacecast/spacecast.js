@@ -284,7 +284,7 @@ Spacecast3D.Setup = {
   },
   raycaster: new THREE.Raycaster(),
   mouse: new THREE.Vector2(),
-  starsLabel: {
+  bodiesLabel: {
     fontFace: 'Arial',
     fontSize: 128,
     baseColor: 'rgba(255,255,0,1)',
@@ -866,15 +866,15 @@ Spacecast3D.Helper = {
   	if (intersections.length > 0) {
   		if (Spacecast3D.State.activeNearestStarLabel != intersections[0].object) {
   			if (Spacecast3D.State.activeNearestStarLabel) {
-          Spacecast3D.State.activeNearestStarLabel.material.color.setStyle(Spacecast3D.Setup.starsLabel.baseColor)
+          Spacecast3D.State.activeNearestStarLabel.material.color.setStyle(Spacecast3D.Setup.bodiesLabel.baseColor)
         }
   			Spacecast3D.State.activeNearestStarLabel = intersections[0].object
-  			Spacecast3D.State.activeNearestStarLabel.material.color.setStyle(Spacecast3D.Setup.starsLabel.activeColor)
+  			Spacecast3D.State.activeNearestStarLabel.material.color.setStyle(Spacecast3D.Setup.bodiesLabel.activeColor)
   		}
   		document.body.style.cursor = 'pointer'
   	}
   	else if (Spacecast3D.State.activeNearestStarLabel) {
-  		Spacecast3D.State.activeNearestStarLabel.material.color.setStyle(Spacecast3D.Setup.starsLabel.baseColor)
+  		Spacecast3D.State.activeNearestStarLabel.material.color.setStyle(Spacecast3D.Setup.bodiesLabel.baseColor)
   		Spacecast3D.State.activeNearestStarLabel = null
   		document.body.style.cursor = 'auto'
   	}
@@ -1263,8 +1263,8 @@ Spacecast3D.Helper = {
   },
 
   createStarLabel: function(text) {
-  	var fontFace = Spacecast3D.Setup.starsLabel.fontFace
-  	var fontSize = Spacecast3D.Setup.starsLabel.fontSize
+  	var fontFace = Spacecast3D.Setup.bodiesLabel.fontFace
+  	var fontSize = Spacecast3D.Setup.bodiesLabel.fontSize
     var textWidth = this.getTextWidth(text, fontSize, fontFace)
     var canvas = document.createElement('canvas')
     // round up canvas width to the nearest power of 2, otherwise THREE.js
@@ -1292,19 +1292,19 @@ Spacecast3D.Helper = {
   },
 
   searchForStar: function(name) {
-    var star = Spacecast3D.Setup.nearestStars[name] || Spacecast3D.State.solarSystem[name]
-    if (star !== undefined)
-      return star.label
+    var body = Spacecast3D.Setup.nearestStars[name] || Spacecast3D.State.solarSystem[name]
+    if (body !== undefined)
+      return body.label
   },
 
   fillStarList: function(labels) {
-    var starList = document.getElementById("spacecast3d-star-list")
+    var bodyList = document.getElementById("spacecast3d-body-list")
     var names = labels.map(label => label.name)
     names.sort()
     names.forEach(function(name) {
       var entry = document.createElement('option')
       entry.setAttribute('value', name)
-      starList.appendChild(entry)
+      bodyList.appendChild(entry)
     })
   },
 
@@ -1362,7 +1362,7 @@ Spacecast3D.Helper = {
   },
 
   setStarInfo: function(name, info) {
-    document.getElementById("spacecast3d-info").setAttribute("data-star-focused", true)
+    document.getElementById("spacecast3d-info").setAttribute("data-info-open", true)
     document.getElementById("spacecast3d-info-name").value = name
     document.getElementById("spacecast3d-info-description").innerHTML =
       info.description != null ? info.description : "None."
@@ -1517,8 +1517,8 @@ Spacecast3D.Core = {
     document.addEventListener("keypress", function(ev) {
       if (event.keyCode === Spacecast3D.KEYCODE_SPACE) {
         var info = document.getElementById("spacecast3d-info")
-        var opened = info.getAttribute("data-star-focused") === "true"
-        info.setAttribute("data-star-focused", !opened)
+        var opened = info.getAttribute("data-info-open") === "true"
+        info.setAttribute("data-info-open", !opened)
       }
     })
     var controls = document.getElementById('spacecast-controls')
