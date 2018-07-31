@@ -62,6 +62,18 @@ p {
   width: 100%;
 }
 
+@supports (backdrop-filter: none) or (-webkit-backdrop-filter: none) {
+  .main-div {
+    background-color: #0000;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  #spacecast3d-info-header {
+    background-color: #0000;
+  }
+}
+
 #spacecast3d-info-header input {
   background-color: #0000;
   border: None;
