@@ -60,7 +60,7 @@ Spacecast3D.Utils = {
 
   // Convert a date to a concise string representation
   dateToConciseString: function(date) {
-    return (date.getMonth() + 1)+'/'+date.getDate()+'/'+date.getFullYear();
+    return date.toISOString().substr(0, 10);
   },
 
   timeBetween: function(beginning, after) {
@@ -812,6 +812,16 @@ Spacecast3D.Helper = {
       }
     })
 
+    var dateField = document.getElementById('spacecast3d-info-date')
+    dateField.value = Spacecast3D.Utils.dateToConciseString(new Date())
+    dateField.onchange = function() {
+      var date = new Date(dateField.value)
+      if (!isNaN(date)) {
+        Spacecast3D.State.currentDate = date
+        Spacecast3D.Helper.updateObjectPositions()
+      }
+    }
+
     var setup =   Spacecast3D.Setup
     var solarSetup = setup.solarSystem
     var state = Spacecast3D.State
@@ -1369,19 +1379,11 @@ Spacecast3D.Helper = {
     var setup = Spacecast3D.Setup
     var state = Spacecast3D.State
     var text = {
-      'Date': Spacecast3D.Utils.dateToConciseString((new Date())),
       'Distance (light-year)': 0.0001,
       'Planets size': 1.00,
       'Show central plane': false,
     }
     var gui = new dat.GUI({autoPlace: false, closeOnTop: true})
-    gui.add(text, 'Date').onFinishChange(function(dateString) {
-      var date = new Date(dateString)
-      if (!isNaN(date)) {
-        Spacecast3D.State.currentDate = date
-        Spacecast3D.Helper.updateObjectPositions()
-      }
-    })
     gui.add(text, 'Distance (light-year)', 0.0001, 40)
     .onChange(function(distanceLightYear) {
       var cameraSphericalPosition = new THREE.Spherical().setFromVector3(state.universe.camera.position)
