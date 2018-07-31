@@ -93,6 +93,10 @@ Spacecast3D.Setup = {
   solarSystem: {
     Sol: {
       radius: 432169 * Spacecast3D.SPACECAST3D_MILE,
+      info: {
+        description: "The sun is a white star around which Earth orbits. As such, it is hugely important in many aspects of our daily lives. Despite its color, the sun is often called a yellow dwarf. It has remained stable for over four billion years and will continue to do so for about five billion more. After this time, it will expand to become a red giant.",
+        descriptionSource: "https://en.wikipedia.org/wiki/Sun",
+      },
     },
     // Year lengths from https://nssdc.gsfc.nasa.gov/planetary/factsheet/planet_table_ratio.html
     // TODO: higher precision year lengths
@@ -102,6 +106,10 @@ Spacecast3D.Setup = {
       year: 0.241 * Spacecast3D.SPACECAST3D_YEAR,
       materialMap: "./images/mercurymap.jpg",
       materialBumpMap: "./images/mercurybump.jpg",
+      info: {
+        description: "Mercury is a rocky planet and the closest planet in the Solar System to our sun. Its year is only 88 earth days and it is tidally locked, always facing the sun. Its temperature varies 600°C celsius between night and day.",
+        descriptionSource: "https://en.wikipedia.org/wiki/Mercury_(planet)",
+      },
     },
     Venus: {
       radius: 1516 * Spacecast3D.SPACECAST3D_MILE,
@@ -109,6 +117,10 @@ Spacecast3D.Setup = {
       year: 0.615 * Spacecast3D.SPACECAST3D_YEAR,
       materialMap: "./images/venusmap.jpg",
       materialBumpMap: "./images/venusbump.jpg",
+      info: {
+        description: "While Venus is further from the sun than Mercury, its mean surface temperature of 462°C is much hotter. This is caused by its dense atmosphere, 92 times that of Earth, which has created a massive greenhouse effect. Many of its other characteristics, however, are similar to those of our homeworld.",
+        descriptionSource: "https://en.wikipedia.org/wiki/Venus",
+      },
     },
     Earth: {
       radius: Spacecast3D.EARTH_DIAMETER/2,
@@ -116,6 +128,10 @@ Spacecast3D.Setup = {
       year: Spacecast3D.SPACECAST3D_YEAR,
       materialMap: "./images/earthmap.jpg",
       materialBumpMap: "./images/earthbump.jpg",
+      info: {
+        description: "Earth is the home of humanity and the only place in the universe known to harbor life. This is allowed by a great number of factors, such as the right distance from the sun and plentiful liquid water. Life is theorized to have started 4.1 billion years ago when the planet was only 400 million years old. Over time, it diversified into countless species. Very recently, humans have risen to the top and have spread across the globe.",
+        descriptionSource: "https://en.wikipedia.org/wiki/Earth",
+      },
     },
     Mars: {
       radius: 2106 * Spacecast3D.SPACECAST3D_MILE,
@@ -123,30 +139,50 @@ Spacecast3D.Setup = {
       year: 1.88 * Spacecast3D.SPACECAST3D_YEAR,
       materialMap: "./images/marsmap.jpg",
       materialBumpMap: "./images/marsbump.jpg",
+      info: {
+        description: "Mars is a rocky planet smaller than Earth. Iron oxide gives it a red color. Its geology shows signs that it previously harbored liquid water on its surface before it lost most of its atmosphere, and therefore had potential for life. Because of this, there have been many missions to the red planet.",
+        descriptionSource: "https://en.wikipedia.org/wiki/Mars",
+      },
     },
     Jupiter: {
       radius: 43441 * Spacecast3D.SPACECAST3D_MILE,
       orbitRadius: 5.203 * Spacecast3D.SPACECAST3D_AU,
       year: 11.9 * Spacecast3D.SPACECAST3D_YEAR,
       materialMap: "./images/jupitermap.jpg",
+      info: {
+        description: "Jupiter is a gas giant with a mass 2.5 times that of all other planets in the solar system combined. Its turbulent atmosphere is filled with storms. One of these, the Great Red Spot, could fit Earth within it, and has been raging since at least 1831. Jupiter has many moons. One moon, Europa, is believed to hold a vast water ocean under its icy crust.",
+        descriptionSource: "https://en.wikipedia.org/wiki/Jupiter",
+      },
     },
     Saturn: {
       radius: 36184 * Spacecast3D.SPACECAST3D_MILE,
       orbitRadius: 9.539 * Spacecast3D.SPACECAST3D_AU,
       year: 29.4 * Spacecast3D.SPACECAST3D_YEAR,
       materialMap: "./images/saturnmap.jpg",
+      info: {
+        description: "Saturn is a gas giant further and smaller than Jupiter. Its huge rings are made of rocks and dust. Among its many moons are Enceladus, thought to have a deep subsurface water ocean, and Titan, the only moon in the Solar System with a substantial atmosphere.",
+        descriptionSource: "https://en.wikipedia.org/wiki/Saturn",
+      },
     },
     Uranus: {
       radius: 15759 * Spacecast3D.SPACECAST3D_MILE,
       orbitRadius: 19.18 * Spacecast3D.SPACECAST3D_AU,
       year: 83.7 * Spacecast3D.SPACECAST3D_YEAR,
       materialMap: "./images/uranusmap.jpg",
+      info: {
+        description: "Uranus is a frigid ice giant. Its atmospheric temperature drops as low as −224°C, making it the coldest in the Solar System. The poles of Uranus are tilted about 90° to where the equator is on other planets.",
+        descriptionSource: "https://en.wikipedia.org/wiki/Uranus",
+      },
     },
     Neptune: {
       radius: 15299 * Spacecast3D.SPACECAST3D_MILE,
       orbitRadius: 30.06 * Spacecast3D.SPACECAST3D_AU,
       year: 163.7 * Spacecast3D.SPACECAST3D_YEAR,
       materialMap: "./images/neptunemap.jpg",
+      info: {
+        description: "Neptune, the most distant planet in the Solar System, is a cold ice giant slightly more massive than Uranus. It is invisible without visual aid, and was first observed in 1846. Neptune has the fastest winds of all the eight planets, reaching speeds up to 580 meters per second.",
+        descriptionSource: "https://en.wikipedia.org/wiki/Neptune",
+      },
     },
   },
   ellipticalOrbitMaterial: new THREE.LineBasicMaterial({
@@ -966,9 +1002,7 @@ Spacecast3D.Helper = {
     label.name = 'Sol'
 
     var group = new THREE.Group()
-    group.info = {
-      description: "Our home star.",
-    }
+    group.info = setup.solarSystem.Sol.info
     group.label = label
     group.add(label)
     group.add(sun)
@@ -988,7 +1022,9 @@ Spacecast3D.Helper = {
     return radius * scale * 2
   },
 
-  makePlanetOrbit: function(planet, name, radius, orbitRadius) {
+  makePlanetOrbit: function(planet, name, info) {
+    var radius = info.radius
+    var orbitRadius = info.orbitRadius
     planet.radius = radius
     planet.name = 'planet'
     planet.translateZ(orbitRadius)
@@ -1008,15 +1044,13 @@ Spacecast3D.Helper = {
     label.translateZ(orbitRadius)
     group.label = label
     group.add(label)
-    group.info = {
-      description: "The planet "+name+".",
-    }
+    group.info = info.info
     Spacecast3D.State.nearestBodiesLabels.push(label)
     return group
   },
 
-  createPlanet: function(name, material, radius, orbitRadius) {
-    return this.makePlanetOrbit(this.createSphere(radius, material), name, radius, orbitRadius)
+  createPlanet: function(name, material, info) {
+    return this.makePlanetOrbit(this.createSphere(info.radius, material), name, info)
   },
 
   createPlanets: function(scene) {
@@ -1041,7 +1075,7 @@ Spacecast3D.Helper = {
         materialInfo.bumpScale = 0.1
       }
       var material = new THREE.MeshPhongMaterial(materialInfo)
-      var planet = this.createPlanet(name, material, planetInfo.radius, planetInfo.orbitRadius)
+      var planet = this.createPlanet(name, material, planetInfo)
       state.nearestBodies.add(planet)
       scene.add(planet)
       state.solarSystem[name] = planet
@@ -1066,7 +1100,7 @@ Spacecast3D.Helper = {
     earthCloud.castShadow = true
     earthPlanet.add(atmosphere)
     earthPlanet.add(earthCloud)
-    var earthGroup = this.makePlanetOrbit(earthPlanet, 'Earth', earth.radius, earth.orbitRadius)
+    var earthGroup = this.makePlanetOrbit(earthPlanet, 'Earth', earth)
     state.nearestBodies.add(earthGroup)
     scene.add(earthGroup)
     state.solarSystem.Earth = earthGroup
