@@ -91,7 +91,7 @@ Spacecast3D.Setup = {
     maxDistance: Spacecast3D.MILKY_WAY_RADIUS/10, // farthest that the camera can zoom out
   },
   solarSystem: {
-    Sun: {
+    Sol: {
       radius: 432169 * Spacecast3D.SPACECAST3D_MILE,
     },
     // Year lengths from https://nssdc.gsfc.nasa.gov/planetary/factsheet/planet_table_ratio.html
@@ -664,7 +664,7 @@ Spacecast3D.State = {
   beam: null,
   universe: null,
   solarSystem: {
-    Sun: null,
+    Sol: null,
     Mercury: null,
     Venus: null,
     Earth: null,
@@ -948,7 +948,7 @@ Spacecast3D.Helper = {
     var setup = Spacecast3D.Setup
     var state = Spacecast3D.State
     var sunMaterial	= new THREE.MeshPhongMaterial({map: new THREE.TextureLoader().load('./images/sunmap.jpg'),})
-    var sun = this.createSphere(setup.solarSystem.Sun.radius, sunMaterial)
+    var sun = this.createSphere(setup.solarSystem.Sol.radius, sunMaterial)
     sun.name = 'star'
 
     var sunSprite = new THREE.Sprite(new THREE.SpriteMaterial({
@@ -960,13 +960,13 @@ Spacecast3D.Helper = {
     sunSprite.scale.y = 2000 * Spacecast3D.EARTH_DIAMETER
     sunSprite.scale.z = 1
 
-    var label = this.createStarLabel('Sun')
-    label.name = 'Sun'
+    var label = this.createStarLabel('Sol')
     label.scale.x = Spacecast3D.SPACECAST3D_AU
     label.scale.y = Spacecast3D.SPACECAST3D_AU
     label.scale.z = 1
     label.minDistance = Spacecast3D.SPACECAST3D_AU
     label.translateY(Spacecast3D.SPACECAST3D_AU)
+    label.name = 'Sol'
 
     var group = new THREE.Group()
     group.info = {
@@ -976,7 +976,7 @@ Spacecast3D.Helper = {
     group.add(label)
     group.add(sun)
     group.add(sunSprite)
-    state.solarSystem.Sun = group
+    state.solarSystem.Sol = group
     scene.add(group)
     state.nearestBodies.add(group)
     state.nearestBodiesLabels.push(label)
@@ -1308,7 +1308,7 @@ Spacecast3D.Helper = {
   displayInfo: function(camera) {
     this.fillStarList(Spacecast3D.State.nearestBodiesLabels)
 
-    this.focusOnStar(Spacecast3D.State.solarSystem.Sun.label)
+    this.focusOnStar(Spacecast3D.State.solarSystem.Sol.label)
 
     this.updateInfo(camera)
     document.getElementById('canvas-spacecast3d').addEventListener('mousedown', () => {return this.updateInfo(camera)})
