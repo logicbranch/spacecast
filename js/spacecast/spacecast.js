@@ -961,9 +961,6 @@ Spacecast3D.Helper = {
     sunSprite.scale.z = 1
 
     var label = this.createStarLabel('Sol')
-    label.scale.x = Spacecast3D.SPACECAST3D_AU
-    label.scale.y = Spacecast3D.SPACECAST3D_AU
-    label.scale.z = 1
     label.minDistance = Spacecast3D.SPACECAST3D_AU
     label.translateY(Spacecast3D.SPACECAST3D_AU)
     label.name = 'Sol'
@@ -980,6 +977,7 @@ Spacecast3D.Helper = {
     scene.add(group)
     state.nearestBodies.add(group)
     state.nearestBodiesLabels.push(label)
+    this.setSunLabelScale(0)
   },
 
   planetLabelScale: function(scale, radius) {
@@ -1371,6 +1369,19 @@ Spacecast3D.Helper = {
     return gui.domElement
   },
 
+  setSunLabelScale: function(distance) {
+    var sun = Spacecast3D.State.solarSystem.Sol
+    if (distance > Spacecast3D.SPACECAST3D_LY) {
+      sun.label.scale.x = 55000*Spacecast3D.SPACECAST3D_AU
+      sun.label.scale.y = 55000*Spacecast3D.SPACECAST3D_AU
+      sun.label.scale.z = 1
+    } else {
+      sun.label.scale.x = Spacecast3D.SPACECAST3D_AU
+      sun.label.scale.y = Spacecast3D.SPACECAST3D_AU
+      sun.label.scale.z = 1
+    }
+  },
+
   updateInfo: function(camera) {
     var x = camera.position.x
     var y = camera.position.y
@@ -1379,6 +1390,7 @@ Spacecast3D.Helper = {
     if (distance >= Spacecast3D.SPACECAST3D_LY*0.001) {
       Spacecast3D.State.datGUI.__controllers.find((controller) => {return controller.property === 'Distance (light-year)'}).setValue(distance/Spacecast3D.SPACECAST3D_LY)
     }
+    this.setSunLabelScale(distance)
   },
 
   updateBeam: function(date) {
