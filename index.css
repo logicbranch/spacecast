@@ -70,12 +70,12 @@ p {
   }
 
   #spacecast3d-info-header {
-    background-color: #70707077;
+    background-color: #707070;
   }
 }
 
 #spacecast3d-info-header input {
-  background-color: #0000;
+  background-color: #000;
   border: None;
 }
 
@@ -84,7 +84,7 @@ p {
 }
 
 #spacecast-controls #spacecast3d-info-name {
-  background-color: #0000;
+  background-color: #000;
   color: #FFD667;
   font-size: 27px;
   width: 50%;
@@ -106,7 +106,7 @@ p {
 
 #spacecast-controls input[type="checkbox"] {
   border: 1px solid #707070;
-  background-color: #70707077;
+  background-color: #707070;
   appearance: None;
   -moz-appearance: None;
 	-webkit-appearance: None;
@@ -171,6 +171,6 @@ p {
 
 #spacecast-controls *:not(option):not(select) {
   color: white;
-  background-color: #0000;
+  background-color: #000;
   border: none;
 }
