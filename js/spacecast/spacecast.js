@@ -14,6 +14,7 @@ Spacecast3D.SPACECAST3D_DAY = Spacecast3D.SPACECAST3D_HOUR * 24 // 1 earth day
 Spacecast3D.SPACECAST3D_YEAR = Spacecast3D.SPACECAST3D_DAY * 365, // 1 earth year
 Spacecast3D.KEYCODE_ENTER = 13
 Spacecast3D.KEYCODE_SPACE = 32
+Spacecast3D.IMAGES_DIR = './images/'
 
 Spacecast3D.Utils = {
   // convert light year to earth diameter (spacecast basic unit of distance)
@@ -106,8 +107,8 @@ Spacecast3D.Setup = {
       radius: 1516 * Spacecast3D.SPACECAST3D_MILE,
       orbitRadius: 0.387 * Spacecast3D.SPACECAST3D_AU,
       year: 0.241 * Spacecast3D.SPACECAST3D_YEAR,
-      materialMap: "./images/mercurymap.jpg",
-      materialBumpMap: "./images/mercurybump.jpg",
+      materialMap: Spacecast3D.IMAGES_DIR+"mercurymap.jpg",
+      materialBumpMap: Spacecast3D.IMAGES_DIR+"mercurybump.jpg",
       info: {
         description: "Mercury is a rocky planet and the closest planet in the Solar System to our sun. Its year is only 88 earth days and it is tidally locked, always facing the sun. Its temperature varies 600°C celsius between night and day.",
         descriptionSource: "https://en.wikipedia.org/wiki/Mercury_(planet)",
@@ -117,8 +118,8 @@ Spacecast3D.Setup = {
       radius: 1516 * Spacecast3D.SPACECAST3D_MILE,
       orbitRadius: 0.723 * Spacecast3D.SPACECAST3D_AU,
       year: 0.615 * Spacecast3D.SPACECAST3D_YEAR,
-      materialMap: "./images/venusmap.jpg",
-      materialBumpMap: "./images/venusbump.jpg",
+      materialMap: Spacecast3D.IMAGES_DIR+"venusmap.jpg",
+      materialBumpMap: Spacecast3D.IMAGES_DIR+"venusbump.jpg",
       info: {
         description: "While Venus is further from the sun than Mercury, its mean surface temperature of 462°C is much hotter. This is caused by its dense atmosphere, 92 times that of Earth, which has created a massive greenhouse effect. Many of its other characteristics, however, are similar to those of our homeworld.",
         descriptionSource: "https://en.wikipedia.org/wiki/Venus",
@@ -128,8 +129,8 @@ Spacecast3D.Setup = {
       radius: Spacecast3D.EARTH_DIAMETER/2,
       orbitRadius: Spacecast3D.SPACECAST3D_AU,
       year: Spacecast3D.SPACECAST3D_YEAR,
-      materialMap: "./images/earthmap.jpg",
-      materialBumpMap: "./images/earthbump.jpg",
+      materialMap: Spacecast3D.IMAGES_DIR+"earthmap.jpg",
+      materialBumpMap: Spacecast3D.IMAGES_DIR+"earthbump.jpg",
       info: {
         description: "Earth is the home of humanity and the only place in the universe known to harbor life. This is allowed by a great number of factors, such as the right distance from the sun and plentiful liquid water. Life is theorized to have started 4.1 billion years ago when the planet was only 400 million years old. Over time, it diversified into countless species. Very recently, humans have risen to the top and have spread across the globe.",
         descriptionSource: "https://en.wikipedia.org/wiki/Earth",
@@ -139,8 +140,8 @@ Spacecast3D.Setup = {
       radius: 2106 * Spacecast3D.SPACECAST3D_MILE,
       orbitRadius: 1.524 * Spacecast3D.SPACECAST3D_AU,
       year: 1.88 * Spacecast3D.SPACECAST3D_YEAR,
-      materialMap: "./images/marsmap.jpg",
-      materialBumpMap: "./images/marsbump.jpg",
+      materialMap: Spacecast3D.IMAGES_DIR+"marsmap.jpg",
+      materialBumpMap: Spacecast3D.IMAGES_DIR+"marsbump.jpg",
       info: {
         description: "Mars is a rocky planet smaller than Earth. Iron oxide gives it a red color. Its geology shows signs that it previously harbored liquid water on its surface before it lost most of its atmosphere, and therefore had potential for life. Because of this, there have been many missions to the red planet.",
         descriptionSource: "https://en.wikipedia.org/wiki/Mars",
@@ -150,7 +151,7 @@ Spacecast3D.Setup = {
       radius: 43441 * Spacecast3D.SPACECAST3D_MILE,
       orbitRadius: 5.203 * Spacecast3D.SPACECAST3D_AU,
       year: 11.9 * Spacecast3D.SPACECAST3D_YEAR,
-      materialMap: "./images/jupitermap.jpg",
+      materialMap: Spacecast3D.IMAGES_DIR+"jupitermap.jpg",
       info: {
         description: "Jupiter is a gas giant with a mass 2.5 times that of all other planets in the solar system combined. Its turbulent atmosphere is filled with storms. One of these, the Great Red Spot, could fit Earth within it, and has been raging since at least 1831. Jupiter has many moons. One moon, Europa, is believed to hold a vast water ocean under its icy crust.",
         descriptionSource: "https://en.wikipedia.org/wiki/Jupiter",
@@ -160,7 +161,7 @@ Spacecast3D.Setup = {
       radius: 36184 * Spacecast3D.SPACECAST3D_MILE,
       orbitRadius: 9.539 * Spacecast3D.SPACECAST3D_AU,
       year: 29.4 * Spacecast3D.SPACECAST3D_YEAR,
-      materialMap: "./images/saturnmap.jpg",
+      materialMap: Spacecast3D.IMAGES_DIR+"saturnmap.jpg",
       info: {
         description: "Saturn is a gas giant further and smaller than Jupiter. Its huge rings are made of rocks and dust. Among its many moons are Enceladus, thought to have a deep subsurface water ocean, and Titan, the only moon in the Solar System with a substantial atmosphere.",
         descriptionSource: "https://en.wikipedia.org/wiki/Saturn",
@@ -170,7 +171,7 @@ Spacecast3D.Setup = {
       radius: 15759 * Spacecast3D.SPACECAST3D_MILE,
       orbitRadius: 19.18 * Spacecast3D.SPACECAST3D_AU,
       year: 83.7 * Spacecast3D.SPACECAST3D_YEAR,
-      materialMap: "./images/uranusmap.jpg",
+      materialMap: Spacecast3D.IMAGES_DIR+"uranusmap.jpg",
       info: {
         description: "Uranus is a frigid ice giant. Its atmospheric temperature drops as low as −224°C, making it the coldest in the Solar System. The poles of Uranus are tilted about 90° to where the equator is on other planets.",
         descriptionSource: "https://en.wikipedia.org/wiki/Uranus",
@@ -180,7 +181,7 @@ Spacecast3D.Setup = {
       radius: 15299 * Spacecast3D.SPACECAST3D_MILE,
       orbitRadius: 30.06 * Spacecast3D.SPACECAST3D_AU,
       year: 163.7 * Spacecast3D.SPACECAST3D_YEAR,
-      materialMap: "./images/neptunemap.jpg",
+      materialMap: Spacecast3D.IMAGES_DIR+"neptunemap.jpg",
       info: {
         description: "Neptune, the most distant planet in the Solar System, is a cold ice giant slightly more massive than Uranus. It is invisible without visual aid, and was first observed in 1846. Neptune has the fastest winds of all the eight planets, reaching speeds up to 580 meters per second.",
         descriptionSource: "https://en.wikipedia.org/wiki/Neptune",
@@ -976,9 +977,9 @@ Spacecast3D.Helper = {
   			contextResult.putImageData(dataResult,0,0)
   			material.map.needsUpdate = true
   		})
-  		imageTrans.src	= './images/earthcloudmaptrans.jpg'
+  		imageTrans.src	= Spacecast3D.IMAGES_DIR+'earthcloudmaptrans.jpg'
   	}, false)
-  	imageMap.src	= './images/earthcloudmap.jpg'
+  	imageMap.src	= Spacecast3D.IMAGES_DIR+'earthcloudmap.jpg'
 
   	var geometry	= new THREE.SphereGeometry(radius, 128, 128)
   	var material	= new THREE.MeshPhongMaterial({
@@ -994,12 +995,12 @@ Spacecast3D.Helper = {
   createSun: function(scene) {
     var setup = Spacecast3D.Setup
     var state = Spacecast3D.State
-    var sunMaterial	= new THREE.MeshPhongMaterial({map: new THREE.TextureLoader().load('./images/sunmap.jpg'),})
+    var sunMaterial	= new THREE.MeshPhongMaterial({map: new THREE.TextureLoader().load(Spacecast3D.IMAGES_DIR+'sunmap.jpg'),})
     var sun = this.createSphere(setup.solarSystem.Sol.radius, sunMaterial)
     sun.name = 'star'
 
     var sunSprite = new THREE.Sprite(new THREE.SpriteMaterial({
-      map: new THREE.TextureLoader().load('./images/sunsprite.png'),
+      map: new THREE.TextureLoader().load(Spacecast3D.IMAGES_DIR+'sunsprite.png'),
       blending: THREE.AdditiveBlending,
       color: 0xffffff,
     }))
@@ -1164,7 +1165,7 @@ Spacecast3D.Helper = {
 
   createMilkyWay: function(radius) {
   	var material	= new THREE.MeshBasicMaterial({
-  		map	: new THREE.TextureLoader().load('./images/galaxy.jpg'),
+  		map	: new THREE.TextureLoader().load(Spacecast3D.IMAGES_DIR+'galaxy.jpg'),
   		side	: THREE.BackSide
   	})
   	var geometry	= new THREE.SphereGeometry(radius, 32, 32)
@@ -1173,7 +1174,7 @@ Spacecast3D.Helper = {
 
   createStar: function(position) {
     var star = new THREE.Sprite(new THREE.SpriteMaterial({
-      map: new THREE.TextureLoader().load('./images/starsprite.png'),
+      map: new THREE.TextureLoader().load(Spacecast3D.IMAGES_DIR+'starsprite.png'),
       blending: THREE.AdditiveBlending,
       color: 0xffffff,
     }))
