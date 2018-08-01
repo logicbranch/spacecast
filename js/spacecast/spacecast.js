@@ -78,7 +78,7 @@ Spacecast3D.Utils = {
 Spacecast3D.Setup = {
   cameraSettings: [
     70,   // field of view
-    document.getElementById("explorer-view-content").offsetWidth/document.getElementById("explorer-view-content").offsetHeight, // aspect ratio
+    document.getElementById("spacecast3d-container").offsetWidth/document.getElementById("spacecast3d-container").offsetHeight, // aspect ratio
     Spacecast3D.EARTH_DIAMETER/10, // near plane
     Spacecast3D.MILKY_WAY_RADIUS*2, // far plane
   ],
@@ -279,8 +279,8 @@ Spacecast3D.Setup = {
   ],
   milkyWayRadius: Spacecast3D.MILKY_WAY_RADIUS,
   renderer: {
-    width: document.getElementById("explorer-view-content").offsetWidth,
-    height: document.getElementById("explorer-view-content").offsetHeight,
+    width: document.getElementById("spacecast3d-container").offsetWidth,
+    height: document.getElementById("spacecast3d-container").offsetHeight,
     containerId: 'spacecast3d',
   },
   raycaster: new THREE.Raycaster(),
