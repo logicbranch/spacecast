@@ -1507,6 +1507,14 @@ Spacecast3D.Helper = {
       }
     })
   },
+
+  advanceTime: function() {
+    var date = Spacecast3D.State.currentDate
+    var newDate = new Date(date.getTime() + 1 * 60 * 60 * 1000)
+    Spacecast3D.State.currentDate = newDate
+    var dateField = document.getElementById('spacecast3d-info-date')
+    dateField.value = Spacecast3D.Utils.dateToConciseString(Spacecast3D.State.currentDate)
+  },
 }
 
 Spacecast3D.Core = {
@@ -1526,6 +1534,8 @@ Spacecast3D.Core = {
     var universe = Spacecast3D.Helper.createUniverse()
     controls.appendChild(Spacecast3D.Helper.uiController())
     Spacecast3D.Helper.displayInfo(universe.camera)
+    state.onRenderFunctions.push(() => { Spacecast3D.Helper.advanceTime() })
+    state.onRenderFunctions.push(() => { Spacecast3D.Helper.updateObjectPositions() })
     state.onRenderFunctions.push(() => { universe.renderer.render(universe.scene, universe.camera) })
     state.onRenderFunctions.push(() => { universe.controls.update() })
     this.update(universe)
